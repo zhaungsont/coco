@@ -1,0 +1,51 @@
+*{
+    margin: 0;
+}
+
+html {
+    overflow: hidden;
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    overflow: auto;
+}
+
+h1{
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 400;
+}
+
+#content-structure{
+    padding: 5rem 15% 0;
+    
+}
+
+
+.frosted-glass{
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 15px;
+}
+
+.content-title{
+    font-size: 2rem;
+    /* margin: 2rem 1rem 1rem; */
+}
+
+@media screen and (max-width: 480px) {
+    #content-structure{
+        padding: 5rem 1rem 0;
+        
+    }
+
+    .content-title{
+        font-size: 1.5rem;
+        margin-bottom: 0;
+    }
+}

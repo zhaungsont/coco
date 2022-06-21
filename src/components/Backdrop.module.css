@@ -1,0 +1,16 @@
+.bgsection img{
+    width: 100%;
+    position: fixed;
+    z-index: -1;
+}
+
+.main-structure{
+
+}
+
+@media screen and (max-width: 480px) {
+    .bgsection img{
+        height: 100%;
+        object-fit: cover;
+    }
+}

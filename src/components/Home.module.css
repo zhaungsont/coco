@@ -1,0 +1,39 @@
+
+.headerWrapper{
+    margin: 2rem 1rem 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+}
+
+/* .glanceables{
+    font-size: 1rem;
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 400;
+    margin-left: 1rem;
+} */
+
+.responsiveWrapper{
+    display: flex;
+    justify-content: center;
+    /* display: grid;
+    grid-template-columns: 60% 40%; */
+}
+
+.mainContent{
+    width: 60%;
+}
+
+.sideContent{
+    width: 40%;
+}
+
+@media screen and (max-width: 480px) {
+    .responsiveWrapper{
+        flex-direction: column;
+    }
+
+    .mainContent, .sideContent{
+        width: 100%;
+    }
+}

@@ -1,0 +1,44 @@
+.glanceables{
+    font-size: 1rem;
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 400;
+    margin: 0 auto;
+
+    display: flex;
+    gap: 1rem;
+    align-items: flex-end;
+}
+
+.schedule{
+    text-align: center;
+    margin: 0;
+}
+
+.schedule span{
+    font-size: 2rem;
+}
+
+.weather{
+    display: flex;
+    align-items: flex-end;
+    text-align: center;
+}
+
+.weather span{
+    font-size: 2rem;
+}
+
+.weather img{
+    height: 4rem;
+}
+
+@media screen and (max-width: 480px) {
+    .glanceables{
+        justify-content: center;
+        gap: 0;
+    }
+
+    .weather img{
+        height: 5rem;
+    }
+}
