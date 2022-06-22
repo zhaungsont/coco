@@ -11,12 +11,14 @@ import Button from 'react-bootstrap/Button';
 import Sidebar from "./Sidebar";
 import { useAuth } from "../contexts/AuthContext";
 
+import IconButton from '@mui/material/IconButton';
+import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 
 export default function Home(){
     const { currentUser } = useAuth();
     console.log('in home: ')
     console.log(currentUser);
-    let width = window.innerWidth;
+    let width = window.innerWidth > 480 ? true : false;
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
@@ -79,10 +81,23 @@ export default function Home(){
 
     return(
         <>
+
+        <div className={classes.btnWrapper}>
+            <IconButton aria-label="delete" onClick={handleShow}>
+                <AccountCircleRoundedIcon className={classes.userBtn} fontSize="large" />
+                <div className={classes.userBtnName}>{width && currentUser.email}</div>
+            </IconButton>
+            <div className={classes.right}>
+            <a href="https://github.com/zhaungsont/coco">
+                <img className={classes.github} src={process.env.PUBLIC_URL + "/github-logo.svg"}></img>
+                {width && <span>GitHub</span>}
+            </a>
+            </div>
+        </div>
         <Sidebar show={show} handleClose={handleClose}  />
-        <Button variant="primary" onClick={handleShow}>
+        {/* <Button variant="primary" onClick={handleShow}>
         Launch
-        </Button>
+        </Button> */}
         {/* <Offcanvas show={show} onHide={handleClose}>
             <Offcanvas.Header closeButton>
             <Offcanvas.Title>Offcanvas</Offcanvas.Title>
@@ -110,7 +125,7 @@ export default function Home(){
                     </div> */}
                 </div>
 
-                {width < 480 && <Divider variant="middle" />}
+                {!width && <Divider variant="middle" />}
                 
                 <div className={classes.responsiveWrapper}>
                     <div className={classes.mainContent}>

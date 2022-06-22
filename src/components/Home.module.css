@@ -45,6 +45,32 @@
     text-align: center;
 }
 
+.btnWrapper{
+    /* display: flex; */
+
+}
+
+.btnWrapper span{
+    margin-left: 3px;
+}
+
+.userBtnName{
+    font-size: 1rem;
+}
+
+.github{
+    width: 1.75rem;
+    margin-left: 0.75rem;
+    opacity: 0.75;
+
+}
+
+.btnWrapper a{
+    text-decoration: none;
+    color:rgba(0, 0, 0, 0.5);
+
+}
+
 @media screen and (max-width: 480px) {
     .responsiveWrapper{
         flex-direction: column;
@@ -53,4 +79,20 @@
     .mainContent, .sideContent{
         width: 100%;
     }
+
+    .btnWrapper{
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .right{
+        text-align: right;
+        margin: 1rem;
+    }
+
+
+    .github{
+        width: 1.75rem;
+    }
+
 }

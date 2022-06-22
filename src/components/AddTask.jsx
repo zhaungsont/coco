@@ -37,7 +37,7 @@ export default function AddTask(props){
                 placeholder="Add something..."
                 aria-label="Add something."
                 aria-describedby="add-task-btn"
-                size={width < 480 && "md"}
+                size={width < 480 && "lg"}
                 onChange={props.onChange}
                 value={props.inputValue}
                 />
