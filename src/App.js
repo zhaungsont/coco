@@ -6,7 +6,7 @@ import { Routes, Route, Link } from "react-router-dom";
 import Login from "./components/Login";
 import NoMatch from "./components/NoMatch";
 import Signup from "./components/Signup";
-import { AuthProvider } from "./contexts/AuthContext";
+import { AuthProvider, useAuth } from "./contexts/AuthContext";
 import Button from 'react-bootstrap/Button';
 import Toast from 'react-bootstrap/Toast';
 import ToastContainer from 'react-bootstrap/ToastContainer';
@@ -20,6 +20,7 @@ const darkTheme = createTheme({
 });
 
 function App() {
+
   const [showAuthMsg, setShowAuthMsg] = useState(false);
   const [authMsg, setAutgMsg] = useState('')
 
@@ -40,19 +41,29 @@ function App() {
   // },[])
   return (
     <div>
-    <AuthProvider>
     {/* <ThemeProvider theme={darkTheme}> */}
         <Backdrop />
+        
 
-
+    <AuthProvider>
         <Routes>
+        {/* <Route path="/"
+            element={
+              <PrivateRoute>
+                <Home />
+              </PrivateRoute>
+            }
+        ></Route> */}
+
           <Route exact path='/' element={<PrivateRoute/>}>
-            <Route path="/" exact element={<Home />} />
+            <Route exact path="/" element={<Home />} />
           </Route>
+
           <Route path="/login" exact element={<Login onAuthSuccess={loggedInModal} />} />
           <Route path="/signup" exact element={<Signup onAuthSuccess={loggedInModal} />} />
           <Route path="*" element={<NoMatch />} />
         </Routes>
+    </AuthProvider>
 
         <ToastContainer className="p-3" position="top-center">
           <Toast show={showAuthMsg}>
@@ -61,7 +72,6 @@ function App() {
         </ToastContainer>
 
     {/* </ThemeProvider> */}
-    </AuthProvider>
     </div>
   );
 }

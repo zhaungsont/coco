@@ -9,11 +9,13 @@ import Divider from '@mui/material/Divider';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import Button from 'react-bootstrap/Button';
 import Sidebar from "./Sidebar";
-
-
+import { useAuth } from "../contexts/AuthContext";
 
 
 export default function Home(){
+    const { currentUser } = useAuth();
+    console.log('in home: ')
+    console.log(currentUser);
     let width = window.innerWidth;
     const [show, setShow] = useState(false);
 
@@ -97,7 +99,7 @@ export default function Home(){
             <div className="frosted-glass">
                 <div className={classes.headerWrapper}>
                     <div className="content-title">
-                        <h1>{greet}<br></br> Michael Chuang.</h1>
+                        <h1 className={classes.title}>{greet}<br></br> Michael Chuang.</h1>
                     </div>
                     <Glanceables />
                     {/* <div className={classes.glanceables}>

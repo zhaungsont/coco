@@ -1,15 +1,11 @@
+import { gridColumnVisibilityModelSelector } from '@mui/x-data-grid';
 import React from 'react';
 import { Route, Navigate, Outlet } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 
 export default function PrivateRoute() {
     const { currentUser } = useAuth();
-
-    return currentUser ? <Outlet /> : <Navigate to="/login" replace={true} />
-
+    console.log(currentUser);
+    
+    return currentUser ? <Outlet /> : <Navigate to="/login" />
 }
-
-
-//<Route exact path="/">
-// {loggedIn ? <Redirect to="/dashboard" /> : <PublicHomePage />}
-//</Route>
