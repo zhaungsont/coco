@@ -1,6 +1,6 @@
 
 .headerWrapper{
-    margin: 2rem 1rem 1rem;
+    margin: 2rem 1rem .5rem;
     display: flex;
     flex-wrap: wrap;
     align-items: flex-end;
@@ -26,6 +26,18 @@
 
 .sideContent{
     width: 40%;
+}
+
+.avatar{
+    display: block;
+    margin: auto;
+    width: 40%;
+    border-radius: 50%;
+}
+
+.sidebar{
+    margin-top: 2rem;
+    text-align: center;
 }
 
 @media screen and (max-width: 480px) {

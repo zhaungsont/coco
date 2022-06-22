@@ -2,21 +2,32 @@ import React, {useEffect, useState} from "react";
 import classes from "./Home.module.css";
 import AddTask from "./AddTask";
 import TaskGrid from "./TaskGrid";
-import Button from '@mui/material/Button';
+// import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
 import Glanceables from "./Glanceables";
+import Divider from '@mui/material/Divider';
+import Offcanvas from 'react-bootstrap/Offcanvas';
+import Button from 'react-bootstrap/Button';
+import Sidebar from "./Sidebar";
+
 
 
 
 export default function Home(){
+    let width = window.innerWidth;
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
     const [inputTask, setInputTask] = useState('');
     const [tempTaskList, setTempTaskList] = useState([]);
     const [tempCounter, setTempCounter] = useState(1);
     const [deleteTask, setDeleteTask] = useState([]);
 
     function changeHandler(data){
-        setInputTask(data)
-        console.log(data);
+        console.log(data.target.value);
+        setInputTask(data.target.value)
     }
 
     function submitHandler(){
@@ -63,7 +74,25 @@ export default function Home(){
         greet = "Good Evening,"
     }
 
+
     return(
+        <>
+        <Sidebar show={show} handleClose={handleClose}  />
+        <Button variant="primary" onClick={handleShow}>
+        Launch
+        </Button>
+        {/* <Offcanvas show={show} onHide={handleClose}>
+            <Offcanvas.Header closeButton>
+            <Offcanvas.Title>Offcanvas</Offcanvas.Title>
+            </Offcanvas.Header>
+            <Offcanvas.Body>
+            <img className={classes.avatar} src={process.env.PUBLIC_URL + "/avatar.jpg"}></img>
+            <div className={classes.sidebar}>
+                <h1>Michael Chuang</h1>
+            </div>
+            </Offcanvas.Body>
+        </Offcanvas> */}
+
         <section id="content-structure">
             <div className="frosted-glass">
                 <div className={classes.headerWrapper}>
@@ -78,6 +107,8 @@ export default function Home(){
                             
                     </div> */}
                 </div>
+
+                {width < 480 && <Divider variant="middle" />}
                 
                 <div className={classes.responsiveWrapper}>
                     <div className={classes.mainContent}>
@@ -101,5 +132,6 @@ export default function Home(){
                 </div>
             </div>
         </section>
+        </>
     )
 }

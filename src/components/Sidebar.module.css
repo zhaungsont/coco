@@ -1,0 +1,32 @@
+.avatar{
+    display: block;
+    margin: auto;
+    width: 40%;
+    border-radius: 50%;
+}
+
+.sidebar{
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.username{
+    font-size: 2rem;
+}
+
+p span {
+    font-weight: bold;
+}
+
+.bottom{
+    position: absolute;
+    bottom: 2rem;
+    text-align: center;
+    width: calc(100% - 2rem);
+}
+
+@media screen and (max-width: 480px) {
+    .username{
+        font-size: 3rem;
+    }
+}

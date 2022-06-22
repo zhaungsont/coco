@@ -3,24 +3,22 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import classes from './auth.module.css';
 import Alert from 'react-bootstrap/Alert';
-import Modal from 'react-bootstrap/Modal';
-
 import { Link, useNavigate } from "react-router-dom";
 
 
 import { useAuth } from "../contexts/AuthContext"; 
 import { setUserProperties } from "firebase/analytics";
 
-export default function Login(props){
+export default function Signup(props){
     let navigate = useNavigate();
-
+    
     let width = window.innerWidth;
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [submitting, setSubmitting] = useState(false)
 
-    const { login } = useAuth();
+    const { signup } = useAuth();
 
     function emailHandler(e){
         setEmail(e.target.value);
@@ -32,28 +30,29 @@ export default function Login(props){
 
     async function submitHandler(e){
         e.preventDefault();
-        console.log(`trying to LOG IN: + ${email} and ${password}`)
+        console.log(`trying to sign up: + ${email} and ${password}`)
         setSubmitting(true);
         try {
-            await login(email, password);
-            // Login successful
-            props.onAuthSuccess('login');
+            await signup(email, password);
+            props.onAuthSuccess('signup');
             setTimeout(() => {
                 navigate("/", { replace: true });
-              }, 2250);
+            }, 2250);
         } catch {
-            setError('Log in failed. Please try again.')
+            setError('There was a problem signing you up. Please try again.')
             setSubmitting(false);
         }
         setSubmitting(false);
     }
 
-    return(
-        <section id="content-structure">
+
+
+    return (
+    <section id="content-structure">
         <div className={classes.wrapper}>
             <div className={`${classes.formDiv} frosted-glass`}>
                 <Form onSubmit={submitHandler}>
-                <h1 className={classes.title}>Login</h1>
+                <h1>Sign Up</h1>
 
                 {error && <Alert variant="danger">
                 {error}
@@ -71,16 +70,15 @@ export default function Login(props){
 
                     <div className="d-grid gap-2">
                         <Button variant="secondary" size={width < 480 ? "lg" : "md"} type="submit" disabled={submitting}>
-                            Log In
+                            Sign up
                         </Button>
                     </div>
                     <Form.Text className="text-muted">
-                    Don't have an account yet? <Link to="/signup" >Sign up here.</Link>
+                    Already have an account? <Link to="/login" >Log in here.</Link>
                     </Form.Text>
                     
                 </Form>
             </div>
         </div>
     </section>
-    )
-}
+)}

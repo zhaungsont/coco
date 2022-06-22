@@ -1,0 +1,36 @@
+.title{
+    margin: 1rem 0;
+}
+
+.wrapper{
+    padding: 5rem 0;
+    display: flex;
+    justify-content: center;
+}
+
+.formDiv{
+    min-width: 480px;
+    padding: 1rem;
+}
+
+
+
+@media screen and (max-width: 480px) {
+
+    h1{
+        font-size: 3rem;
+        text-align: center;
+    }
+
+    .wrapper{
+        display: block;
+    }
+
+    .formDiv{
+        min-width: 0px
+    }
+
+    label{
+        font-size: 1.5rem;
+    }
+}

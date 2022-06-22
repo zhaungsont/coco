@@ -1,13 +1,20 @@
 import React, { useState } from "react";
-import Box from '@mui/material/Box';
-import Stack from '@mui/material/Stack';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
 import classes from './AddTask.module.css';
-import Autocomplete from '@mui/material/Autocomplete';
+// import Box from '@mui/material/Box';
+// import Stack from '@mui/material/Stack';
+// import TextField from '@mui/material/TextField';
+// import Button from '@mui/material/Button';
+// import Autocomplete from '@mui/material/Autocomplete';
+
+
+// Trying Bootstrap React
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import InputGroup from 'react-bootstrap/InputGroup';
 
 
 export default function AddTask(props){
+    const width = window.innerWidth;
 
     const category = [
         { label: 'Programming', title: 'programming' },
@@ -16,24 +23,36 @@ export default function AddTask(props){
     ];
 
     function submitHandler(e){
-        // props.onSubmit()
-        if (e.key === "Enter" || e.type === "click"){
-            e.preventDefault();
-            console.log('tryna submit!')
-            console.log('task name: ' + props.inputValue);
-
-            props.onSubmit();
-        }
+        e.preventDefault();
+        console.log('Submission Request from AddTask.jsx');
+        console.log(e.target.value);
+        props.onSubmit();
     }
 
     return(
         <div className={classes.inputField}>
-            <Stack 
+        <Form onSubmit={submitHandler}>
+            <InputGroup className="mb-3">
+                <Form.Control
+                placeholder="Add something..."
+                aria-label="Add something."
+                aria-describedby="add-task-btn"
+                size={width < 480 && "md"}
+                onChange={props.onChange}
+                value={props.inputValue}
+                />
+                <Button onClick={submitHandler} variant="outline-secondary" id="add-task-btn">
+                    Add
+                </Button>
+            </InputGroup>
+        </Form>
+
+            {/* <Stack 
             direction="row"
             justifyContent="space-between"
             alignItems="center"
             spacing={-1}
-            >
+            > */}
                 {/* <Box
                 component="form"
                 sx={{
@@ -42,7 +61,7 @@ export default function AddTask(props){
                 noValidate
                 autoComplete="off"
                 > */}
-                <TextField
+                {/* <TextField
                 sx={{ width: {md: "90%", xs: "100%"}}}
                 size="small"
                 onKeyDown={submitHandler}
@@ -51,12 +70,12 @@ export default function AddTask(props){
                 variant="filled"
                 value={props.inputValue}
                 onChange={(e) => props.onChange(e.target.value)}
-                />
+                /> */}
 
                 {/* </Box> */}
-                <span className={classes.btnSpacer}>&nbsp;</span>
-                <Button onClick={submitHandler} variant="contained" size="large" scolor="info">Add</Button>
-            </Stack>
+                {/* <span className={classes.btnSpacer}>&nbsp;</span>
+                <Button onClick={submitHandler} variant="contained" size="large" scolor="info">Add</Button> */}
+            {/* </Stack> */}
             {/* <Autocomplete
             // onChange={(e) => {props.onCatChange(e.target.value)}}
             onChange={(event, newValue) => {
