@@ -31,6 +31,8 @@ export default function Home(){
     const [tempCounter, setTempCounter] = useState(1);
     const [deleteTask, setDeleteTask] = useState([]);
 
+    const [quoteIndex, setQuoteIndex] = useState(0);
+
     function changeHandler(data){
         console.log(data.target.value);
         setInputTask(data.target.value)
@@ -79,8 +81,12 @@ export default function Home(){
     } else {
         greet = "Good Evening,"
     }
-    const randomIndex = Math.floor(Math.random() * quotes.length);
-    console.log(randomIndex);
+    // console.log(randomIndex);
+
+    useEffect(()=>{
+        setQuoteIndex(Math.floor(Math.random() * quotes.length));
+
+    }, [])
     return(
         <>
         <div className={classes.btnWrapper}>
@@ -126,7 +132,7 @@ export default function Home(){
                     </div> */}
                 </div>
 
-                <p className={classes.quotes}>{quotes[randomIndex].quote}</p><p className={classes.from}>— {quotes[randomIndex].from}</p>
+                <p className={classes.quotes}>{quotes[quoteIndex].quote}</p><p className={classes.from}>— {quotes[quoteIndex].from}</p>
 
                 {!width && <Divider variant="middle" />}
                 
