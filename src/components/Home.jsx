@@ -14,6 +14,8 @@ import { useAuth } from "../contexts/AuthContext";
 import IconButton from '@mui/material/IconButton';
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 
+import quotes from "../dummy-data/quotes";
+
 export default function Home(){
     const { currentUser } = useAuth();
     console.log('in home: ')
@@ -77,21 +79,20 @@ export default function Home(){
     } else {
         greet = "Good Evening,"
     }
-
-
+    const randomIndex = Math.floor(Math.random() * quotes.length);
+    console.log(randomIndex);
     return(
         <>
-
         <div className={classes.btnWrapper}>
             <IconButton aria-label="delete" onClick={handleShow}>
                 <AccountCircleRoundedIcon className={classes.userBtn} fontSize="large" />
                 <div className={classes.userBtnName}>{width && currentUser.email}</div>
             </IconButton>
             <div className={classes.right}>
-            <a href="https://github.com/zhaungsont/coco">
-                <img className={classes.github} src={process.env.PUBLIC_URL + "/github-logo.svg"}></img>
-                {width && <span>GitHub</span>}
-            </a>
+                <a href="https://github.com/zhaungsont/coco">
+                    <img className={classes.github} src={process.env.PUBLIC_URL + "/github-logo.svg"}></img>
+                    {width && <span>GitHub</span>}
+                </a>
             </div>
         </div>
         <Sidebar show={show} handleClose={handleClose}  />
@@ -124,6 +125,8 @@ export default function Home(){
                             
                     </div> */}
                 </div>
+
+                <p className={classes.quotes}>{quotes[randomIndex].quote}</p><p className={classes.from}>— {quotes[randomIndex].from}</p>
 
                 {!width && <Divider variant="middle" />}
                 
