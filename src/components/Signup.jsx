@@ -32,6 +32,7 @@ export default function Signup(props){
         e.preventDefault();
         console.log(`trying to sign up: + ${email} and ${password}`)
         setSubmitting(true);
+        setError('');
         try {
             await signup(email, password);
             props.onAuthSuccess('signup');

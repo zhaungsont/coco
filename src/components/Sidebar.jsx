@@ -3,10 +3,26 @@ import Offcanvas from 'react-bootstrap/Offcanvas';
 import Button from 'react-bootstrap/Button';
 import classes from "./Sidebar.module.css";
 import { useAuth } from "../contexts/AuthContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Alert from 'react-bootstrap/Alert';
+
+
 
 export default function Sidebar(props) {
-    const { currentUser } = useAuth();
+    let navigate = useNavigate();
+
+    const { currentUser, logout } = useAuth();
+    const [error, setError] = useState('');
+
+    async function logoutHandler(){
+        console.log('tryna log out!');
+        try {
+            await logout();
+            navigate("/login", { replace: true });
+        } catch {
+            setError('An error occured when logging you out.');
+        }
+    }
 
   return (
     <>
@@ -15,17 +31,29 @@ export default function Sidebar(props) {
         </Button> */}
         <Offcanvas show={props.show} onHide={props.handleClose}>
             <Offcanvas.Header closeButton>
-            <Offcanvas.Title>Offcanvas</Offcanvas.Title>
+            <Offcanvas.Title>
+                {/* <img className={classes.logo} src={process.env.PUBLIC_URL + "/coco.png"}></img> */}
+                <div className={classes.logoTitle}>Coco.</div>
+            </Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body>
             <img className={classes.avatar} src={process.env.PUBLIC_URL + "/avatar.jpg"}></img>
             <div className={classes.sidebar}>
                 <h1 className={classes.username}>Michael Chuang</h1>
-                <p><span>Email: </span>{currentUser.email}</p>
+                <p><strong >Email: </strong>{currentUser.email}</p>
             </div>
             
             <div className={classes.bottom}>
+                {error && <Alert variant="danger">
+                    {error}
+                </Alert>}
+
                 <Link to="/updateuser">Edit account info</Link>
+                <div className={`d-grid gap-2 ${classes.logoutBtn}`}>
+                <Button variant="outline-secondary" size="lg" onClick={logoutHandler}>
+                    Log out
+                </Button>
+                </div>
             </div>
             </Offcanvas.Body>
         </Offcanvas>

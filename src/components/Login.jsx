@@ -34,6 +34,7 @@ export default function Login(props){
         e.preventDefault();
         console.log(`trying to LOG IN: + ${email} and ${password}`)
         setSubmitting(true);
+        setError('');
         try {
             await login(email, password);
             // Login successful

@@ -1,3 +1,12 @@
+.logo{
+    width: 80px;
+}
+
+.logoTitle{
+    font-size: 2rem;
+    font-weight: 600;
+}
+
 .avatar{
     display: block;
     margin: auto;
@@ -14,9 +23,6 @@
     font-size: 2rem;
 }
 
-p span {
-    font-weight: bold;
-}
 
 .bottom{
     position: absolute;
@@ -25,7 +31,16 @@ p span {
     width: calc(100% - 2rem);
 }
 
+.logoutBtn{
+    width: 50%;
+    margin: 1rem auto;
+}
+
 @media screen and (max-width: 480px) {
+    .logo{
+        margin-top: 1rem;
+    }
+
     .username{
         font-size: 3rem;
     }

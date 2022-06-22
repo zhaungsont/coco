@@ -10,7 +10,7 @@ import { AuthProvider } from "./contexts/AuthContext";
 import Button from 'react-bootstrap/Button';
 import Toast from 'react-bootstrap/Toast';
 import ToastContainer from 'react-bootstrap/ToastContainer';
-
+import PrivateRoute from "./components/PrivateRoute";
 
 
 const darkTheme = createTheme({
@@ -46,7 +46,9 @@ function App() {
 
 
         <Routes>
-          <Route path="/" exact element={<Home />} />
+          <Route exact path='/' element={<PrivateRoute/>}>
+            <Route path="/" exact element={<Home />} />
+          </Route>
           <Route path="/login" exact element={<Login onAuthSuccess={loggedInModal} />} />
           <Route path="/signup" exact element={<Signup onAuthSuccess={loggedInModal} />} />
           <Route path="*" element={<NoMatch />} />
