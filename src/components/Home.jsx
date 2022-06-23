@@ -16,6 +16,10 @@ import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 
 import quotes from "../dummy-data/quotes";
 
+// Firebase
+import Firebase, {auth, database} from "../Firebase";
+import { ref, set, push } from "firebase/database";
+
 export default function Home(){
     const { currentUser } = useAuth();
     console.log('in home: ')
@@ -41,15 +45,21 @@ export default function Home(){
     function submitHandler(){
         if (inputTask.trim() !== ''){
             console.log('SUBMITTED! ' + inputTask);
-            // const cat = category.title;
-            // setCategory({title: ''});
+
             const id = tempCounter;
             setTempCounter(tempCounter + 1);
             const date = new Date();
             var seconds = date.getSeconds();
             var minutes = date.getMinutes();
             var hour = date.getHours();
-            const newTask = {id: id, name: inputTask, date: date, hour: hour, minutes: minutes, seconds: seconds}
+            const newTask = {id: id, name: inputTask, date: date, hour: hour, minutes: minutes, seconds: seconds, done: false}
+            
+            // push new task to firebase
+            // set(ref(database, `tasks/${currentUser.uid}/${newTask.id}`), newTask);
+            const taskListRef = ref(database, `tasks/${currentUser.uid}`);
+            const newTaskRef = push(taskListRef);
+            set(newTaskRef, newTask);
+
             setTempTaskList(prevList => [...prevList, newTask]);
             setInputTask('');
         }

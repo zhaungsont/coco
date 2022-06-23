@@ -23,12 +23,16 @@ export default function Glanceables(){
                 const main = data.weather[0].main;
                 const desc = data.weather[0].description;
                 const temp = (data.main.temp - 273.15).toString().slice(0, 4);
+                const high = (data.main.temp_max - 273.15).toString().slice(0, 4);
+                const low = (data.main.temp_min - 273.15).toString().slice(0, 4);
 
                 setWeather({
                     main: main,
                     desc: desc,
                     temp: temp,
-                    icon: icon
+                    icon: icon,
+                    high: high,
+                    low: low
                 })
                 console.log(main, desc, icon);
             }
@@ -45,16 +49,24 @@ export default function Glanceables(){
     const year = now.getFullYear();
     return(
         <div className={classes.glanceables}>
+        {weather ? 
+        <>
             <div className={classes.schedule}>
                 <p><span>{day}</span><br />{month} {date}, {year}</p>
             </div>
 
-            {/* <span> • </span> */}
             <div className={classes.weather}>
                 {weather.icon ? <img src={`http://openweathermap.org/img/wn/${weather.icon}@2x.png`}></img> : <CircularProgress />}
                 <p><span>{weather.temp}°C</span> <br/>{weather.desc}</p>
             </div>
-                
+
+            <div className={classes.additionals}>
+                <p><span>{weather.high}</span> °C Max<br />
+                <span>{weather.low}</span> °C Min</p>
+            </div>
+        </>
+        :
+        <CircularProgress />}   
         </div>
     )
 }

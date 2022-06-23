@@ -1,5 +1,10 @@
 import React, { useState } from "react";
 import classes from './AddTask.module.css';
+
+// Firebase
+import Firebase, {database} from "../Firebase";
+import { ref, set } from "firebase/database";
+
 // import Box from '@mui/material/Box';
 // import Stack from '@mui/material/Stack';
 // import TextField from '@mui/material/TextField';
@@ -7,7 +12,7 @@ import classes from './AddTask.module.css';
 // import Autocomplete from '@mui/material/Autocomplete';
 
 
-// Trying Bootstrap React
+// Bootstrap React
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
@@ -25,8 +30,18 @@ export default function AddTask(props){
     function submitHandler(e){
         e.preventDefault();
         console.log('Submission Request from AddTask.jsx');
-        console.log(e.target.value);
+
+        // push new task to firebase
+        // const newTask = {
+        //     title: e.target.value,
+        //     done: 0
+        // }
+        // set(ref(database, '1'), newTask);
         props.onSubmit();
+
+
+        // const taskRef = Firebase.database().ref('Task');
+        // taskRef.push(newTask);
     }
 
     return(
