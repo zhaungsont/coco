@@ -18,7 +18,7 @@ import quotes from "../dummy-data/quotes";
 
 // Firebase
 import Firebase, {auth, database} from "../Firebase";
-import { ref, set, push, onValue } from "firebase/database";
+import { ref, set, push, onValue, update } from "firebase/database";
 
 export default function Home(){
     const { currentUser } = useAuth();
@@ -67,9 +67,7 @@ export default function Home(){
             const taskListRef = ref(database, `tasks/${currentUser.uid}`);
             const newTaskRef = push(taskListRef);
             set(newTaskRef, newTask);
-            
-            // setTempTaskList(prevList => [...prevList, newTask]);
-            
+                        
             // praise the stackoverflow post that points me to this page: 
             // https://firebase.google.com/docs/database/web/lists-of-data
 
@@ -109,9 +107,15 @@ export default function Home(){
         setDeleteTask(data);
     }
 
+    // Update task in firebase (done => true)
     useEffect(()=>{
         const cleaner = setTimeout(() => {
-            setTempTaskList(prevList => prevList.filter( prevList => !(deleteTask.includes(prevList.id)) ));
+            deleteTask.map(task => {
+                update(ref(database, `tasks/${currentUser.uid}/${task}`), {
+                    done: true
+                })
+            })
+            // setTempTaskList(prevList => prevList.filter( prevList => !(deleteTask.includes(prevList.id)) ));
         }, 500);
         return (()=> clearTimeout(cleaner));
     }, [deleteTask])
