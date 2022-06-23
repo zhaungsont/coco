@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import classes from "./Home.module.css";
 import AddTask from "./AddTask";
 import TaskGrid from "./TaskGrid";
@@ -18,52 +18,91 @@ import quotes from "../dummy-data/quotes";
 
 // Firebase
 import Firebase, {auth, database} from "../Firebase";
-import { ref, set, push } from "firebase/database";
+import { ref, set, push, onValue } from "firebase/database";
 
 export default function Home(){
     const { currentUser } = useAuth();
-    console.log('in home: ')
-    console.log(currentUser);
+    console.log("current user: " + currentUser.email);
     let width = window.innerWidth > 480 ? true : false;
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    const [inputTask, setInputTask] = useState('');
+    // const [inputTask, setInputTask] = useState('');
+    const inputTask = useRef('');
+
     const [tempTaskList, setTempTaskList] = useState([]);
     const [tempCounter, setTempCounter] = useState(1);
     const [deleteTask, setDeleteTask] = useState([]);
 
     const [quoteIndex, setQuoteIndex] = useState(0);
 
-    function changeHandler(data){
-        console.log(data.target.value);
-        setInputTask(data.target.value)
-    }
+    // function changeHandler(data){
+    //     console.log(data.target.value);
+    //     setInputTask(data.target.value)
+    // }
 
     function submitHandler(){
-        if (inputTask.trim() !== ''){
-            console.log('SUBMITTED! ' + inputTask);
-
-            const id = tempCounter;
-            setTempCounter(tempCounter + 1);
+        if (inputTask.current.value.trim() !== ''){
+            const taskName = inputTask.current.value.trim();
+            console.log('SUBMITTED! ' + taskName);
+            // const id = tempCounter;
+            // setTempCounter(tempCounter + 1);
             const date = new Date();
-            var seconds = date.getSeconds();
-            var minutes = date.getMinutes();
-            var hour = date.getHours();
-            const newTask = {id: id, name: inputTask, date: date, hour: hour, minutes: minutes, seconds: seconds, done: false}
+            const weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+            const weekday = weekdays[date.getDay() - 1];
+            const day = date.getDate()
+            const month = date.getMonth() + 1;
+            const year = date.getFullYear();
+            const seconds = date.getSeconds();
+            const minutes = date.getMinutes();
+            const hour = date.getHours();
+            const newTask = {name: taskName, year: year, month: month, day: day, weekday: weekday, hour: hour, minutes: minutes, seconds: seconds, done: false}
             
-            // push new task to firebase
+            // push new task to firebase (old way)
             // set(ref(database, `tasks/${currentUser.uid}/${newTask.id}`), newTask);
+            
+            // new way
             const taskListRef = ref(database, `tasks/${currentUser.uid}`);
             const newTaskRef = push(taskListRef);
             set(newTaskRef, newTask);
+            
+            // setTempTaskList(prevList => [...prevList, newTask]);
+            
+            // praise the stackoverflow post that points me to this page: 
+            // https://firebase.google.com/docs/database/web/lists-of-data
 
-            setTempTaskList(prevList => [...prevList, newTask]);
-            setInputTask('');
+            // clear input field. (I know we should generally avoid controlling forms with ref but here it works!)
+            inputTask.current.value = '';
         }
     }
+
+    // Get Task List from Firebase
+    useEffect(()=>{
+        console.log('proceed to get task list')
+        const taskListRef = ref(database, `tasks/${currentUser.uid}`);
+        onValue(taskListRef, (snapshot) => {
+            setTempTaskList([]);
+            const data = snapshot.val();
+            if (data !== null){
+                // console.log("Found user task list.");
+
+                Object.entries(data).map(task => {
+                    // each entry is an array of two elements: a string (task id) and an object containing actual task info
+                    // console.log('entry name:' + task[0]);
+                    // console.log('entry content: ' + task[1]);
+
+                    const id = task[0]
+                    setTempTaskList(oldTaskList => [...oldTaskList, {...task[1] ,id: id}])
+                })
+            } else {
+                console.log('no data for this user.')
+            }
+            // setTempTaskList(postElement, data);
+          });
+
+    }, [])
 
     function checkHandler(data){
         console.log('proceed to delete ' + data);
@@ -150,7 +189,7 @@ export default function Home(){
                     <div className={classes.mainContent}>
                     <AddTask 
                     onSubmit={submitHandler}
-                    onChange={changeHandler}
+                    // onChange={changeHandler}
                     // onCatChange={handleCatChange}
                     inputValue={inputTask}
                     // categoryValue={category}

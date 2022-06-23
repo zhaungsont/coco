@@ -53,8 +53,9 @@ export default function AddTask(props){
                 aria-label="Add something."
                 aria-describedby="add-task-btn"
                 size={width < 480 && "lg"}
-                onChange={props.onChange}
-                value={props.inputValue}
+                // onChange={props.onChange}
+                // value={props.inputValue}
+                ref={props.inputValue}
                 />
                 <Button onClick={submitHandler} variant="outline-secondary" id="add-task-btn">
                     Add
