@@ -184,8 +184,10 @@ export default function Home(){
                             
                     </div> */}
                 </div>
-
-                <p className={classes.quotes}>{quotes[quoteIndex].quote}</p><p className={classes.from}>— {quotes[quoteIndex].from}</p>
+                
+                <div className={classes.quotes}>
+                    <span>{quotes[quoteIndex].quote}</span><span> — {quotes[quoteIndex].from}</span>
+                </div>
 
                 {!width && <Divider variant="middle" />}
                 

@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Home from "./components/Home";
 import Backdrop from "./components/Backdrop";
-import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { Routes, Route, Link } from "react-router-dom";
 import Login from "./components/Login";
 import NoMatch from "./components/NoMatch";
@@ -13,13 +12,21 @@ import ToastContainer from 'react-bootstrap/ToastContainer';
 import PrivateRoute from "./components/PrivateRoute";
 import PublicRoute from "./components/PublicRoute";
 
-const darkTheme = createTheme({
-  palette: {
-    mode: 'dark',
-  },
-});
+import ColorModeContext from "./contexts/ColorModeContext"
+import { useTheme } from '@mui/material/styles';
+import IconButton from '@mui/material/IconButton';
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
+
+// const darkTheme = createTheme({
+//   palette: {
+//     mode: 'dark',
+//   },
+// });
 
 function App() {
+  const theme = useTheme();
+  const colorMode = useContext(ColorModeContext);
 
   const [showAuthMsg, setShowAuthMsg] = useState(false);
   const [authMsg, setAutgMsg] = useState('')
@@ -41,9 +48,12 @@ function App() {
   // },[])
   return (
     <div>
-    {/* <ThemeProvider theme={darkTheme}> */}
+    {/* <ColorModeContext> */}
         <Backdrop />
-        
+
+        {/* <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color="inherit">
+        {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+      </IconButton> */}
 
     <AuthProvider>
         <Routes>
@@ -66,7 +76,7 @@ function App() {
           <Route path='/signup' element={<PublicRoute />}>
             <Route path="/signup" exact element={<Signup onAuthSuccess={loggedInModal} />} />
           </Route>
-          
+
           <Route path="*" element={<NoMatch />} />
         </Routes>
     </AuthProvider>
@@ -77,7 +87,7 @@ function App() {
           </Toast>
         </ToastContainer>
 
-    {/* </ThemeProvider> */}
+    {/* </ColorModeContext> */}
     </div>
   );
 }
