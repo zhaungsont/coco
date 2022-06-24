@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import classes from './AddTask.module.css';
+import { useTheme } from '@mui/material/styles';
+
 
 // Firebase
 import Firebase, {database} from "../Firebase";
@@ -19,6 +21,12 @@ import InputGroup from 'react-bootstrap/InputGroup';
 
 
 export default function AddTask(props){
+    const [darkMode, setDarkMode] = useState(false);
+    const theme = useTheme().palette.mode;
+    useEffect(()=>{
+        setDarkMode(theme == 'light' ? false : true);
+    }, [theme]);
+
     const width = window.innerWidth;
 
     const category = [
@@ -57,7 +65,7 @@ export default function AddTask(props){
                 // value={props.inputValue}
                 ref={props.inputValue}
                 />
-                <Button onClick={submitHandler} variant="outline-secondary" id="add-task-btn">
+                <Button onClick={submitHandler} variant={darkMode ? "outline-light" : "outline-secondary"} id="add-task-btn">
                     Add
                 </Button>
             </InputGroup>

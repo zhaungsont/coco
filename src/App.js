@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useMemo } from "react";
 import Home from "./components/Home";
 import Backdrop from "./components/Backdrop";
 import { Routes, Route, Link } from "react-router-dom";
@@ -12,11 +12,15 @@ import ToastContainer from 'react-bootstrap/ToastContainer';
 import PrivateRoute from "./components/PrivateRoute";
 import PublicRoute from "./components/PublicRoute";
 
-import ColorModeContext from "./contexts/ColorModeContext"
-import { useTheme } from '@mui/material/styles';
+// import ColorModeContext from "./contexts/ColorModeContext"
+// import { useTheme } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
+
+import { useTheme, ThemeProvider, createTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import CssBaseline from '@mui/material/CssBaseline';
 
 // const darkTheme = createTheme({
 //   palette: {
@@ -25,8 +29,20 @@ import Brightness7Icon from '@mui/icons-material/Brightness7';
 // });
 
 function App() {
-  const theme = useTheme();
-  const colorMode = useContext(ColorModeContext);
+  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+  const theme = React.useMemo(
+    () =>
+      createTheme({
+        palette: {
+          mode: prefersDarkMode ? 'dark' : 'light',
+        },
+      }),
+    [prefersDarkMode],
+  );
+
+
+  // const theme = useTheme();
+  // const colorMode = useContext(ColorModeContext);
 
   const [showAuthMsg, setShowAuthMsg] = useState(false);
   const [authMsg, setAutgMsg] = useState('')
@@ -48,7 +64,8 @@ function App() {
   // },[])
   return (
     <div>
-    <ColorModeContext>
+    <ThemeProvider theme={theme}>
+    <CssBaseline />
         <Backdrop />
 
         {/* <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color="inherit">
@@ -87,7 +104,7 @@ function App() {
           </Toast>
         </ToastContainer>
 
-    </ColorModeContext>
+    </ThemeProvider>
     </div>
   );
 }
