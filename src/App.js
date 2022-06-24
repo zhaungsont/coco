@@ -48,7 +48,7 @@ function App() {
   // },[])
   return (
     <div>
-    {/* <ColorModeContext> */}
+    <ColorModeContext>
         <Backdrop />
 
         {/* <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color="inherit">
@@ -87,7 +87,7 @@ function App() {
           </Toast>
         </ToastContainer>
 
-    {/* </ColorModeContext> */}
+    </ColorModeContext>
     </div>
   );
 }
