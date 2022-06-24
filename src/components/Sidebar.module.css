@@ -37,6 +37,7 @@
     margin: 1rem auto;
 }
 
+
 @media screen and (max-width: 480px) {
     .logo{
         margin-top: 1rem;

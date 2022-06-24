@@ -6,7 +6,6 @@ import Login from "./components/Login";
 import NoMatch from "./components/NoMatch";
 import Signup from "./components/Signup";
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
-import Button from 'react-bootstrap/Button';
 import Toast from 'react-bootstrap/Toast';
 import ToastContainer from 'react-bootstrap/ToastContainer';
 import PrivateRoute from "./components/PrivateRoute";
@@ -22,24 +21,21 @@ import { useTheme, ThemeProvider, createTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import CssBaseline from '@mui/material/CssBaseline';
 
-// const darkTheme = createTheme({
-//   palette: {
-//     mode: 'dark',
-//   },
-// });
 
 function App() {
+  
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
-  const theme = React.useMemo(
+  const theme = useMemo(
     () =>
-      createTheme({
-        palette: {
-          mode: prefersDarkMode ? 'dark' : 'light',
-        },
-      }),
+    createTheme({
+      palette: {
+        mode: prefersDarkMode ? 'dark' : 'light',
+      },
+    }),
     [prefersDarkMode],
   );
-
+  const [mode, setMode] = useState(theme);
+    
 
   // const theme = useTheme();
   // const colorMode = useContext(ColorModeContext);
@@ -59,44 +55,33 @@ function App() {
     }, 3000);
   }
 
-  // useEffect(()=>{
-    
-  // },[])
+  function themeChangeHandler(){
+    // setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
+  }
   return (
     <div>
     <ThemeProvider theme={theme}>
     <CssBaseline />
         <Backdrop />
 
-        {/* <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color="inherit">
-        {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
-      </IconButton> */}
+        <AuthProvider>
+            <Routes>
 
-    <AuthProvider>
-        <Routes>
-        {/* <Route path="/"
-            element={
-              <PrivateRoute>
-                <Home />
-              </PrivateRoute>
-            }
-        ></Route> */}
+              <Route exact path='/' element={<PrivateRoute/>}>
+                <Route exact path="/" element={<Home onThemeChange={themeChangeHandler} />} />
+              </Route>
 
-          <Route exact path='/' element={<PrivateRoute/>}>
-            <Route exact path="/" element={<Home />} />
-          </Route>
+              <Route path='/login' element={<PublicRoute />}>
+                <Route path="/login" exact element={<Login onAuthSuccess={loggedInModal} />} />
+              </Route>
 
-          <Route path='/login' element={<PublicRoute />}>
-            <Route path="/login" exact element={<Login onAuthSuccess={loggedInModal} />} />
-          </Route>
+              <Route path='/signup' element={<PublicRoute />}>
+                <Route path="/signup" exact element={<Signup onAuthSuccess={loggedInModal} />} />
+              </Route>
 
-          <Route path='/signup' element={<PublicRoute />}>
-            <Route path="/signup" exact element={<Signup onAuthSuccess={loggedInModal} />} />
-          </Route>
-
-          <Route path="*" element={<NoMatch />} />
-        </Routes>
-    </AuthProvider>
+              <Route path="*" element={<NoMatch />} />
+            </Routes>
+        </AuthProvider>
 
         <ToastContainer className="p-3" position="top-center">
           <Toast show={showAuthMsg}>

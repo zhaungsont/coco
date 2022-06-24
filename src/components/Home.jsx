@@ -10,6 +10,7 @@ import Offcanvas from 'react-bootstrap/Offcanvas';
 import Button from 'react-bootstrap/Button';
 import Sidebar from "./Sidebar";
 import { useAuth } from "../contexts/AuthContext";
+import Switch from '@mui/material/Switch';
 
 import IconButton from '@mui/material/IconButton';
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
@@ -20,7 +21,7 @@ import quotes from "../dummy-data/quotes";
 import Firebase, {auth, database} from "../Firebase";
 import { ref, set, push, onValue, update } from "firebase/database";
 
-export default function Home(){
+export default function Home(props){
     const { currentUser } = useAuth();
     console.log("current user: " + currentUser.email);
     let width = window.innerWidth > 480 ? true : false;
@@ -140,8 +141,16 @@ export default function Home(){
         setQuoteIndex(Math.floor(Math.random() * quotes.length));
 
     }, [])
+
+    
     return(
         <>
+        <Switch
+        checked={props.checked}
+        onChange={props.onThemeChange}
+        inputProps={{ 'aria-label': 'controlled' }}
+        />
+
         <div className={classes.btnWrapper}>
             <IconButton aria-label="delete" onClick={handleShow}>
                 <AccountCircleRoundedIcon className={classes.userBtn} fontSize="large" />

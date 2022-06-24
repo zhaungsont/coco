@@ -6,9 +6,16 @@ import { useAuth } from "../contexts/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import Alert from 'react-bootstrap/Alert';
 
+import { useTheme } from '@mui/material/styles';
 
 
 export default function Sidebar(props) {
+    const [darkMode, setDarkMode] = useState(false);
+    const theme = useTheme().palette.mode;
+    useEffect(()=>{
+        setDarkMode(theme == 'light' ? false : true);
+    }, [theme]);
+
     let navigate = useNavigate();
 
     const { currentUser, logout } = useAuth();
@@ -29,8 +36,8 @@ export default function Sidebar(props) {
         {/* <Button variant="primary" onClick={handleShow}>
         Launch
         </Button> */}
-        <Offcanvas show={props.show} onHide={props.handleClose}>
-            <Offcanvas.Header closeButton>
+        <Offcanvas show={props.show} onHide={props.handleClose} style={{backgroundColor: darkMode ? "#191919" : "#fff"}}>
+            <Offcanvas.Header closeButton closeVariant={darkMode ? "white" : "black"}>
             <Offcanvas.Title>
                 {/* <img className={classes.logo} src={process.env.PUBLIC_URL + "/coco.png"}></img> */}
                 <div className={classes.logoTitle}>Coco.</div>
