@@ -51,13 +51,20 @@ export default function Glanceables(){
         <div className={classes.glanceables}>
         {weather ? 
         <>
+            <div className={classes.nani}>
+                Nani!?
+            </div>
+
             <div className={classes.schedule}>
                 <p><span>{day}</span><br />{month} {date}, {year}</p>
             </div>
 
-            <div className={classes.weather}>
+            <div className={classes.weatherIcon}>
                 {weather.icon ? <img src={`http://openweathermap.org/img/wn/${weather.icon}@2x.png`}></img> : <CircularProgress />}
-                <p><span>{weather.temp}°C</span> <br/>{weather.desc}</p>
+            </div>
+
+            <div className={classes.weatherSpan}>
+                <p className={classes.weatherDesc}><span>{weather.temp}°C</span> <br/>{weather.desc}</p>
             </div>
 
             <div className={classes.additionals}>

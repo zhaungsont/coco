@@ -5,32 +5,46 @@
     margin: 0 auto;
 
     display: flex;
+    justify-content: center;
     gap: 1rem;
     align-items: flex-end;
 }
 
+
 .schedule{
     text-align: center;
     margin: 0;
+    flex: 1;
 }
 
 .schedule span{
     font-size: 2rem;
 }
 
-.weather{
+.weatherSpan, .weatherIcon{
     display: flex;
     align-items: center;
     text-align: center;
+    flex: 1;
 }
 
-.weather span{
+.weatherDesc{
+    line-height: 1rem;
+}
+
+.weatherDesc span{
+    line-height: normal;
+}
+
+.weatherSpan span{
     font-size: 2rem;
 }
 
-.weather img{
-    height: 4rem;
-    margin-bottom: 1rem;
+.weatherIcon img{
+    display: block;
+    margin: 0 auto 0.5rem;
+    height: 5rem;
+    /* margin-bottom: 1rem; */
 }
 
 .additionals{
@@ -44,11 +58,6 @@
 }
 
 
-.additionals p{
-    /* line-height: 2rem; */
-}
-
-
 .additionals span{
     font-size: 2rem;
     line-height: 2rem;
@@ -57,11 +66,14 @@
 @media screen and (max-width: 480px) {
     .glanceables{
         justify-content: center;
+        align-items: center;
         gap: 0;
     }
 
-    .weather img{
-        height: 5rem;
+    .weatherIcon img{
+        height: 100%;
+        width: 100%;
+        margin-bottom: 0;
     }
 
     .additionals{

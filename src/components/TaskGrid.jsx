@@ -15,12 +15,13 @@ export default function TaskGrid(props){
     // minutes: 15
     // seconds: 19
     // milliseconds: 5834759834758
+    // tag: ''
     // id: "wehUWEHfoihwefw" NOTICE!! id is generated in Home.jsx on fetching firebase data.
 
     const columns = [
         // { field: 'id', headerName: '#', width: 80 },
-        { field: 'taskName', headerName: 'Tasks', width: 200 },
-        { field: 'category', headerName: 'Category', width: 150 },
+        { field: 'taskName', headerName: 'Tasks', width: 150 },
+        { field: 'category', headerName: 'Category', width: 120 },
         { field: 'date', headerName: 'Date Created', width: 500 },
         { 
             field: 'created', 
@@ -45,16 +46,16 @@ export default function TaskGrid(props){
         hour: task.hour, 
         minutes: task.minutes, 
         seconds: task.seconds, 
-        category: task.category ? task.category : 'No Category'}));
+        category: task.tag ? task.tag : 'No Category'}));
 
     return(
-        <div style={{ height: 400, padding: "0 1rem 1rem" }}>
+        <div style={{ height: 371 }}>
             <DataGrid
                 loading={loadingData}
                 rows={rows}
                 columns={columns}
-                pageSize={5}
-                rowsPerPageOptions={[5]}
+                pageSize={10}
+                rowsPerPageOptions={[10]}
                 checkboxSelection
                 onSelectionModelChange={(e) => props.onCheck(e)}
             />
