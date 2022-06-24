@@ -37,6 +37,23 @@ export default function SecondaryTaskGrid(props){
     const filterMethod = props.method;
     const [rows, setRows] = useState()
     const [isLoading, setIsLoading] = useState(true);
+
+    const testDate = new Date()
+    function getFirstDayOfMonth(year, month) {
+        return new Date(year, month, 1);
+      }
+    const firstDayCurrentMonth = getFirstDayOfMonth(
+        testDate.getFullYear(),
+        testDate.getMonth(),
+    );
+    const startOfMonth = new Date(firstDayCurrentMonth);
+    const startOfMonthInMili = startOfMonth.getTime();
+    console.log(startOfMonthInMili);
+
+    const sevenDaysAgo = new Date(testDate.getTime() - 604800000);
+    console.log(sevenDaysAgo)
+
+
     useEffect(()=>{
         if (filterMethod == 'done today'){
             // I HAVEN'T LIMIT THIS DATA TO ONLY TODAY!!!
@@ -53,6 +70,34 @@ export default function SecondaryTaskGrid(props){
                     minutes: task.minutes, 
                     seconds: task.seconds, 
                     category: task.tag ? task.tag : 'No Category'})))
+        } else if (filterMethod == 'week'){
+            setRows(props.data.filter(task => task.done == true && task.date > sevenDaysAgo).map(task => ({
+                key: task.id, 
+                id: task.id, 
+                taskName: task.name, 
+                date: new Date(task.milliseconds),
+                year: task.year, 
+                month: task.month, 
+                day: task.day, 
+                weekday: task.weekday, 
+                hour: task.hour, 
+                minutes: task.minutes, 
+                seconds: task.seconds, 
+                category: task.tag ? task.tag : 'No Category'})))
+        } else if (filterMethod == 'month'){
+            setRows(props.data.filter(task => task.done == true).map(task => ({
+                key: task.id, 
+                id: task.id, 
+                taskName: task.name, 
+                date: new Date(task.milliseconds),
+                year: task.year, 
+                month: task.month, 
+                day: task.day, 
+                weekday: task.weekday, 
+                hour: task.hour, 
+                minutes: task.minutes, 
+                seconds: task.seconds, 
+                category: task.tag ? task.tag : 'No Category'})))
         } else if (filterMethod == 'all time'){
             setRows(props.data.filter(task => task.done == true).map(task => ({
                 key: task.id, 
@@ -87,20 +132,7 @@ export default function SecondaryTaskGrid(props){
     // GET THE TIME OF START OF MONTH IN MILISECONDS 
     // https://bobbyhadz.com/blog/javascript-get-first-day-of-month#:~:text=To%20get%20the%20first%20day,first%20day%20of%20the%20month.
     
-    const testDate = new Date()
-    function getFirstDayOfMonth(year, month) {
-        return new Date(year, month, 1);
-      }
-    const firstDayCurrentMonth = getFirstDayOfMonth(
-        testDate.getFullYear(),
-        testDate.getMonth(),
-    );
-    const startOfMonth = new Date(firstDayCurrentMonth);
-    const startOfMonthInMili = startOfMonth.getTime();
-    console.log(startOfMonthInMili);
 
-    const sevenDaysAgo = new Date(testDate.getTime() - 604800000);
-    console.log(sevenDaysAgo)
 
     return(
         <>

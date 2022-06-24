@@ -267,19 +267,35 @@ export default function Home(){
                         </TabPanel>
                         
                         <TabPanel value={value} index={1}>
-                            <p><strong>Tip: </strong>Click on any of the finished tasks to mark them as undone.</p>
+                        <div className={classes.tabDesc}>
+                                <h3>Overview</h3>
+                                <p><strong>Tip: </strong>Give me money.</p>
+                            </div>
                             <SecondaryTaskGrid data={taskList} method="done today" onAddBack={addbackHandler} dependency={[deleteTask, addBackTask]} sx={{padding: 0}} />
                         </TabPanel>
 
                         <TabPanel value={value} index={2}>
-                            <p><strong>Tip: </strong>Click on any of the finished tasks to mark them as undone.</p>
-                            <SecondaryTaskGrid data={taskList} method="all time" onAddBack={addbackHandler} dependency={deleteTask} />
+                            <div className={classes.tabDesc}>
+                                <h3>All finished tasks in the past 7 days.</h3>
+                                <p><strong>Tip: </strong>Click on any of the finished tasks to mark them as undone.</p>
+                            </div>
+                            <SecondaryTaskGrid data={taskList} method="week" onAddBack={addbackHandler} dependency={deleteTask} />
                         </TabPanel>
 
                         <TabPanel value={value} index={3}>
-                            <p>rereg</p>
-                            {/* <p><strong>Tip: </strong>Click on any of the finished tasks to mark them as undone.</p>
-                            <SecondaryTaskGrid data={taskList} method="all time" onAddBack={addbackHandler} dependency={deleteTask} /> */}
+                            <div className={classes.tabDesc}>
+                                <h3>All finished tasks from this month.</h3>
+                                <p><strong>Tip: </strong>Click on any of the finished tasks to mark them as undone.</p>
+                            </div>
+                            <SecondaryTaskGrid data={taskList} method="month" onAddBack={addbackHandler} dependency={deleteTask} />
+                        </TabPanel>
+
+                        <TabPanel value={value} index={4}>
+                            <div className={classes.tabDesc}>
+                                <h3>All finished tasks of all time.</h3>
+                                <p><strong>Tip: </strong>Click on any of the finished tasks to mark them as undone.</p>
+                            </div>
+                            <SecondaryTaskGrid data={taskList} method="all time" onAddBack={addbackHandler} dependency={deleteTask} />
                         </TabPanel>
                         </Box>
                     </div>
