@@ -5,6 +5,7 @@ import classes from "./Sidebar.module.css";
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import Alert from 'react-bootstrap/Alert';
+import Switch from '@mui/material/Switch';
 
 import { useTheme } from '@mui/material/styles';
 
@@ -37,14 +38,22 @@ export default function Sidebar(props) {
         Launch
         </Button> */}
         <Offcanvas show={props.show} onHide={props.handleClose} style={{backgroundColor: darkMode ? "#191919" : "#fff"}}>
-            <Offcanvas.Header closeButton closeVariant={darkMode ? "white" : "black"}>
+            <Offcanvas.Header closeButton closeVariant={darkMode ? "white" : ""}>
             <Offcanvas.Title>
                 {/* <img className={classes.logo} src={process.env.PUBLIC_URL + "/coco.png"}></img> */}
                 <div className={classes.logoTitle}>Coco.</div>
             </Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body>
+
             <img className={classes.avatar} src={process.env.PUBLIC_URL + "/avatar.jpg"}></img>
+            
+            <Switch
+            checked={props.checked}
+            onChange={props.onThemeChange}
+            inputProps={{ 'aria-label': 'controlled' }}
+            />
+            
             <div className={classes.sidebar}>
                 <h1 className={classes.username}>Michael Chuang</h1>
                 <p><strong >Email: </strong>{currentUser.email}</p>

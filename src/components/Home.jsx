@@ -10,7 +10,6 @@ import Offcanvas from 'react-bootstrap/Offcanvas';
 import Button from 'react-bootstrap/Button';
 import Sidebar from "./Sidebar";
 import { useAuth } from "../contexts/AuthContext";
-import Switch from '@mui/material/Switch';
 
 import IconButton from '@mui/material/IconButton';
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
@@ -145,39 +144,11 @@ export default function Home(props){
     
     return(
         <>
-        <Switch
-        checked={props.checked}
-        onChange={props.onThemeChange}
-        inputProps={{ 'aria-label': 'controlled' }}
-        />
-
-        <div className={classes.btnWrapper}>
             <IconButton aria-label="delete" onClick={handleShow}>
                 <AccountCircleRoundedIcon className={classes.userBtn} fontSize="large" />
-                <div className={classes.userBtnName}>{width && currentUser.email}</div>
             </IconButton>
-            <div className={classes.right}>
-                <a href="https://github.com/zhaungsont/coco">
-                    <img className={classes.github} src={process.env.PUBLIC_URL + "/github-logo.svg"}></img>
-                    {width && <span>GitHub</span>}
-                </a>
-            </div>
-        </div>
+
         <Sidebar show={show} handleClose={handleClose}  />
-        {/* <Button variant="primary" onClick={handleShow}>
-        Launch
-        </Button> */}
-        {/* <Offcanvas show={show} onHide={handleClose}>
-            <Offcanvas.Header closeButton>
-            <Offcanvas.Title>Offcanvas</Offcanvas.Title>
-            </Offcanvas.Header>
-            <Offcanvas.Body>
-            <img className={classes.avatar} src={process.env.PUBLIC_URL + "/avatar.jpg"}></img>
-            <div className={classes.sidebar}>
-                <h1>Michael Chuang</h1>
-            </div>
-            </Offcanvas.Body>
-        </Offcanvas> */}
 
         <section id="content-structure">
             <div className="frosted-glass">
@@ -186,12 +157,7 @@ export default function Home(props){
                         <h1 className={classes.title}>{greet}<br></br> Michael Chuang.</h1>
                     </div>
                     <Glanceables />
-                    {/* <div className={classes.glanceables}>
-                            <span>Tuesday, June 21, 2022</span>
-                            <span> • </span>
-                            <span>27°C, Partly Cloudy</span>
-                            
-                    </div> */}
+
                 </div>
                 
                 <div className={classes.quotes}>
