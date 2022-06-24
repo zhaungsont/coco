@@ -65,6 +65,15 @@ export default function AddTask(props){
                 // value={props.inputValue}
                 ref={props.inputValue}
                 />
+                <div style={{width: width < 480 ? "6rem" : "5rem"}}>
+                    <Form.Select aria-label="Category" size={width < 480 && "lg"}>
+                        <option value="" >Tag</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </Form.Select>
+                </div>
+
                 <Button onClick={submitHandler} variant={darkMode ? "outline-light" : "outline-secondary"} id="add-task-btn">
                     Add
                 </Button>

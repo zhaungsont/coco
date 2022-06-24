@@ -32,17 +32,13 @@ export default function Home(props){
     // const [inputTask, setInputTask] = useState('');
     const inputTask = useRef('');
 
-    const [tempTaskList, setTempTaskList] = useState([]);
+    const [taskList, setTaskList] = useState([]);
     const [tempCounter, setTempCounter] = useState(1);
     const [deleteTask, setDeleteTask] = useState([]);
 
     const [quoteIndex, setQuoteIndex] = useState(0);
 
-    // function changeHandler(data){
-    //     console.log(data.target.value);
-    //     setInputTask(data.target.value)
-    // }
-
+    // Add new Task
     function submitHandler(){
         if (inputTask.current.value.trim() !== ''){
             const taskName = inputTask.current.value.trim();
@@ -50,15 +46,19 @@ export default function Home(props){
             // const id = tempCounter;
             // setTempCounter(tempCounter + 1);
             const date = new Date();
+            const milliseconds = date.getTime()
             const weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
             const weekday = weekdays[date.getDay() - 1];
             const day = date.getDate()
-            const month = date.getMonth() + 1;
+
+            const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            const month = months[date.getMonth()];
+
             const year = date.getFullYear();
             const seconds = date.getSeconds();
             const minutes = date.getMinutes();
             const hour = date.getHours();
-            const newTask = {name: taskName, year: year, month: month, day: day, weekday: weekday, hour: hour, minutes: minutes, seconds: seconds, done: false}
+            const newTask = {name: taskName, year: year, month: month, day: day, weekday: weekday, hour: hour, minutes: minutes, seconds: seconds, milliseconds: milliseconds, done: false}
             
             // push new task to firebase (old way)
             // set(ref(database, `tasks/${currentUser.uid}/${newTask.id}`), newTask);
@@ -81,7 +81,7 @@ export default function Home(props){
         console.log('proceed to get task list')
         const taskListRef = ref(database, `tasks/${currentUser.uid}`);
         onValue(taskListRef, (snapshot) => {
-            setTempTaskList([]);
+            setTaskList([]);
             const data = snapshot.val();
             if (data !== null){
                 // console.log("Found user task list.");
@@ -92,12 +92,12 @@ export default function Home(props){
                     // console.log('entry content: ' + task[1]);
 
                     const id = task[0]
-                    setTempTaskList(oldTaskList => [...oldTaskList, {...task[1] ,id: id}])
+                    setTaskList(oldTaskList => [...oldTaskList, {...task[1] ,id: id}])
                 })
             } else {
                 console.log('no data for this user.')
             }
-            // setTempTaskList(postElement, data);
+            // setTaskList(postElement, data);
           });
 
     }, [])
@@ -115,7 +115,7 @@ export default function Home(props){
                     done: true
                 })
             })
-            // setTempTaskList(prevList => prevList.filter( prevList => !(deleteTask.includes(prevList.id)) ));
+            // setTaskList(prevList => prevList.filter( prevList => !(deleteTask.includes(prevList.id)) ));
         }, 500);
         return (()=> clearTimeout(cleaner));
     }, [deleteTask])
@@ -176,8 +176,8 @@ export default function Home(props){
                     // categoryValue={category}
                     />
                     <div>
-                        <TaskGrid data={tempTaskList} onCheck={checkHandler} />
-                        {/* {tempTaskList.map((task) => <p key={task.id}>{task.name}</p> )} */}
+                        <TaskGrid data={taskList} onCheck={checkHandler} />
+                        {/* {taskList.map((task) => <p key={task.id}>{task.name}</p> )} */}
                     </div>
                         
                     </div>

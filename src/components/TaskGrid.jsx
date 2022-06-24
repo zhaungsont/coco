@@ -14,12 +14,14 @@ export default function TaskGrid(props){
     // hour: 22
     // minutes: 15
     // seconds: 19
+    // milliseconds: 5834759834758
     // id: "wehUWEHfoihwefw" NOTICE!! id is generated in Home.jsx on fetching firebase data.
 
     const columns = [
         // { field: 'id', headerName: '#', width: 80 },
         { field: 'taskName', headerName: 'Tasks', width: 200 },
         { field: 'category', headerName: 'Category', width: 150 },
+        { field: 'date', headerName: 'Date Created', width: 500 },
         { 
             field: 'created', 
             headerName: 'Date Created', 
@@ -35,6 +37,7 @@ export default function TaskGrid(props){
         key: task.id, 
         id: task.id, 
         taskName: task.name, 
+        date: new Date(task.milliseconds),
         year: task.year, 
         month: task.month, 
         day: task.day, 
@@ -45,7 +48,7 @@ export default function TaskGrid(props){
         category: task.category ? task.category : 'No Category'}));
 
     return(
-        <div style={{ height: 400, margin: "auto 1rem" }}>
+        <div style={{ height: 400, padding: "0 1rem 1rem" }}>
             <DataGrid
                 loading={loadingData}
                 rows={rows}
