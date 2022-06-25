@@ -3,16 +3,13 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import classes from './auth.module.css';
 import Alert from 'react-bootstrap/Alert';
-import Modal from 'react-bootstrap/Modal';
-import { useTheme } from '@mui/material/styles';
-
 import { Link, useNavigate } from "react-router-dom";
+import { useTheme } from '@mui/material/styles';
 
 
 import { useAuth } from "../contexts/AuthContext"; 
-import { setUserProperties } from "firebase/analytics";
 
-export default function Login(props){
+export default function ResetPW() {
     const [darkMode, setDarkMode] = useState(false);
     const theme = useTheme().palette.mode;
     useEffect(()=>{
@@ -20,72 +17,66 @@ export default function Login(props){
     }, [theme]);
 
     let navigate = useNavigate();
-
+    
     let width = window.innerWidth;
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
     const [error, setError] = useState('');
-    const [submitting, setSubmitting] = useState(false)
+    const [info, setInfo] = useState('')
+    const [resetting, setresetting] = useState(false)
 
-    const { login } = useAuth();
+    const { resetPassword } = useAuth();
 
     function emailHandler(e){
         setEmail(e.target.value);
     }
 
-    function passwordHandler(e){
-        setPassword(e.target.value);
-    }
-
-    async function submitHandler(e){
+    async function resetHandler(e){
         e.preventDefault();
-        console.log(`trying to LOG IN: + ${email} and ${password}`)
-        setSubmitting(true);
+        console.log(`trying to reset user ${email}'s password!`)
+        setresetting(true);
         setError('');
+        setInfo('');
         try {
-            await login(email, password);
-            // Login successful
-            props.onAuthSuccess('login');
-            setTimeout(() => {
-                navigate("/", { replace: true });
-            }, 2250);
+            await resetPassword(email);
+            // props.onAuthSuccess('signup');
+            setInfo('Password reset email sent! Please check your inbox for further instructions.')
         } catch {
-            setError('Log in failed. Please try again.')
-            setSubmitting(false);
+            setError('An error occurred. Please make sure the email you entered is correct.')
+            setresetting(false);
         }
-        setSubmitting(false);
+        setresetting(false);
     }
 
-    return(
-        <section id="content-structure">
+
+
+    return (
+    <section id="content-structure">
         <div className={classes.wrapper}>
             {/* This div below prevents the forsted glass pane and sign up link become horizontally divided
             due to the {classes.wrapper} flexbox */}
             <div>
                 <div className={`${classes.formDiv} frosted-glass`}>
-                    <Form onSubmit={submitHandler}>
-                    <h1 className={classes.title}>Login</h1>
+                    <Form onSubmit={resetHandler}>
+                    <h1 className={classes.title}>Password Reset</h1>
 
                     {error && <Alert variant="danger"> {error} </Alert>}
+                    {info && <Alert variant="primary"> {info} </Alert>}
+
+                        <p>Enter your email address to %%%</p>
 
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>Email address</Form.Label>
-                            <Form.Control value={email} onChange={emailHandler} type="email" size={width < 480 ? "lg" : "md"} placeholder="Enter email" />
-                        </Form.Group>
-
-                        <Form.Group className="mb-3" controlId="formBasicPassword">
-                            <Form.Label>Password</Form.Label>
-                            <Form.Control type="password" value={password} onChange={passwordHandler} size={width < 480 ? "lg" : "md"} placeholder="Password" />
+                            <Form.Control value={email} onChange={emailHandler} type="email" size={width < 480 ? "lg" : "md"} placeholder="Enter email" autoFocus={true} />
                         </Form.Group>
 
                         <div className="d-grid gap-2">
-                            <Button variant={darkMode ? "outline-light" : "secondary"} size={width < 480 ? "lg" : "md"} type="submit" disabled={submitting}>
-                                Log In
+                            <Button variant={darkMode ? "outline-light" : "secondary"} size={width < 480 ? "lg" : "md"} type="submit" disabled={resetting}>
+                                Reset Password
                             </Button>
                         </div>
                         <div className={classes.additionals}>
                             {/* <Form.Text className="text-muted"> */}
-                            Forgot password? <Link to="/pwreset" >Reset now</Link>.
+                            <Link to="/login" >Log in</Link>
                             {/* </Form.Text>  */}
                         </div>
                     </Form>
@@ -98,5 +89,4 @@ export default function Login(props){
             </div>
         </div>
     </section>
-    )
-}
+)}

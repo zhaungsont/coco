@@ -10,6 +10,7 @@ import Toast from 'react-bootstrap/Toast';
 import ToastContainer from 'react-bootstrap/ToastContainer';
 import PrivateRoute from "./components/PrivateRoute";
 import PublicRoute from "./components/PublicRoute";
+import ResetPW from "./components/ResetPW";
 
 // import ColorModeContext from "./contexts/ColorModeContext"
 // import { useTheme } from '@mui/material/styles';
@@ -79,12 +80,14 @@ function App() {
                 <Route path="/signup" exact element={<Signup onAuthSuccess={loggedInModal} />} />
               </Route>
 
+              <Route path="/pwreset" element={<ResetPW />} />
+
               <Route path="*" element={<NoMatch />} />
             </Routes>
         </AuthProvider>
 
         <ToastContainer className="p-3" position="top-center">
-          <Toast show={showAuthMsg}>
+          <Toast show={showAuthMsg} bg={prefersDarkMode ? "dark" : "light"}>
             <Toast.Body>{authMsg}</Toast.Body>
           </Toast>
         </ToastContainer>

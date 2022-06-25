@@ -13,7 +13,11 @@
     padding: 1rem;
 }
 
-
+.additionals{
+    margin-top: 1rem;
+    text-align: center;
+    line-height: 1rem;
+}
 
 @media screen and (max-width: 480px) {
 
