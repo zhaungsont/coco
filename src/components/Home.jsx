@@ -257,19 +257,23 @@ export default function Home(){
                         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                             <Tabs value={value} onChange={handleChange} aria-label="view options" variant="scrollable" >
                                 <Tab label="Overview" {...a11yProps(0)} />
-                                <Tab label="Done Today" {...a11yProps(1)} />
-                                <Tab label="Done This Week" {...a11yProps(2)} />
-                                <Tab label="History Tasks" {...a11yProps(3)} />
+                                <Tab label="Today" {...a11yProps(1)} />
+                                <Tab label="7 days" {...a11yProps(2)} />
+                                <Tab label="This Month" {...a11yProps(3)} />
+                                <Tab label="History" {...a11yProps(3)} />
                             </Tabs>
                         </Box>
                         <TabPanel value={value} index={0}>
-                            aaaaa
+                            <div className={classes.tabDesc}>
+                                <h3>Overview</h3>
+                                <p><strong>Tip: </strong>Give me money.</p>
+                            </div>
                         </TabPanel>
                         
                         <TabPanel value={value} index={1}>
-                        <div className={classes.tabDesc}>
-                                <h3>Overview</h3>
-                                <p><strong>Tip: </strong>Give me money.</p>
+                            <div className={classes.tabDesc}>
+                                <h3>Today</h3>
+                                <p><strong>Tip: </strong>Click on any of the finished tasks to mark them as undone.</p>
                             </div>
                             <SecondaryTaskGrid data={taskList} method="done today" onAddBack={addbackHandler} dependency={[deleteTask, addBackTask]} sx={{padding: 0}} />
                         </TabPanel>
@@ -297,6 +301,7 @@ export default function Home(){
                             </div>
                             <SecondaryTaskGrid data={taskList} method="all time" onAddBack={addbackHandler} dependency={deleteTask} />
                         </TabPanel>
+                        
                         </Box>
                     </div>
                         

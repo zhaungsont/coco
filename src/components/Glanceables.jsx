@@ -51,9 +51,9 @@ export default function Glanceables(){
         <div className={classes.glanceables}>
         {weather ? 
         <>
-            <div className={classes.nani}>
+            {/* <div className={classes.nani}>
                 Nani!?
-            </div>
+            </div> */}
 
             <div className={classes.schedule}>
                 <p><span>{day}</span><br />{month} {date}, {year}</p>

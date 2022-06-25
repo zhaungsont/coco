@@ -38,26 +38,40 @@ export default function SecondaryTaskGrid(props){
     const [rows, setRows] = useState()
     const [isLoading, setIsLoading] = useState(true);
 
-    const testDate = new Date()
+    const sampleDate = new Date()
     function getFirstDayOfMonth(year, month) {
         return new Date(year, month, 1);
       }
     const firstDayCurrentMonth = getFirstDayOfMonth(
-        testDate.getFullYear(),
-        testDate.getMonth(),
+        sampleDate.getFullYear(),
+        sampleDate.getMonth(),
     );
+    
+    function getStartOfDay(year, month, day){
+        return new Date(year, month, day);
+    }
+    const startOfDay = getStartOfDay(
+        sampleDate.getFullYear(),
+        sampleDate.getMonth(),
+        sampleDate.getDate()
+    )
+    const startOfDayInMili = startOfDay.getTime();
+    
+
     const startOfMonth = new Date(firstDayCurrentMonth);
     const startOfMonthInMili = startOfMonth.getTime();
     console.log(startOfMonthInMili);
 
-    const sevenDaysAgo = new Date(testDate.getTime() - 604800000);
+    const sevenDaysAgo = new Date(sampleDate.getTime() - 604800000);
     console.log(sevenDaysAgo)
 
 
     useEffect(()=>{
         if (filterMethod == 'done today'){
             // I HAVEN'T LIMIT THIS DATA TO ONLY TODAY!!!
-            setRows(props.data.filter(task => task.done == true).map(task => ({
+            console.log('debug')
+            console.log(props.data[0])
+            setRows(props.data.filter(task => task.done == true && task.milliseconds > startOfDayInMili).map(task => ({
                     key: task.id, 
                     id: task.id, 
                     taskName: task.name, 
@@ -71,7 +85,7 @@ export default function SecondaryTaskGrid(props){
                     seconds: task.seconds, 
                     category: task.tag ? task.tag : 'No Category'})))
         } else if (filterMethod == 'week'){
-            setRows(props.data.filter(task => task.done == true && task.date > sevenDaysAgo).map(task => ({
+            setRows(props.data.filter(task => task.done == true && task.milliseconds > sevenDaysAgo).map(task => ({
                 key: task.id, 
                 id: task.id, 
                 taskName: task.name, 
@@ -85,7 +99,7 @@ export default function SecondaryTaskGrid(props){
                 seconds: task.seconds, 
                 category: task.tag ? task.tag : 'No Category'})))
         } else if (filterMethod == 'month'){
-            setRows(props.data.filter(task => task.done == true).map(task => ({
+            setRows(props.data.filter(task => task.done == true && task.milliseconds > startOfDayInMili).map(task => ({
                 key: task.id, 
                 id: task.id, 
                 taskName: task.name, 
