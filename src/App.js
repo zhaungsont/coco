@@ -53,7 +53,7 @@ function App() {
     }
     setTimeout(() => {
       setShowAuthMsg(false)
-    }, 3000);
+    }, 2000);
   }
 
   function themeChangeHandler(){
