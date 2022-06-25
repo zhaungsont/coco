@@ -19,6 +19,11 @@
 
 .schedule span{
     font-size: 2rem;
+    line-height: normal;
+}
+
+.schedule p{
+    line-height: 1rem;
 }
 
 .weatherSpan, .weatherIcon{

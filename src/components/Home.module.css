@@ -39,7 +39,7 @@
 
 .quotes{
     font-family: 'Josefin Sans', sans-serif;
-    margin: 0 1rem;
+    margin: 0 1rem 1rem;
     /* display: inline; */
 }
 
@@ -47,8 +47,8 @@
     margin: 1rem;
 }
 
-.tabDesctitle{
-    
+.tabDesc {
+    margin: 1rem;
 }
 
 @media screen and (max-width: 480px) {
@@ -70,6 +70,10 @@
     }
 
     .quotes{
+        text-align: center;
+    }
+
+    .quotes span{
         display: block;
     }
 
