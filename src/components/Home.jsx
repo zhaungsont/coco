@@ -283,7 +283,7 @@ export default function Home(){
                                 <h3>All finished tasks in the past 7 days.</h3>
                                 <p><strong>Tip: </strong>Click on any of the finished tasks to mark them as undone.</p>
                             </div>
-                            <SecondaryTaskGrid data={taskList} method="week" onAddBack={addbackHandler} dependency={deleteTask} />
+                            <SecondaryTaskGrid data={taskList} method="week" onAddBack={addbackHandler} dependency={[deleteTask, addBackTask]} />
                         </TabPanel>
 
                         <TabPanel value={value} index={3}>
@@ -291,7 +291,7 @@ export default function Home(){
                                 <h3>All finished tasks from this month.</h3>
                                 <p><strong>Tip: </strong>Click on any of the finished tasks to mark them as undone.</p>
                             </div>
-                            <SecondaryTaskGrid data={taskList} method="month" onAddBack={addbackHandler} dependency={deleteTask} />
+                            <SecondaryTaskGrid data={taskList} method="month" onAddBack={addbackHandler} dependency={[deleteTask, addBackTask]} />
                         </TabPanel>
 
                         <TabPanel value={value} index={4}>
@@ -299,7 +299,7 @@ export default function Home(){
                                 <h3>All finished tasks of all time.</h3>
                                 <p><strong>Tip: </strong>Click on any of the finished tasks to mark them as undone.</p>
                             </div>
-                            <SecondaryTaskGrid data={taskList} method="all time" onAddBack={addbackHandler} dependency={deleteTask} />
+                            <SecondaryTaskGrid data={taskList} method="all time" onAddBack={addbackHandler} dependency={[deleteTask, addBackTask]} />
                         </TabPanel>
                         
                         </Box>

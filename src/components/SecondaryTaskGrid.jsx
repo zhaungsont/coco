@@ -60,10 +60,12 @@ export default function SecondaryTaskGrid(props){
 
     const startOfMonth = new Date(firstDayCurrentMonth);
     const startOfMonthInMili = startOfMonth.getTime();
-    console.log(startOfMonthInMili);
+    console.log(new Date(startOfMonthInMili));
 
     const sevenDaysAgo = new Date(sampleDate.getTime() - 604800000);
     console.log(sevenDaysAgo)
+
+
 
 
     useEffect(()=>{
@@ -99,7 +101,7 @@ export default function SecondaryTaskGrid(props){
                 seconds: task.seconds, 
                 category: task.tag ? task.tag : 'No Category'})))
         } else if (filterMethod == 'month'){
-            setRows(props.data.filter(task => task.done == true && task.milliseconds > startOfDayInMili).map(task => ({
+            setRows(props.data.filter(task => task.done == true && task.milliseconds > startOfMonthInMili).map(task => ({
                 key: task.id, 
                 id: task.id, 
                 taskName: task.name, 
