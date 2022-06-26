@@ -80,7 +80,9 @@ function App() {
                 <Route path="/signup" exact element={<Signup onAuthSuccess={loggedInModal} />} />
               </Route>
 
-              <Route path="/pwreset" element={<ResetPW />} />
+              <Route path="/pwreset" element={<PublicRoute />}>
+                <Route path="/pwreset" element={<ResetPW />} />
+              </Route>
 
               <Route path="*" element={<NoMatch />} />
             </Routes>
