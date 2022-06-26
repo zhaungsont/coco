@@ -102,8 +102,8 @@ export default function Home(){
             // setTempCounter(tempCounter + 1);
             const date = new Date();
             const milliseconds = date.getTime()
-            const weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-            const weekday = weekdays[date.getDay() - 1];
+            const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+            const weekday = weekdays[date.getDay()];
             const day = date.getDate()
 
             const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -154,7 +154,7 @@ export default function Home(){
                 console.log('no data for this user.')
             }
             // setTaskList(postElement, data);
-          });
+        });
 
     }, [])
 
