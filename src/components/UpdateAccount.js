@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useRef} from 'react'
 import { useTheme } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
@@ -10,9 +10,15 @@ import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import { styled } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import Divider from '@mui/material/Divider';
+import FormControl from '@mui/material/FormControl';
+import { useAuth } from "../contexts/AuthContext"; 
 
 
 export default function UpdateAccount() {
+    const { currentUser } = useAuth()
+    const currentEmail = currentUser.email;
+    const currentName = currentUser.displayName || '';
+
     const [darkMode, setDarkMode] = useState(false);
     const theme = useTheme().palette.mode;
     useEffect(()=>{
@@ -22,6 +28,22 @@ export default function UpdateAccount() {
     const Input = styled('input')({
         display: 'none',
     });
+
+    // const dummyName = 'Michael Chuang';
+    // const dummyEmail = 'zhsont@gmail.com';
+
+    const [username, setUserName] = useState(currentName);
+    const [email, setEmail] = useState(currentEmail);
+    const [password, setPassword] = useState('');
+    const [pwConfirm, setPWConfirm] = useState('');
+    const [status, setStatus] = useState('');
+
+    function updateHandler(e){
+        e.preventDefault();
+        console.log('trying to update!');
+
+    }
+
 
     return (
     <div>
@@ -66,28 +88,34 @@ export default function UpdateAccount() {
                             </div>
 
                             <div className={classes.editPersonalInfo}>
-                            <Box
-                            component="form"
-                            sx={{
-                                '& .MuiTextField-root': { width: '100%' },
-                            }}
-                            noValidate
-                            autoComplete="off"
-                            >
-                                <TextField label="User Name" variant="standard" />
-                                <TextField label="Email Account" type="email" variant="standard" />
-                                <TextField label="Password (Leave Blank to Stay the Same)" variant="standard" type="password" placeholder='Leave blank to stay the same' />
-                                <TextField
-                                label="Status"
-                                multiline
-                                variant="standard" 
-                                rows={3}
-                                placeholder="This will appear below your profile picture in the sidebar."
-                                />
-                                <div className={classes.btnWrapper}>
-                                    <Button variant="contained" color='info' >Save</Button>
-                                </div>
-                                </Box>
+                                {/* <FormControl> */}
+                                    <Box
+                                    onSubmit={updateHandler}
+                                    component="form"
+                                    sx={{
+                                        '& .MuiTextField-root': { width: '100%' },
+                                    }}
+                                    noValidate
+                                    autoComplete="off"
+                                    >
+                                        <TextField label="User Name" variant="standard" value={username} onChange={(e)=>setUserName(e.target.value)} placeholder='Empty' />
+                                        <TextField label="Email Account" type="email" variant="standard" value={email} onChange={(e)=>setEmail(e.target.value)} />
+                                        <TextField label="Password (Leave Blank to Stay the Same)" variant="standard" value={password} onChange={(e)=>setPassword(e.target.value)} type="password" placeholder='Leave blank to stay the same' />
+                                        <TextField label="Confirm Password" variant="standard" type="password" value={pwConfirm} onChange={(e)=>setPWConfirm(e.target.value)} placeholder='Leave blank to stay the same' />
+                                        <TextField
+                                        label="Status"
+                                        multiline
+                                        variant="standard" 
+                                        rows={3}
+                                        value={status}
+                                        onChange={(e)=>setStatus(e.target.value)}
+                                        placeholder="This will appear below your profile picture in the sidebar."
+                                        />
+                                        <div className={classes.btnWrapper}>
+                                            <Button type='submit' variant="contained" color='info' >Save</Button>
+                                        </div>
+                                    </Box>
+                                {/* </FormControl> */}
                             </div>
 
 
