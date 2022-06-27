@@ -3,7 +3,7 @@ import { useTheme } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import classes from "./UpdateAccount.module.css";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
@@ -12,13 +12,13 @@ import { styled } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import Divider from '@mui/material/Divider';
 import FormControl from '@mui/material/FormControl';
+import HomeIcon from '@mui/icons-material/Home';
 import { useAuth } from "../contexts/AuthContext"; 
 
 import Alert from 'react-bootstrap/Alert';
 
 import { storage } from '../Firebase';
 import { ref, uploadBytes, listAll, getDownloadURL } from "firebase/storage"
-
 
 export default function UpdateAccount() {
     let navigate = useNavigate();
@@ -153,6 +153,11 @@ export default function UpdateAccount() {
 
     return (
     <div>
+    <Link to="/">
+        <IconButton>
+            <HomeIcon fontSize="large" />
+        </IconButton>
+    </Link>
         <Box
         sx={{
             display: 'flex',

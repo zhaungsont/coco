@@ -215,7 +215,7 @@ export default function Home(){
     }, [])
     return(
         <>
-            <IconButton aria-label="delete" onClick={handleShow}>
+            <IconButton onClick={handleShow}>
                 <AccountCircleRoundedIcon className={classes.userBtn} fontSize="large" />
             </IconButton>
 
