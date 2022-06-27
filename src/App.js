@@ -11,6 +11,7 @@ import ToastContainer from 'react-bootstrap/ToastContainer';
 import PrivateRoute from "./components/PrivateRoute";
 import PublicRoute from "./components/PublicRoute";
 import ResetPW from "./components/ResetPW";
+import UpdateAccount from "./components/UpdateAccount";
 
 // import ColorModeContext from "./contexts/ColorModeContext"
 // import { useTheme } from '@mui/material/styles';
@@ -70,6 +71,10 @@ function App() {
 
               <Route exact path='/' element={<PrivateRoute/>}>
                 <Route exact path="/" element={<Home onThemeChange={themeChangeHandler} />} />
+              </Route>
+
+              <Route exact path='/' element={<PrivateRoute/>}>
+                <Route exact path="/updateuser" element={<UpdateAccount />} />
               </Route>
 
               <Route path='/login' element={<PublicRoute />}>

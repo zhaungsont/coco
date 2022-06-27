@@ -32,47 +32,47 @@ export default function Sidebar(props) {
         }
     }
 
-  return (
-    <>
-        {/* <Button variant="primary" onClick={handleShow}>
-        Launch
-        </Button> */}
-        <Offcanvas show={props.show} onHide={props.handleClose} style={{backgroundColor: darkMode ? "#191919" : "#fff"}}>
-            <Offcanvas.Header closeButton closeVariant={darkMode ? "white" : ""}>
-            <Offcanvas.Title>
-                {/* <img className={classes.logo} src={process.env.PUBLIC_URL + "/coco.png"}></img> */}
-                <div className={classes.logoTitle}>Coco.</div>
-            </Offcanvas.Title>
-            </Offcanvas.Header>
-            <Offcanvas.Body>
+    return (
+        <>
+            {/* <Button variant="primary" onClick={handleShow}>
+            Launch
+            </Button> */}
+            <Offcanvas show={props.show} onHide={props.handleClose} style={{backgroundColor: darkMode ? "#191919" : "#fff"}}>
+                <Offcanvas.Header closeButton closeVariant={darkMode ? "white" : ""}>
+                <Offcanvas.Title>
+                    {/* <img className={classes.logo} src={process.env.PUBLIC_URL + "/coco.png"}></img> */}
+                    <div className={classes.logoTitle}>Coco.</div>
+                </Offcanvas.Title>
+                </Offcanvas.Header>
+                <Offcanvas.Body>
 
-            <img className={classes.avatar} src={process.env.PUBLIC_URL + "/avatar.jpg"}></img>
-            
-            <Switch
-            checked={props.checked}
-            onChange={props.onThemeChange}
-            inputProps={{ 'aria-label': 'controlled' }}
-            />
-            
-            <div className={classes.sidebar}>
-                <h1 className={classes.username}>Michael Chuang</h1>
-                <p><strong >Email: </strong>{currentUser.email}</p>
-            </div>
-            
-            <div className={classes.bottom}>
-                {error && <Alert variant="danger">
-                    {error}
-                </Alert>}
-
-                <Link to="/updateuser">Edit account info</Link>
-                <div className={`d-grid gap-2 ${classes.logoutBtn}`}>
-                <Button variant="outline-secondary" size="lg" onClick={logoutHandler}>
-                    Log out
-                </Button>
+                <img className={classes.avatar} src={process.env.PUBLIC_URL + "/avatar.jpg"}></img>
+                
+                <Switch
+                checked={props.checked}
+                onChange={props.onThemeChange}
+                inputProps={{ 'aria-label': 'controlled' }}
+                />
+                
+                <div className={classes.sidebar}>
+                    <h1 className={classes.username}>Michael Chuang</h1>
+                    <p><strong >Email: </strong>{currentUser.email}</p>
                 </div>
-            </div>
-            </Offcanvas.Body>
-        </Offcanvas>
-    </>
-  )
+                
+                <div className={classes.bottom}>
+                    {error && <Alert variant="danger">
+                        {error}
+                    </Alert>}
+
+                    <Link to="/updateuser">Edit account info</Link>
+                    <div className={`d-grid gap-2 ${classes.logoutBtn}`}>
+                    <Button variant="outline-secondary" size="lg" onClick={logoutHandler}>
+                        Log out
+                    </Button>
+                    </div>
+                </div>
+                </Offcanvas.Body>
+            </Offcanvas>
+        </>
+    )
 }
