@@ -16,6 +16,10 @@ import { useAuth } from "../contexts/AuthContext";
 
 import Alert from 'react-bootstrap/Alert';
 
+import { storage } from '../Firebase';
+import { ref, uploadBytes, listAll, getDownloadURL } from "firebase/storage"
+
+
 export default function UpdateAccount() {
     let navigate = useNavigate();
     const [submitting, setSubmitting] = useState(false);
@@ -23,7 +27,9 @@ export default function UpdateAccount() {
     const { currentUser, updateEmail, updatePassword, updateUserName, updateUserImage } = useAuth()
     const currentEmail = currentUser.email;
     const currentName = currentUser.displayName || '';
-    
+    const currentPhoto = currentUser.photoURL || process.env.PUBLIC_URL + "/default-user.png";
+    // const [currentPhoto, setCurrentPhoto] = useState(`${process.env.PUBLIC_URL}/default-user.png`);
+
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
 
@@ -45,6 +51,8 @@ export default function UpdateAccount() {
     const [password, setPassword] = useState('');
     const [pwConfirm, setPWConfirm] = useState('');
     const [status, setStatus] = useState('');
+    const [imageUpload, setImageUpload] = useState(null);
+    const [imgName, setImgName] = useState('');
 
     function updateHandler(e){
         setError('');
@@ -86,10 +94,38 @@ export default function UpdateAccount() {
         })
     }
 
-    useEffect(()=>{
-        console.log("current name: " + currentName);
-        console.log("current email: " + currentEmail);
-    }, []);
+    function imgUpdateHandler(){
+        if (imageUpload != null){
+            console.log('about to upload img!'); 
+            // try{
+                setError('');
+            //     setSuccess('');           
+                updateUserImage(imageUpload);
+                setSuccess('Image uploaded!');
+            // } catch {
+            //     setError('An error occurred when trying to upload the image.');
+            // }
+        }
+    }
+
+    function imgChosenHandler(e){
+        setError('');
+        setSuccess('');  
+        setImgName(e.target.files[0].name);
+        setImageUpload(e.target.files[0]);
+    }
+
+    // useEffect(()=>{
+    //     const ImgListRef = ref(storage, `image/${currentUser.uid}/`)
+    //     listAll(ImgListRef).then(res => {
+    //         res.items.forEach(item => {
+    //             getDownloadURL(item).then(url => {
+    //                 setCurrentPhoto(url);
+    //                 console.log(url)
+    //             })
+    //         })
+    //     })
+    // }, []);
 
     return (
     <div>
@@ -115,18 +151,20 @@ export default function UpdateAccount() {
                         <div className={classes.infoWrapper}>
 
                             <div className={classes.imgUpload}>
-                                <img src={process.env.PUBLIC_URL + "/default-user.png"}></img>
+                                <img className="pfp" src={currentPhoto}></img>
 
                                 {/* <div> */}
                                     <label htmlFor="icon-button-file">
-                                        <Input accept="image/*" id="icon-button-file" type="file" />
+                                        <Input accept="image/*" id="icon-button-file" type="file" onChange={imgChosenHandler} />
                                         <IconButton color="primary" aria-label="upload picture" component="span" size="large" color="info">
                                             <PhotoCamera />
                                         </IconButton>
                                     </label>
 
+                                    {imgName}
+
                                     <label htmlFor="contained-button-file">
-                                        <Button variant="contained" component="span" color='info' onClick={()=>{console.log('clicked')}}>
+                                        <Button onClick={imgUpdateHandler} variant="contained" component="span" color='info' >
                                             Upload
                                         </Button>
                                     </label>

@@ -1,5 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { auth } from "../Firebase"
+import { auth } from "../Firebase";
+import { storage } from '../Firebase';
+import { ref, uploadBytes, listAll, getDownloadURL } from "firebase/storage"
+import { v4 } from "uuid";
 
 const AuthContext = React.createContext()
 
@@ -11,6 +14,7 @@ export function AuthProvider({ children }) {
 
     const [currentUser, setCurrentUser] = useState();
     const [isLoading, setIsLoading] = useState(true);
+    const [currentPhoto, setCurrentPhoto] = useState('')
 
     function signup(email, password){
         return auth.createUserWithEmailAndPassword(email, password);
@@ -41,8 +45,25 @@ export function AuthProvider({ children }) {
     }
 
     function updateUserImage(image){
-        return currentUser.updateProfile(currentUser, {photoURL: image})
+        const imageRef = ref(storage, `image/${currentUser.uid}/pfp`)
+        uploadBytes(imageRef, image)
+        setUserImage();
     }
+
+    function setUserImage(){
+        const ImgListRef = ref(storage, `image/${currentUser.uid}/`);
+        listAll(ImgListRef).then(res => {
+            res.items.forEach(item => {
+                getDownloadURL(item).then(url => {
+                    console.log(url);
+                    currentUser.updateProfile({photoURL: url})
+                    .then(()=>{console.log('success')})
+                    .catch(()=>{console.log('failed')})
+                });
+            });
+        });
+    }
+
 
     useEffect(()=>{
         const unsubsribe = auth.onAuthStateChanged(user => {
@@ -52,7 +73,21 @@ export function AuthProvider({ children }) {
             setIsLoading(false);
         });
         return unsubsribe;
-    }, [])
+    }, []);
+
+    // useEffect(()=>{
+    //     if (currentUser !== undefined){
+    //         const ImgListRef = ref(storage, `image/${currentUser.uid}/`)
+    //         listAll(ImgListRef).then(res => {
+    //             res.items.forEach(item => {
+    //                 getDownloadURL(item).then(url => {
+    //                     setCurrentPhoto(url);
+    //                     console.log(url)
+    //                 })
+    //             })
+    //         })
+    //     }
+    // }, []);
 
     const value = { 
         currentUser, 

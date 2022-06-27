@@ -57,6 +57,7 @@ function App() {
     }, 2000);
   }
 
+
   function themeChangeHandler(){
     // setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
   }

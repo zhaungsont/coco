@@ -44,6 +44,10 @@ h2, h3{
     /* margin: 2rem 1rem 1rem; */
 }
 
+.pfp{
+    border-radius: 50%;
+}
+
 @media screen and (max-width: 480px) {
     #content-structure{
         padding: 5rem 1rem 0;
