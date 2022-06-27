@@ -17,6 +17,10 @@ h1{
     font-weight: 400;
 }
 
+h2, h3{
+    font-family: 'Josefin Sans', sans-serif;
+}
+
 #content-structure{
     padding: 5rem 15% 0;
     

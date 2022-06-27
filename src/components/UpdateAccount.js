@@ -2,6 +2,13 @@ import React, {useEffect, useState} from 'react'
 import { useTheme } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
+import classes from "./UpdateAccount.module.css";
+
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import PhotoCamera from '@mui/icons-material/PhotoCamera';
+import { styled } from '@mui/material/styles';
+import TextField from '@mui/material/TextField';
 
 
 export default function UpdateAccount() {
@@ -10,6 +17,10 @@ export default function UpdateAccount() {
     useEffect(()=>{
         setDarkMode(theme == 'light' ? false : true);
     }, [theme]);
+
+    const Input = styled('input')({
+        display: 'none',
+    });
 
     return (
     <div>
@@ -23,7 +34,62 @@ export default function UpdateAccount() {
             },
         }}
         >
-            <Paper />
+            <section id="content-structure">
+                <div className="frosted-glass">
+                    <div className="content-title">
+                        <div className={classes.headerWrapper}>
+                            <h1>Settings</h1>
+                        </div>
+                    </div>
+                    <div className={classes.personalInfo}>
+                        <h3>Personal Info</h3>
+                        <div className={classes.infoWrapper}>
+
+                            <div className={classes.imgUpload}>
+                                <img src={process.env.PUBLIC_URL + "/default-user.png"}></img>
+
+                                {/* <div> */}
+                                    <label htmlFor="icon-button-file">
+                                        <Input accept="image/*" id="icon-button-file" type="file" />
+                                        <IconButton color="primary" aria-label="upload picture" component="span" size="large" color="info">
+                                            <PhotoCamera />
+                                        </IconButton>
+                                    </label>
+
+                                    <label htmlFor="contained-button-file">
+                                        <Button variant="contained" component="span" color='info' onClick={()=>{console.log('clicked')}}>
+                                            Upload
+                                        </Button>
+                                    </label>
+                                {/* </div> */}
+                            </div>
+
+                            <div className={classes.editPersonalInfo}>
+                            <Box
+                            component="form"
+                            sx={{
+                                '& .MuiTextField-root': { m: 1, width: '25ch' },
+                            }}
+                            noValidate
+                            autoComplete="off"
+                            >
+                                <TextField label="User Name" variant="standard" />
+                                <TextField label="Email Account" variant="standard" />
+                                <TextField label="Password" variant="standard" type="password" />
+                                <TextField
+                                label="Status"
+                                multiline
+                                rows={3}
+                                />
+                                </Box>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    
+                </div>
+            </section>
         </Box>
     </div>
     )

@@ -1,0 +1,43 @@
+.headerWrapper{
+    margin: 2rem 1rem .5rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+}
+
+.personalInfo{
+    margin: 2rem 1rem 0;
+}
+
+.infoWrapper{
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.imgUpload{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+}
+
+.imgUpload img{
+    width: 8rem;
+    margin-bottom: 1rem;
+}
+
+.editPersonalInfo{
+    flex: 2;
+}
+
+@media screen and (max-width: 480px) {
+    .infoWrapper{
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .imgUpload img{
+        width: 10rem;
+    }
+}
