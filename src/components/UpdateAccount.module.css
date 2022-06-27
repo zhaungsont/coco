@@ -5,7 +5,7 @@
     align-items: flex-end;
 }
 
-.personalInfo{
+.personalInfo, .themeSelection{
     margin: 2rem 20% 0;
 }
 
@@ -43,8 +43,10 @@
     margin: 0 20%;
 }
 
+
+
 @media screen and (max-width: 480px) {
-    .personalInfo{
+    .personalInfo, .themeSelection{
         margin: 2rem 1rem;
     }
 
@@ -64,6 +66,7 @@
     }
 
     .dividerWrapper{
-        margin: 0;
+        display: none;
+        /* margin: 0 1rem; */
     }
 }

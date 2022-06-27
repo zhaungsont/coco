@@ -95,10 +95,13 @@ export default function UpdateAccount() {
                     </div>
                     
                     <div className={classes.dividerWrapper}>
-                        <Divider variant="middle" />
+                        <Divider />
                     </div>
 
-
+                    <div className={classes.themeSelection}>
+                            <h3>Theme Selection</h3>
+                            <p>Lorem ipsum</p>
+                    </div>
                 </div>
             </section>
         </Box>
