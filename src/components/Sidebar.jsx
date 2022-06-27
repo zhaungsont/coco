@@ -39,10 +39,10 @@ export default function Sidebar(props) {
             </Button> */}
             <Offcanvas show={props.show} onHide={props.handleClose} style={{backgroundColor: darkMode ? "#191919" : "#fff"}}>
                 <Offcanvas.Header closeButton closeVariant={darkMode ? "white" : ""}>
-                <Offcanvas.Title>
-                    {/* <img className={classes.logo} src={process.env.PUBLIC_URL + "/coco.png"}></img> */}
-                    <div className={classes.logoTitle}>Coco.</div>
-                </Offcanvas.Title>
+                    <Offcanvas.Title>
+                        {/* <img className={classes.logo} src={process.env.PUBLIC_URL + "/coco.png"}></img> */}
+                        <div className={classes.logoTitle}>Coco.</div>
+                    </Offcanvas.Title>
                 </Offcanvas.Header>
                 <Offcanvas.Body>
 
