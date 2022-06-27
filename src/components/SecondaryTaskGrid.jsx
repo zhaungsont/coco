@@ -23,17 +23,17 @@ export default function SecondaryTaskGrid(props){
         { field: 'taskName', headerName: 'Tasks', width: 150 },
         { field: 'category', headerName: 'Category', width: 120 },
         { field: 'date', headerName: 'Date Created', width: 500 },
-        { 
-            field: 'created', 
-            headerName: 'Date Created', 
-            width: 500, 
-            valueGetter: (params) =>`
-            ${params.row.hour || ''}:${params.row.minutes || ''}:${params.row.seconds || ''}; 
-            ${params.row.weekday || ''}, ${params.row.day || ''}, ${params.row.month || ''} ${params.row.year || ''}
-            `
-        },
+        // { 
+        //     field: 'created', 
+        //     headerName: 'Date Created', 
+        //     width: 500, 
+        //     valueGetter: (params) =>`
+        //     ${params.row.hour || ''}:${params.row.minutes || ''}:${params.row.seconds || ''}; 
+        //     ${params.row.weekday || ''}, ${params.row.day || ''}, ${params.row.month || ''} ${params.row.year || ''}
+        //     `
+        // },
 
-      ];
+    ];
     const filterMethod = props.method;
     const [rows, setRows] = useState()
     const [isLoading, setIsLoading] = useState(true);
@@ -41,7 +41,7 @@ export default function SecondaryTaskGrid(props){
     const sampleDate = new Date()
     function getFirstDayOfMonth(year, month) {
         return new Date(year, month, 1);
-      }
+    }
     const firstDayCurrentMonth = getFirstDayOfMonth(
         sampleDate.getFullYear(),
         sampleDate.getMonth(),

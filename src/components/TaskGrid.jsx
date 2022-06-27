@@ -23,15 +23,15 @@ export default function TaskGrid(props){
         { field: 'taskName', headerName: 'Tasks', witdth: 100, minWidth: 200 },
         { field: 'category', headerName: 'Category', width: 120 },
         { field: 'date', headerName: 'Date Created', width: 500 },
-        { 
-            field: 'created', 
-            headerName: 'Date Created', 
-            width: 500, 
-            valueGetter: (params) =>`
-            ${params.row.hour || ''}:${params.row.minutes || ''}:${params.row.seconds || ''}; 
-            ${params.row.weekday || ''}, ${params.row.day || ''}, ${params.row.month || ''} ${params.row.year || ''}
-            `
-        },
+        // { 
+        //     field: 'created', 
+        //     headerName: 'Date Created', 
+        //     width: 500, 
+        //     valueGetter: (params) =>`
+        //     ${params.row.hour || ''}:${params.row.minutes || ''}:${params.row.seconds || ''}; 
+        //     ${params.row.weekday || ''}, ${params.row.day || ''}, ${params.row.month || ''} ${params.row.year || ''}
+        //     `
+        // },
 
     ];
     const rows = props.data.filter(task => task.done == false).map(task => ({
