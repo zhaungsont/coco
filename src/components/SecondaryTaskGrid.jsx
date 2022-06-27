@@ -38,7 +38,7 @@ export default function SecondaryTaskGrid(props){
     const [rows, setRows] = useState()
     const [isLoading, setIsLoading] = useState(true);
 
-    const sampleDate = new Date()
+    const sampleDate = new Date();
     function getFirstDayOfMonth(year, month) {
         return new Date(year, month, 1);
     }

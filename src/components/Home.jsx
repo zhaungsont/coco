@@ -212,7 +212,48 @@ export default function Home(){
     useEffect(()=>{
         setQuoteIndex(Math.floor(Math.random() * quotes.length));
 
-    }, [])
+    }, []);
+
+    // Some Task Fax
+    const totalNumberOfTasks = taskList.length;
+    const totalDoneTasks = taskList.filter(t => t.done === true).length;
+
+    const sampleDate = new Date();
+    function getFirstDayOfMonth(year, month) {
+        return new Date(year, month, 1);
+    }
+    const firstDayCurrentMonth = getFirstDayOfMonth(
+        sampleDate.getFullYear(),
+        sampleDate.getMonth(),
+    );
+    const startOfMonth = new Date(firstDayCurrentMonth);
+    const startOfMonthInMili = startOfMonth.getTime();
+    const totalTasksThisMonth = taskList.filter(t => t.milliseconds > startOfMonthInMili).length;
+    const totalTasksDoneThisMonth = taskList.filter(t => t.milliseconds > startOfMonthInMili && t.done === true).length;
+
+    function getStartOfDay(year, month, day){
+        return new Date(year, month, day);
+    }
+
+    const startOfDay = getStartOfDay(
+        sampleDate.getFullYear(),
+        sampleDate.getMonth(),
+        sampleDate.getDate()
+    );
+
+    const startOfDayInMili = startOfDay.getTime();
+    const tasksCreatedToday = taskList.filter(t => t.milliseconds > startOfDayInMili).length;
+
+    // this statement is not entirely true! is planned to be fixed in future updates.
+    const tasksDoneToday = taskList.filter(t => t.done === true && t.milliseconds > startOfDayInMili).length;
+
+    const undoneTasks = taskList.filter(t => t.done === false).length;
+
+    const sevenDaysAgo = new Date(sampleDate.getTime() - 604800000);
+
+    const tasksCreatedLastSevenDays = taskList.filter(t => t.milliseconds > sevenDaysAgo).length;
+
+
     return(
         <>
             <IconButton onClick={handleShow}>
@@ -266,7 +307,13 @@ export default function Home(){
                         <TabPanel value={value} index={0}>
                             <div className={classes.tabDesc}>
                                 <h3>Overview</h3>
-                                <p><strong>Tip: </strong>Give me money.</p>
+                                <p>{undoneTasks ? <strong>You have {undoneTasks} {undoneTasks > 1 ? 'tasks' : 'task'} remaining. Go ahead and finish them! 💪</strong>
+                                : <strong>You have no more unfinished tasks left. Congrats! 🥳</strong>
+                                }</p>
+                                <p>You created {tasksCreatedToday > 1 ? `${tasksCreatedToday} tasks` : `${tasksCreatedToday} task`} today, and in total of {tasksCreatedLastSevenDays} for the past 7 days.</p>
+
+                                <p>You have {totalTasksThisMonth} tasks in total this month, and you have finished {totalTasksDoneThisMonth === totalTasksThisMonth ? "all" : totalTasksDoneThisMonth} of them. Awesome!</p>
+                                <p><strong>Tip: </strong>If you accidentally checked on tasks you do not wish to be marked as done, simply go to the different tabs above to check them back in.</p>
                             </div>
                         </TabPanel>
                         
