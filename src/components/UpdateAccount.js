@@ -94,7 +94,9 @@ export default function UpdateAccount() {
                         </div>
                     </div>
                     
-                    <Divider variant="middle" />
+                    <div className={classes.dividerWrapper}>
+                        <Divider variant="middle" />
+                    </div>
 
 
                 </div>
