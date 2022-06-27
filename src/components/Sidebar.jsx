@@ -66,9 +66,9 @@ export default function Sidebar(props) {
 
                     <Link to="/updateuser">Edit account info</Link>
                     <div className={`d-grid gap-2 ${classes.logoutBtn}`}>
-                    <Button variant="outline-secondary" size="lg" onClick={logoutHandler}>
-                        Log out
-                    </Button>
+                        <Button variant="outline-secondary" size="lg" onClick={logoutHandler}>
+                            Log out
+                        </Button>
                     </div>
                 </div>
                 </Offcanvas.Body>

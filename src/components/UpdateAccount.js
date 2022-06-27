@@ -24,7 +24,6 @@ export default function UpdateAccount() {
         }}
         >
             <Paper />
-            yoyoyo
         </Box>
     </div>
     )

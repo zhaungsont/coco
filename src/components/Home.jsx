@@ -33,36 +33,36 @@ import SecondaryTaskGrid from "./SecondaryTaskGrid";
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
-  
+
     return (
-      <div
-        role="tabpanel"
-        hidden={value !== index}
-        id={`simple-tabpanel-${index}`}
-        aria-labelledby={`simple-tab-${index}`}
-        {...other}
-      >
+        <div
+            role="tabpanel"
+            hidden={value !== index}
+            id={`simple-tabpanel-${index}`}
+            aria-labelledby={`simple-tab-${index}`}
+            {...other}
+        >
         {value === index && (
-          <Box sx={{ pt: 1 }}>
+            <Box sx={{ pt: 1 }}>
             <Typography>{children}</Typography>
-          </Box>
+        </Box>
         )}
-      </div>
+    </div>
     );
-  }
-  
-  TabPanel.propTypes = {
+}
+
+TabPanel.propTypes = {
     children: PropTypes.node,
     index: PropTypes.number.isRequired,
     value: PropTypes.number.isRequired,
-  };
-  
-  function a11yProps(index) {
+};
+
+function a11yProps(index) {
     return {
-      id: `simple-tab-${index}`,
-      'aria-controls': `tabpanel-${index}`,
+        id: `simple-tab-${index}`,
+        'aria-controls': `tabpanel-${index}`,
     };
-  }
+}
 
 export default function Home(){
     // Tabs
@@ -122,7 +122,7 @@ export default function Home(){
             const taskListRef = ref(database, `tasks/${currentUser.uid}`);
             const newTaskRef = push(taskListRef);
             set(newTaskRef, newTask);
-                        
+
             // praise the stackoverflow post that points me to this page: 
             // https://firebase.google.com/docs/database/web/lists-of-data
 
