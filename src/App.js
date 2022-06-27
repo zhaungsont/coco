@@ -73,7 +73,7 @@ function App() {
                 <Route exact path="/" element={<Home onThemeChange={themeChangeHandler} />} />
               </Route>
 
-              <Route exact path='/' element={<PrivateRoute/>}>
+              <Route exact path='/updateuser' element={<PrivateRoute/>}>
                 <Route exact path="/updateuser" element={<UpdateAccount />} />
               </Route>
 

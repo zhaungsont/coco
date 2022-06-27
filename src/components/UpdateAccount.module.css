@@ -6,20 +6,21 @@
 }
 
 .personalInfo{
-    margin: 2rem 1rem 0;
+    margin: 2rem 20% 0;
 }
 
 .infoWrapper{
     margin-top: 1rem;
     display: flex;
     align-items: center;
+    gap: 1rem;
 }
 
 .imgUpload{
     display: flex;
     flex-direction: column;
     align-items: center;
-    flex: 1;
+    width: 50%;
 }
 
 .imgUpload img{
@@ -28,16 +29,33 @@
 }
 
 .editPersonalInfo{
-    flex: 2;
+    max-width: 50%;
+    margin: auto;
+}
+
+.btnWrapper{
+    display: flex;
+    justify-content: center;
+    margin: 1rem auto;
 }
 
 @media screen and (max-width: 480px) {
+    .personalInfo{
+        margin: 2rem 1rem;
+    }
+
     .infoWrapper{
+        margin-top: 2rem;
         flex-direction: column;
         align-items: center;
     }
 
+
     .imgUpload img{
-        width: 10rem;
+        width: 100%;
+    }
+
+    .editPersonalInfo{
+        max-width: 100%;
     }
 }

@@ -9,6 +9,7 @@ import IconButton from '@mui/material/IconButton';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import { styled } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
+import Divider from '@mui/material/Divider';
 
 
 export default function UpdateAccount() {
@@ -68,19 +69,24 @@ export default function UpdateAccount() {
                             <Box
                             component="form"
                             sx={{
-                                '& .MuiTextField-root': { m: 1, width: '25ch' },
+                                '& .MuiTextField-root': { width: '100%' },
                             }}
                             noValidate
                             autoComplete="off"
                             >
                                 <TextField label="User Name" variant="standard" />
-                                <TextField label="Email Account" variant="standard" />
-                                <TextField label="Password" variant="standard" type="password" />
+                                <TextField label="Email Account" type="email" variant="standard" />
+                                <TextField label="Password (Leave Blank to Stay the Same)" variant="standard" type="password" placeholder='Leave blank to stay the same' />
                                 <TextField
                                 label="Status"
                                 multiline
+                                variant="standard" 
                                 rows={3}
+                                placeholder="This will appear below your profile picture in the sidebar."
                                 />
+                                <div className={classes.btnWrapper}>
+                                    <Button variant="contained" color='info' >Save</Button>
+                                </div>
                                 </Box>
                             </div>
 
@@ -88,6 +94,9 @@ export default function UpdateAccount() {
                         </div>
                     </div>
                     
+                    <Divider variant="middle" />
+
+
                 </div>
             </section>
         </Box>
