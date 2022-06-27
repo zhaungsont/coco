@@ -3,6 +3,7 @@ import { useTheme } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import classes from "./UpdateAccount.module.css";
+import { useNavigate } from "react-router-dom";
 
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
@@ -13,11 +14,18 @@ import Divider from '@mui/material/Divider';
 import FormControl from '@mui/material/FormControl';
 import { useAuth } from "../contexts/AuthContext"; 
 
+import Alert from 'react-bootstrap/Alert';
 
 export default function UpdateAccount() {
-    const { currentUser } = useAuth()
+    let navigate = useNavigate();
+    const [submitting, setSubmitting] = useState(false);
+    
+    const { currentUser, updateEmail, updatePassword, updateUserName, updateUserImage } = useAuth()
     const currentEmail = currentUser.email;
     const currentName = currentUser.displayName || '';
+    
+    const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
 
     const [darkMode, setDarkMode] = useState(false);
     const theme = useTheme().palette.mode;
@@ -39,11 +47,49 @@ export default function UpdateAccount() {
     const [status, setStatus] = useState('');
 
     function updateHandler(e){
+        setError('');
+        setSuccess('');
+        setSubmitting(true)
         e.preventDefault();
         console.log('trying to update!');
 
+        if (pwConfirm !== password) {
+            console.log('password incorrect!');
+            setSubmitting(false);
+            return setError('The two password input fields do not match!');
+        }
+
+        console.log('About to update profile!')
+        const promises = [];
+        // update username
+        if (username !== currentName){
+            promises.push(updateUserName(username));
+        }
+        // update email
+        if (email !== currentEmail){
+            promises.push(updateEmail(email));
+        }
+        // update password
+        if (password){
+            promises.push(updatePassword(password));
+        }
+
+        // update pfp
+
+        Promise.all(promises).then(() => {
+            // navigate("/");
+            setSuccess('All info updated!');
+        }).catch(()=>{
+            setError('Failed to update your account information.')
+        }).finally(()=>{
+            setSubmitting(false);
+        })
     }
 
+    useEffect(()=>{
+        console.log("current name: " + currentName);
+        console.log("current email: " + currentEmail);
+    }, []);
 
     return (
     <div>
@@ -88,34 +134,63 @@ export default function UpdateAccount() {
                             </div>
 
                             <div className={classes.editPersonalInfo}>
-                                {/* <FormControl> */}
+                            {error && <Alert variant="danger"> {error} </Alert>}
+                            {success && <Alert variant="success"> {success} </Alert>}
+
                                     <Box
                                     onSubmit={updateHandler}
                                     component="form"
                                     sx={{
                                         '& .MuiTextField-root': { width: '100%' },
                                     }}
-                                    noValidate
                                     autoComplete="off"
                                     >
-                                        <TextField label="User Name" variant="standard" value={username} onChange={(e)=>setUserName(e.target.value)} placeholder='Empty' />
-                                        <TextField label="Email Account" type="email" variant="standard" value={email} onChange={(e)=>setEmail(e.target.value)} />
-                                        <TextField label="Password (Leave Blank to Stay the Same)" variant="standard" value={password} onChange={(e)=>setPassword(e.target.value)} type="password" placeholder='Leave blank to stay the same' />
-                                        <TextField label="Confirm Password" variant="standard" type="password" value={pwConfirm} onChange={(e)=>setPWConfirm(e.target.value)} placeholder='Leave blank to stay the same' />
+                                        <TextField 
+                                            label="User Name" 
+                                            variant="standard" 
+                                            value={username} 
+                                            onChange={(e)=>setUserName(e.target.value)} 
+                                            placeholder='Empty' />
+                                        <TextField 
+                                            label="Email Account" 
+                                            type="email" 
+                                            variant="standard" 
+                                            value={email} 
+                                            onChange={(e)=>setEmail(e.target.value)} 
+                                            required />
+                                        <TextField 
+                                            label="Password" 
+                                            variant="standard" 
+                                            value={password} 
+                                            onChange={(e)=>setPassword(e.target.value)} 
+                                            type="password" 
+                                            placeholder='Leave blank to stay the same'
+                                            helperText="Passwords must be at least 6 charachters long."
+                                            />
+                                        <TextField 
+                                            label="Confirm Password" 
+                                            variant="standard" 
+                                            type="password" 
+                                            value={pwConfirm} 
+                                            onChange={(e)=>setPWConfirm(e.target.value)} 
+                                            placeholder='Leave blank to stay the same' 
+                                            helperText="Passwords must be at least 6 charachters long."
+                                            />
+                                            
                                         <TextField
-                                        label="Status"
-                                        multiline
-                                        variant="standard" 
-                                        rows={3}
-                                        value={status}
-                                        onChange={(e)=>setStatus(e.target.value)}
-                                        placeholder="This will appear below your profile picture in the sidebar."
+                                            label="Status"
+                                            multiline
+                                            variant="standard" 
+                                            rows={3}
+                                            value={status}
+                                            onChange={(e)=>setStatus(e.target.value)}
+                                            placeholder="This will appear below your profile picture in the sidebar."
                                         />
                                         <div className={classes.btnWrapper}>
-                                            <Button type='submit' variant="contained" color='info' >Save</Button>
+                                            <Button type='submit' variant="contained" color='info' disabled={submitting} >Save</Button>
                                         </div>
                                     </Box>
-                                {/* </FormControl> */}
+
                             </div>
 
 

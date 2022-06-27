@@ -33,7 +33,7 @@ export default function TaskGrid(props){
             `
         },
 
-      ];
+    ];
     const rows = props.data.filter(task => task.done == false).map(task => ({
         key: task.id, 
         id: task.id, 
