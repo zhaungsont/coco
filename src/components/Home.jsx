@@ -225,7 +225,7 @@ export default function Home(){
             <div className="frosted-glass">
                 <div className={classes.headerWrapper}>
                     <div className="content-title">
-                        <h1 className={classes.title}>{greet}<br></br> Michael Chuang.</h1>
+                        <h1 className={classes.title}>{greet}<br></br>{currentUser.displayName ? currentUser.displayName : 'Cocoer'}.</h1>
                     </div>
                     <Glanceables />
 

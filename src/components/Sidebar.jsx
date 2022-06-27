@@ -50,14 +50,14 @@ export default function Sidebar(props) {
 
                 <img className={classes.avatar} src={currentPhoto}></img>
                 
-                <Switch
+                {/* <Switch
                 checked={props.checked}
                 onChange={props.onThemeChange}
                 inputProps={{ 'aria-label': 'controlled' }}
-                />
+                /> */}
                 
                 <div className={classes.sidebar}>
-                    <h1 className={classes.username}>Michael Chuang</h1>
+                    <h1 className={classes.username}>{currentUser.displayName ? currentUser.displayName : 'Cocoer'}</h1>
                     <p><strong >Email: </strong>{currentUser.email}</p>
                 </div>
                 
