@@ -20,6 +20,8 @@ export default function Sidebar(props) {
     let navigate = useNavigate();
 
     const { currentUser, logout } = useAuth();
+    const currentPhoto = currentUser.photoURL || process.env.PUBLIC_URL + "/default-user.png";
+
     const [error, setError] = useState('');
 
     async function logoutHandler(){
@@ -46,7 +48,7 @@ export default function Sidebar(props) {
                 </Offcanvas.Header>
                 <Offcanvas.Body>
 
-                <img className={classes.avatar} src={process.env.PUBLIC_URL + "/avatar.jpg"}></img>
+                <img className={classes.avatar} src={currentPhoto}></img>
                 
                 <Switch
                 checked={props.checked}

@@ -24,7 +24,7 @@ export default function UpdateAccount() {
     let navigate = useNavigate();
     const [submitting, setSubmitting] = useState(false);
     
-    const { currentUser, updateEmail, updatePassword, updateUserName, updateUserImage } = useAuth()
+    const { currentUser, updateEmail, updatePassword, updateUserName, updateUserImage, setUserImage } = useAuth()
     const currentEmail = currentUser.email;
     const currentName = currentUser.displayName || '';
     const currentPhoto = currentUser.photoURL || process.env.PUBLIC_URL + "/default-user.png";
@@ -97,14 +97,38 @@ export default function UpdateAccount() {
     function imgUpdateHandler(){
         if (imageUpload != null){
             console.log('about to upload img!'); 
-            // try{
-                setError('');
-            //     setSuccess('');           
-                updateUserImage(imageUpload);
+            setError('');
+            setError('');
+            updateUserImage(imageUpload)
+            .then(()=>{
                 setSuccess('Image uploaded!');
-            // } catch {
-            //     setError('An error occurred when trying to upload the image.');
-            // }
+                setImgName('');
+                setUserImage()
+                .then((res)=>{
+                    res.items.forEach(item => {
+                        getDownloadURL(item).then(url => {
+                            console.log(url);
+                            currentUser.updateProfile({photoURL: url})
+                            .then(()=>{
+                                console.log('success');
+                                window.location.reload();
+
+                            })
+                            .catch(()=>{console.log('failed')})
+                        });
+                    });
+
+
+                }).catch((err)=>{
+                    setError('An error occurred when setting your photo as profile picture.');
+                    console.error(err);
+
+                })
+            })
+            .catch(()=>{
+                setError('An error occurred when uploading your photo.')
+            })
+            
         }
     }
 
@@ -151,8 +175,9 @@ export default function UpdateAccount() {
                         <div className={classes.infoWrapper}>
 
                             <div className={classes.imgUpload}>
-                                <img className="pfp" src={currentPhoto}></img>
-
+                                <div className={classes.imageCropper}>
+                                    <img src={currentPhoto}></img>
+                                </div>
                                 {/* <div> */}
                                     <label htmlFor="icon-button-file">
                                         <Input accept="image/*" id="icon-button-file" type="file" onChange={imgChosenHandler} />
@@ -202,8 +227,8 @@ export default function UpdateAccount() {
                                             value={password} 
                                             onChange={(e)=>setPassword(e.target.value)} 
                                             type="password" 
-                                            placeholder='Leave blank to stay the same'
-                                            helperText="Passwords must be at least 6 charachters long."
+                                            helperText='Leave blank to stay the same'
+                                            placeholder="Passwords must be at least 6 charachters long."
                                             />
                                         <TextField 
                                             label="Confirm Password" 
@@ -211,8 +236,8 @@ export default function UpdateAccount() {
                                             type="password" 
                                             value={pwConfirm} 
                                             onChange={(e)=>setPWConfirm(e.target.value)} 
-                                            placeholder='Leave blank to stay the same' 
-                                            helperText="Passwords must be at least 6 charachters long."
+                                            helperText='Leave blank to stay the same' 
+                                            placeholder="Passwords must be at least 6 charachters long."
                                             />
                                             
                                         <TextField

@@ -46,22 +46,23 @@ export function AuthProvider({ children }) {
 
     function updateUserImage(image){
         const imageRef = ref(storage, `image/${currentUser.uid}/pfp`)
-        uploadBytes(imageRef, image)
+        return uploadBytes(imageRef, image)
         setUserImage();
     }
 
     function setUserImage(){
         const ImgListRef = ref(storage, `image/${currentUser.uid}/`);
-        listAll(ImgListRef).then(res => {
-            res.items.forEach(item => {
-                getDownloadURL(item).then(url => {
-                    console.log(url);
-                    currentUser.updateProfile({photoURL: url})
-                    .then(()=>{console.log('success')})
-                    .catch(()=>{console.log('failed')})
-                });
-            });
-        });
+        return listAll(ImgListRef)
+        // .then(res => {
+        //     res.items.forEach(item => {
+        //         getDownloadURL(item).then(url => {
+        //             console.log(url);
+        //             currentUser.updateProfile({photoURL: url})
+        //             .then(()=>{console.log('success')})
+        //             .catch(()=>{console.log('failed')})
+        //         });
+        //     });
+        // });
     }
 
 
@@ -98,7 +99,8 @@ export function AuthProvider({ children }) {
         updateEmail,
         updatePassword,
         updateUserName,
-        updateUserImage
+        updateUserImage,
+        setUserImage
     }
 
     return (

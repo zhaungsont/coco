@@ -43,6 +43,20 @@
     margin: 0 20%;
 }
 
+.imageCropper {
+    width: 180px;
+    height: 180px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+.imageCropper img{
+    display: inline;
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+}
 
 
 @media screen and (max-width: 480px) {
