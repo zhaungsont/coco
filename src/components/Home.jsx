@@ -31,6 +31,7 @@ import Box from '@mui/material/Box';
 ///////
 import SecondaryTaskGrid from "./SecondaryTaskGrid";
 import C1 from "./C1";
+import C2 from "./C2";
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -356,7 +357,7 @@ export default function Home(){
                     </div>
                     <div className={classes.sideContent}>
                         <C1 data={taskList} />
-                        
+                        <C2 data={taskList} />
                     </div>
                     
                 </div>

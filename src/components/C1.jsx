@@ -25,7 +25,6 @@ export default function C1(props) {
 
     const { currentUser } = useAuth();
 
-    const [loading, setLoading] = useState(true);
     const [chartData1, setChartData1] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
     const [chartData2, setChartData2] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
     const taskList = props.data;
@@ -182,12 +181,6 @@ export default function C1(props) {
 
     }, [taskList]);
 
-
-    useEffect(()=>{
-        setLoading(true);
-        setLoading(false);
-    }, [chartData1])
-
     // TASK CREATED IN 
     const options = {
         responsive: true,
@@ -227,11 +220,7 @@ export default function C1(props) {
 
     return (
         <div style={{height:'20rem'}}>
-        {chartData1[5]}
-
-            {!loading &&
-                <Bar options={options} data={data} />
-                }
+            <Bar options={options} data={data} />
         </div>
     )
 }
