@@ -19,7 +19,7 @@ export default function C1(props) {
     const { currentUser } = useAuth();
 
     const [loading, setLoading] = useState(true);
-    const [chartData1, setChartData1] = useState([10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+    const [chartData1, setChartData1] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
     const [chartData2, setChartData2] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
     const taskList = props.data;
 
@@ -43,89 +43,138 @@ export default function C1(props) {
     const currentYear = sampleDate.getFullYear();
     const sampleMonths = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-    const a = taskList.filter(task => task.year == currentYear).map(task => task.month);
-    console.log(a);
+    // const a = taskList.filter(task => task.year == currentYear).map(task => task.month);
+    // console.log(a);
 
-    useEffect(()=>{
-        for (let i = 0; i < taskList.length; i++){
-            if (taskList[i].year == currentYear){
+
+
+    function getAllTasksInMonths(){
+        const tempData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        const TIM = taskList.filter(task => task.year == currentYear).map(task => task.month);
+        TIM.forEach((taskMonth) => {
+            switch (taskMonth) {
+                case sampleMonths[0]:
+                    tempData[0] ++;
+                break;
+
+                case sampleMonths[1]:
+                    tempData[1] ++;
+                break;
+
+                case sampleMonths[2]:
+                    tempData[2] ++;
+                break;
+
+                case sampleMonths[3]:
+                    tempData[3] ++;
+                break;
+
+                case sampleMonths[4]:
+                    tempData[4] ++;
+                break;
+
+                case sampleMonths[5]:
+                    tempData[5] ++;
+                break;
+
+                case sampleMonths[6]:
+                    tempData[6] ++;
+                break;
+
+                case sampleMonths[7]:
+                    tempData[7] ++;
+                break;
+
+                case sampleMonths[8]:
+                    tempData[8] ++;
+                break;
+
+                case sampleMonths[9]:
+                    tempData[9] ++;
+                break;
                 
-                
-                switch (taskList[i].month) {
-                    case sampleMonths[0]:
-                        
-                        // setChartData1(prev => ({...prev, jan: prev.jan + 1}))
-                        // if (taskList[i].done) setChartData2(prev => ({...prev, jan: prev.jan + 1}))
+                case sampleMonths[10]:
+                    tempData[10] ++;
+                break;
+
+                case sampleMonths[11]:
+                    tempData[11] ++;
+                break;
+            
+                default:
+                    console.log('out of range.')
                     break;
-                    case sampleMonths[1]:
-                        // setChartData1(prev => ({...prev, feb: prev.feb + 1}))
-                        // if (taskList[i].done) setChartData2(prev => ({...prev, feb: prev.feb + 1}))
-                    break;
-                    case sampleMonths[2]:
-                        // setChartData1(prev => ({...prev, mar: prev.mar + 1}))
-                        // if (taskList[i].done) setChartData2(prev => ({...prev, mar: prev.mar + 1}))
-                    break;
-                    case sampleMonths[3]:
-                        // setChartData1(prev => ({...prev, apr: prev.apr + 1}))
-                        // if (taskList[i].done) setChartData2(prev => ({...prev, apr: prev.apr + 1}))
-                    break;
-                    case sampleMonths[4]:
-                        // setChartData1(prev => ({...prev, may: prev.may + 1}))
-                        // if (taskList[i].done) setChartData2(prev => ({...prev, may: prev.may + 1}))
-                    break;
-                    case sampleMonths[5]:
-                        setChartData1(prev => {
-                            const newArray = prev;
-                            newArray[5] = prev[5] + 1;
-                            return newArray;
-                        })
-                        // setChartData1(prev =>{ return {...prev, jun: prev.jun + 1}});
-                        // if (taskList[i].done) setChartData2(prev => {return {...prev, jun: prev.jun + 1}})
-                    break;
-                    case sampleMonths[6]:
-                        // setChartData1(prev => ({...prev, jul: prev.jul + 1}))
-                        // if (taskList[i].done) setChartData2(prev => ({...prev, jul: prev.jul + 1}))
-                    break;
-                    case sampleMonths[7]:
-                        // setChartData1(prev => ({...prev, aug: prev.aug + 1}))
-                        // if (taskList[i].done) setChartData2(prev => ({...prev, aug: prev.aug + 1}))
-                    break;
-                    case sampleMonths[8]:
-                        // setChartData1(prev => ({...prev, sep: prev.sep + 1}))
-                        // if (taskList[i].done) setChartData2(prev => ({...prev, sep: prev.sep + 1}))
-                    break;
-                    case sampleMonths[9]:
-                        // setChartData1(prev => ({...prev, oct: prev.oct + 1}))
-                        // if (taskList[i].done) setChartData2(prev => ({...prev, oct: prev.oct + 1}))
-                    break;
-                    case sampleMonths[10]:
-                        // setChartData1(prev => ({...prev, nov: prev.nov + 1}))
-                        // if (taskList[i].done) setChartData2(prev => ({...prev, nov: prev.nov + 1}))
-                    break;
-                    case sampleMonths[11]:
-                        // setChartData1(prev => ({...prev, dec: prev.dec + 1}))
-                        // if (taskList[i].done) setChartData2(prev => ({...prev, dec: prev.dec + 1}))
-                    break;
-                
-                    default:
-                        console.log('out of range.')
-                        break;
-                }
             }
-        }
-    // setChartData(Object.values(taskCreatedInMonthsData));
-    // setChartData(() => {
-    //     Object.values(taskCreatedInMonthsData)[0]
-    // });
-    // setChartData1(Object.values(taskCreatedInMonthsData).map((entry => entry[0])));
-    // setChartData2(Object.values(taskCreatedInMonthsData).map((entry => entry[1])));
-    // setLoading(false);
-    // setChartData1(jsObject => Object.values(jsObject))
-    console.log('gg')
-    console.log(chartData1);
-    // setLoading(true);
-    // setChartData2(jsObject => Object.values(jsObject))
+        });
+        return tempData
+    }
+
+    function getDoneTasksInMonths(){
+        const tempDoneTasks = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        const DTIM = taskList.filter(task => task.year == currentYear && task.done === true).map(task => task.month);
+        DTIM.forEach((taskMonth) => {
+            switch (taskMonth) {
+                case sampleMonths[0]:
+                    tempDoneTasks[0] ++;
+                break;
+
+                case sampleMonths[1]:
+                    tempDoneTasks[1] ++;
+                break;
+
+                case sampleMonths[2]:
+                    tempDoneTasks[2] ++;
+                break;
+
+                case sampleMonths[3]:
+                    tempDoneTasks[3] ++;
+                break;
+
+                case sampleMonths[4]:
+                    tempDoneTasks[4] ++;
+                break;
+
+                case sampleMonths[5]:
+                    tempDoneTasks[5] ++;
+                break;
+
+                case sampleMonths[6]:
+                    tempDoneTasks[6] ++;
+                break;
+
+                case sampleMonths[7]:
+                    tempDoneTasks[7] ++;
+                break;
+
+                case sampleMonths[8]:
+                    tempDoneTasks[8] ++;
+                break;
+
+                case sampleMonths[9]:
+                    tempDoneTasks[9] ++;
+                break;
+                
+                case sampleMonths[10]:
+                    tempDoneTasks[10] ++;
+                break;
+
+                case sampleMonths[11]:
+                    tempDoneTasks[11] ++;
+                break;
+            
+                default:
+                    console.log('out of range.')
+                    break;
+            }
+        });
+        return tempDoneTasks
+    }
+    useEffect(()=>{
+        setChartData1(getAllTasksInMonths());
+        setChartData2(getDoneTasksInMonths());
+
     }, [taskList]);
+
 
     useEffect(()=>{
         setLoading(true);
@@ -170,6 +219,7 @@ export default function C1(props) {
     return (
         <div style={{height:'20rem'}}>
         {chartData1[5]}
+
             {!loading &&
                 <Bar options={options} data={data} />
                 }
