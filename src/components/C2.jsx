@@ -72,8 +72,8 @@ export default function C2(props) {
         };
         
     return (
-        <div>
+        <>
             <Pie data={data} />
-        </div>
+        </>
     )
 }
