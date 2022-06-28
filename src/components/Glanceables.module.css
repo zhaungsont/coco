@@ -7,15 +7,19 @@
     display: flex;
     justify-content: center;
     gap: 1rem;
-    align-items: flex-end;
+    align-items: center;
 }
 
 .precipitation{
     text-align: center;
+    margin: 0;
+    flex: 1;
+    line-height: 1rem;
 }
 
 .precipitation span{
     font-size: 2rem;
+    line-height: normal;
 }
 
 .schedule{

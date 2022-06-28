@@ -74,7 +74,7 @@ export default function Glanceables(){
         {weather ? 
         <>
             <div className={classes.precipitation}>
-                <p><span>{pop}</span><br />Precipitation</p>
+                <p><span>{pop}</span><br />Probability of Precipitation</p>
             </div>
 
             <div className={classes.schedule}>
