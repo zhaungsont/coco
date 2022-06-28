@@ -6,10 +6,13 @@ import CircularProgress from '@mui/material/CircularProgress';
 export default function Glanceables(){
 
     const [weather, setWeather] = useState({});
+    const [pop, setPop] = useState("");
 
     const {lat, lon} = {"lat": 25.0375198, "lon": 121.5636796};
     const APIkey = process.env.REACT_APP_OW_API;
     const WEATHERAPI = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${APIkey}`;
+    const FORECASTAPI = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${APIkey}`;
+
     let icon = '';
     useEffect(()=>{
         async function getWeather(){
@@ -37,7 +40,26 @@ export default function Glanceables(){
                 console.log(main, desc, icon);
             }
         }
+
+        async function getPOP(){
+            const res = await fetch(FORECASTAPI);
+            if (!res.ok){
+                console.error('error getting weather forecast');
+            } else {
+                const data = (await res.json()).list[0].pop;
+                const pop = (data * 100).toString() + '%';
+                setPop(pop);
+
+                // to convert a unix timestamp to Javascript date object,
+                // simply multiply its value by 1000.
+                // source: https://stackoverflow.com/questions/847185/convert-a-unix-timestamp-to-time-in-javascript
+                
+                // UPDATE: turns out we don't need to manually get the correct timestamp after all...
+
+            }
+        }
         getWeather().catch(err => console.error(err));
+        getPOP().catch(err => console.error(err));
     },[])
 
     const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
@@ -51,9 +73,9 @@ export default function Glanceables(){
         <div className={classes.glanceables}>
         {weather ? 
         <>
-            {/* <div className={classes.nani}>
-                Nani!?
-            </div> */}
+            <div className={classes.precipitation}>
+                <p><span>{pop}</span><br />Precipitation</p>
+            </div>
 
             <div className={classes.schedule}>
                 <p><span>{day}</span><br />{month} {date}, {year}</p>

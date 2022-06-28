@@ -10,6 +10,13 @@
     align-items: flex-end;
 }
 
+.precipitation{
+    text-align: center;
+}
+
+.precipitation span{
+    font-size: 2rem;
+}
 
 .schedule{
     text-align: center;
@@ -81,7 +88,7 @@
         margin-bottom: 0;
     }
 
-    .additionals{
+    .precipitation, .additionals{
         display: none;
     }
 }
