@@ -200,7 +200,9 @@ export default function C1(props) {
             text: 'Task Created in Months',
             },
         },
-        maintainAspectRatio:false
+        maintainAspectRatio:false,
+        color: darkMode ? '#FFF' : '#2C3639',
+
         };
 
     const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July',"August", "September", "October", "November", "December" ];
@@ -213,15 +215,15 @@ export default function C1(props) {
             {
                 label: `All Tasks`,
                 data: chartData1,
-                backgroundColor: darkMode ? '#FFF' : '#2C3639',
+                backgroundColor: darkMode ? '#0F044C' : '#E2703A',
             },
             {
                 label: `Finished Tasks`,
                 data: chartData2,
-                backgroundColor: darkMode ? '#FFF' : '#2C3639',
+                backgroundColor: darkMode ? '#787A91' : '#EEB76B',
             }
         ],
-        };
+    };
 
     return (
         <div style={{height:'20rem'}}>
