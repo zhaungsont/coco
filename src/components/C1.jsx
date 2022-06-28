@@ -14,8 +14,15 @@ import { Bar } from 'react-chartjs-2';
 import classes from "./C1.module.css";
 import { useAuth } from "../contexts/AuthContext";
 
+import { useTheme } from '@mui/material/styles';
 
 export default function C1(props) {
+    const [darkMode, setDarkMode] = useState(false);
+    const theme = useTheme().palette.mode;
+    useEffect(()=>{
+        setDarkMode(theme == 'light' ? false : true);
+    }, [theme]);
+
     const { currentUser } = useAuth();
 
     const [loading, setLoading] = useState(true);
@@ -206,12 +213,12 @@ export default function C1(props) {
             {
                 label: `All Tasks`,
                 data: chartData1,
-                backgroundColor: '#2C3639',
+                backgroundColor: darkMode ? '#FFF' : '#2C3639',
             },
             {
                 label: `Finished Tasks`,
                 data: chartData2,
-                backgroundColor: '#FFF',
+                backgroundColor: darkMode ? '#FFF' : '#2C3639',
             }
         ],
         };
