@@ -26,7 +26,6 @@ export function BackgroundProvider({ children }) {
     const [modeSelected, setModeSelected] = useState();
     const [lightBGSelected, setLightBGSelected] = useState(0);
     const [darkBGSelected, setDarkBGSelected] = useState(3);
-    const [isLoading, setIsLoading] = useState(true);
 
     function modeCTX(e){
         if (e !== undefined){

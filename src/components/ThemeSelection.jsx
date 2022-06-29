@@ -5,17 +5,6 @@ import { useBG } from "../contexts/BackgroundContext";
 export default function ThemeSelection() {
 
     const { modeCTX, bgURLArray, modeSelected, lightBGSelected, darkBGSelected, bgLightCTX, bgDarkCTX } = useBG();
-    // const bgURLArray = [
-    //     'https://images.pexels.com/photos/1835712/pexels-photo-1835712.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    //     'https://images.pexels.com/photos/533937/pexels-photo-533937.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    //     'https://images.pexels.com/photos/707581/pexels-photo-707581.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
-    // ];
-
-    // let x = 0;
-    // while (x < 6){
-    //     bgURLArray.push('https://images.pexels.com/photos/1835712/pexels-photo-1835712.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
-    //     x++;
-    // }
 
     // https://stackoverflow.com/questions/8683528/embed-image-in-a-button-element
     return (
@@ -43,7 +32,7 @@ export default function ThemeSelection() {
                     </div>
 
                 </div>
-                    <p className={classes.nani}>nani!? nani!? nani!? nani!? nani!? nani!? nani!? nani!? nani!? nani!? nani!? </p>
+                    {/* <p className={classes.nani}>nani!? nani!? nani!? nani!? nani!? nani!? nani!? nani!? nani!? nani!? nani!? </p> */}
             </div>
 
             <div className={classes.bgSelection}>
