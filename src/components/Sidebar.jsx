@@ -9,8 +9,14 @@ import Switch from '@mui/material/Switch';
 
 import { useTheme } from '@mui/material/styles';
 
+import { database } from '../Firebase';
+import { ref, onValue } from "firebase/database";
+
 
 export default function Sidebar(props) {
+    const [status, setStatus] = useState('');
+
+
     const [darkMode, setDarkMode] = useState(false);
     const theme = useTheme().palette.mode;
     useEffect(()=>{
@@ -33,6 +39,19 @@ export default function Sidebar(props) {
             setError('An error occured when logging you out.');
         }
     }
+
+    // get Personal status
+    useEffect(()=>{
+        const statusRef = ref(database, `settings/${currentUser.uid}/status`);
+        onValue(statusRef, (snapshot) => {
+            try {
+                const status = snapshot.val().status;
+                setStatus(status);
+            } catch {
+                console.log('no saved user status. Proceed to do nothing.')
+            }
+        }) 
+    }, [currentUser])
 
     return (
         <>
@@ -59,6 +78,7 @@ export default function Sidebar(props) {
                 <div className={classes.sidebar}>
                     <h1 className={classes.username}>{currentUser.displayName ? currentUser.displayName : 'Cocoer'}</h1>
                     <p><strong >Email: </strong>{currentUser.email}</p>
+                    <p>{status}</p>
                 </div>
                 
                 <div className={classes.bottom}>

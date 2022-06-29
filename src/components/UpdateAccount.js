@@ -17,7 +17,7 @@ import { useAuth } from "../contexts/AuthContext";
 
 import Alert from 'react-bootstrap/Alert';
 
-import { storage, database } from '../Firebase';
+import { database } from '../Firebase';
 import { uploadBytes, listAll, getDownloadURL } from "firebase/storage"
 import ThemeSelection from './ThemeSelection';
 
