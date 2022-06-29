@@ -6,10 +6,6 @@ import { useBG } from "../contexts/BackgroundContext";
 export default function Backdrop(){
     const { bgURLArray, modeSelected, lightBGSelected, darkBGSelected } = useBG();
 
-    // console.log('gg')
-    // console.log(lightBGSelected)
-    // console.log(bgURLArray[lightBGSelected] )
-    // console.log(darkBGSelected);
     const [darkMode, setDarkMode] = useState(false);
     const theme = useTheme().palette.mode;
     // console.log(theme);
