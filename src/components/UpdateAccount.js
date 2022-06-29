@@ -17,15 +17,18 @@ import { useAuth } from "../contexts/AuthContext";
 
 import Alert from 'react-bootstrap/Alert';
 
-import { storage } from '../Firebase';
-import { ref, uploadBytes, listAll, getDownloadURL } from "firebase/storage"
+import { storage, database } from '../Firebase';
+import { uploadBytes, listAll, getDownloadURL } from "firebase/storage"
 import ThemeSelection from './ThemeSelection';
+
+import { ref, onValue } from "firebase/database";
+
 
 export default function UpdateAccount() {
     let navigate = useNavigate();
     const [submitting, setSubmitting] = useState(false);
     
-    const { currentUser, updateEmail, updatePassword, updateUserName, updateUserImage, setUserImage } = useAuth()
+    const { currentUser, updateEmail, updatePassword, updateUserName, updateUserImage, setUserImage, updateStatus } = useAuth()
     const currentEmail = currentUser.email;
     const currentName = currentUser.displayName || '';
     const currentPhoto = currentUser.photoURL || process.env.PUBLIC_URL + "/default-user.png";
@@ -81,6 +84,10 @@ export default function UpdateAccount() {
         // update password
         if (password){
             promises.push(updatePassword(password));
+        }
+        // update status
+        if (status){
+            updateStatus(status);
         }
 
         // update pfp
@@ -140,17 +147,18 @@ export default function UpdateAccount() {
         setImageUpload(e.target.files[0]);
     }
 
-    // useEffect(()=>{
-    //     const ImgListRef = ref(storage, `image/${currentUser.uid}/`)
-    //     listAll(ImgListRef).then(res => {
-    //         res.items.forEach(item => {
-    //             getDownloadURL(item).then(url => {
-    //                 setCurrentPhoto(url);
-    //                 console.log(url)
-    //             })
-    //         })
-    //     })
-    // }, []);
+    // get Personal status
+    useEffect(()=>{
+        const statusRef = ref(database, `settings/${currentUser.uid}/status`);
+        onValue(statusRef, (snapshot) => {
+            try {
+                const status = snapshot.val().status;
+                setStatus(status);
+            } catch {
+                console.log('no saved user status. Proceed to do nothing.')
+            }
+        }) 
+    }, [currentUser])
 
     return (
     <div>

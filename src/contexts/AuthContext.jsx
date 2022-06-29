@@ -1,8 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { auth } from "../Firebase";
-import { storage } from '../Firebase';
+import { auth, database, storage } from "../Firebase";
 import { ref, uploadBytes, listAll, getDownloadURL } from "firebase/storage"
 import { v4 } from "uuid";
+
+import { onValue, ref as DBRef, set } from "firebase/database";
 
 const AuthContext = React.createContext()
 
@@ -15,6 +16,7 @@ export function AuthProvider({ children }) {
     const [currentUser, setCurrentUser] = useState();
     const [isLoading, setIsLoading] = useState(true);
     const [currentPhoto, setCurrentPhoto] = useState('')
+    const [status, setStatus] = useState('')
 
     function signup(email, password){
         return auth.createUserWithEmailAndPassword(email, password);
@@ -47,7 +49,12 @@ export function AuthProvider({ children }) {
     function updateUserImage(image){
         const imageRef = ref(storage, `image/${currentUser.uid}/pfp`)
         return uploadBytes(imageRef, image)
-        setUserImage();
+    }
+
+    function updateStatus(status){
+        const statusObj = {status: status}
+        console.log('about to update stat: ' + status)
+        set(DBRef(database, `settings/${currentUser.uid}/status`), statusObj);
     }
 
     function setUserImage(){
@@ -76,19 +83,8 @@ export function AuthProvider({ children }) {
         return unsubsribe;
     }, []);
 
-    // useEffect(()=>{
-    //     if (currentUser !== undefined){
-    //         const ImgListRef = ref(storage, `image/${currentUser.uid}/`)
-    //         listAll(ImgListRef).then(res => {
-    //             res.items.forEach(item => {
-    //                 getDownloadURL(item).then(url => {
-    //                     setCurrentPhoto(url);
-    //                     console.log(url)
-    //                 })
-    //             })
-    //         })
-    //     }
-    // }, []);
+    
+
 
     const value = { 
         currentUser, 
@@ -100,7 +96,9 @@ export function AuthProvider({ children }) {
         updatePassword,
         updateUserName,
         updateUserImage,
-        setUserImage
+        setUserImage,
+        updateStatus,
+        status
     }
 
     return (
