@@ -41,7 +41,9 @@ export default function ThemeSelection() {
                         <input value="2" onClick={e => modeCTX(e)} id='auto' className={`${classes.themePhoto} ${modeSelected == 2 && classes.onFocusStyle}`} type="image" src="https://images.pexels.com/photos/1835712/pexels-photo-1835712.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" />
                         <label htmlFor='auto'>Auto</label>
                     </div>
+
                 </div>
+                    <p className={classes.nani}>nani!? nani!? nani!? nani!? nani!? nani!? nani!? nani!? nani!? nani!? nani!? </p>
             </div>
 
             <div className={classes.bgSelection}>

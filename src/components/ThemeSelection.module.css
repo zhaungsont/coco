@@ -1,6 +1,10 @@
 .themeSelection{
     display: flex;
+    align-items: center;
+}
 
+.themeSelection h3{
+    text-align: center;
 }
 
 .modeSelection, .bgSelection{
@@ -39,6 +43,10 @@
     border-color: #1f64d384;
 }
 
+.nani{
+    margin: auto 1rem;
+    text-align: justify;
+}
 
 .onFocusStyle{
     background-color:rgba(38, 0, 255, 0.496);  

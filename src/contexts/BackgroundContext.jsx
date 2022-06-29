@@ -77,13 +77,27 @@ export function BackgroundProvider({ children }) {
         const darkBGPref = ref(database, `settings/${currentUser.uid}/darkBG`);
 
         onValue(lightBGPref, (snapshot) => {
-            const lightBG = snapshot.val().lightBG;
-            setLightBGSelected(lightBG);
+            try {
+                const lightBG = snapshot.val().lightBG;
+                console.log('got user light bg setting: ' + lightBG);
+                console.log('setting now...')
+                setLightBGSelected(lightBG);
+            } catch {
+                console.log('no record of light background image. Will not do anything.')
+            }
         });
 
         onValue(darkBGPref, (snapshot) => {
-            const darkBG = snapshot.val().darkBG;
-            setDarkBGSelected(darkBG);
+            try {
+                const darkBG = snapshot.val().darkBG;
+                console.log('got user dark bg setting: ' + darkBG);
+                console.log('setting now...')
+                setDarkBGSelected(darkBG);
+
+            } catch {
+                console.log('no record of dark background image. Will not do anything.')
+
+            }
         });
     }, [])
 
