@@ -19,20 +19,22 @@ export default function ThemeSelection() {
                      */}
 
                     <div className={classes.imgItem}>
-                        <input value="0" onClick={e => modeCTX(e)} id='light' className={`${classes.themePhoto} ${modeSelected == 0 && classes.onFocusStyle}`} type="image" src="https://images.pexels.com/photos/1835712/pexels-photo-1835712.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" />
+                        <input value="0" onClick={e => modeCTX(e)} id='light' className={`${classes.modePhoto} ${modeSelected == 0 && classes.modeFocusStyle}`} type="image" src="https://cdn-icons-png.flaticon.com/512/3917/3917805.png" />
                         <label htmlFor='light'>Light</label>
                     </div>
                     <div className={classes.imgItem}>
-                        <input value="1" onClick={e => modeCTX(e)} id='dark' className={`${classes.themePhoto} ${modeSelected == 1 && classes.onFocusStyle}`} type="image" src="https://images.pexels.com/photos/1835712/pexels-photo-1835712.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" />
+                        <input value="1" onClick={e => modeCTX(e)} id='dark' className={`${classes.modePhoto} ${modeSelected == 1 && classes.modeFocusStyle}`} type="image" src="https://cdn-icons-png.flaticon.com/512/547/547433.png" />
                         <label htmlFor='dark'>Dark</label>
                     </div>
                     <div className={classes.imgItem}>
-                        <input value="2" onClick={e => modeCTX(e)} id='auto' className={`${classes.themePhoto} ${modeSelected == 2 && classes.onFocusStyle}`} type="image" src="https://images.pexels.com/photos/1835712/pexels-photo-1835712.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" />
+                        <input value="2" onClick={e => modeCTX(e)} id='auto' className={`${classes.modePhoto} ${modeSelected == 2 && classes.modeFocusStyle}`} type="image" src="https://cdn-icons-png.flaticon.com/512/1312/1312343.png" />
                         <label htmlFor='auto'>Auto</label>
                     </div>
 
                 </div>
-                    {/* <p className={classes.nani}>nani!? nani!? nani!? nani!? nani!? nani!? nani!? nani!? nani!? nani!? nani!? </p> */}
+                    {/* <p className={classes.nani}>
+                        
+                    </p> */}
             </div>
 
             <div className={classes.bgSelection}>

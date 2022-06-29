@@ -272,7 +272,7 @@ export default function UpdateAccount() {
 
                     <div className={classes.themeSelection}>
                             <h2>Theme Selection</h2>
-                            <p>Lorem ipsum</p>
+                            <p>Select your preferred mode, and pick your desired background image for each mode.</p>
                             <ThemeSelection />
                     </div>
                 </div>

@@ -10,10 +10,18 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import { AuthProvider, useAuth } from "./contexts/AuthContext";
+
+import { BackgroundProvider } from "./contexts/BackgroundContext";
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <BrowserRouter>
-      <App />
+      <AuthProvider>
+        <BackgroundProvider>
+          <App />
+        </BackgroundProvider>
+      </AuthProvider>
     </BrowserRouter>
 );
 

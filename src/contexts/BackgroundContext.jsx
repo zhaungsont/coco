@@ -23,24 +23,26 @@ export function BackgroundProvider({ children }) {
         'https://images.pexels.com/photos/1428277/pexels-photo-1428277.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
         'https://images.pexels.com/photos/847402/pexels-photo-847402.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
     ]);
-    const [modeSelected, setModeSelected] = useState();
+    const [modeSelected, setModeSelected] = useState(2);
     const [lightBGSelected, setLightBGSelected] = useState(0);
     const [darkBGSelected, setDarkBGSelected] = useState(3);
 
     function modeCTX(e){
-        if (e !== undefined){
+        // if (e !== undefined){
             const mode = e.target.value;
             // mode will be '0', '1', '2', 
             // denoting the currently available 3 mode choices,
             // which are "light", "dark", and "auto" respectively.
-            console.log(e.target.value);
+            
+            // console.log(e.target.value);
 
             // to update the currently selected option with bg color with className
-            setModeSelected(e.target.value);
+            setModeSelected(mode);
 
             // set the mode
-            // ...
-        } 
+            const newMode = {mode: mode};
+            set(ref(database, `settings/${currentUser.uid}/mode`), newMode);
+        // } 
     }
 
 
@@ -74,6 +76,7 @@ export function BackgroundProvider({ children }) {
         console.log('proceed to get user pref')
         const lightBGPref = ref(database, `settings/${currentUser.uid}/lightBG`);
         const darkBGPref = ref(database, `settings/${currentUser.uid}/darkBG`);
+        const modePref = ref(database, `settings/${currentUser.uid}/mode`);
 
         onValue(lightBGPref, (snapshot) => {
             try {
@@ -92,6 +95,19 @@ export function BackgroundProvider({ children }) {
                 console.log('got user dark bg setting: ' + darkBG);
                 console.log('setting now...')
                 setDarkBGSelected(darkBG);
+
+            } catch {
+                console.log('no record of dark background image. Will not do anything.')
+
+            }
+        });
+
+        onValue(modePref, (snapshot) => {
+            try {
+                const mode = snapshot.val().mode;
+                console.log('got user mode setting: ' + mode);
+                console.log('setting now...')
+                setModeSelected(mode);
 
             } catch {
                 console.log('no record of dark background image. Will not do anything.')
