@@ -357,7 +357,9 @@ export default function Home(){
                     </div>
                     <div className={classes.sideContent}>
                         <C1 data={taskList} />
-                        <C2 data={taskList} />
+                        <div className={classes.pieChart}>
+                            <C2 data={taskList} />
+                        </div>
                     </div>
                     
                 </div>

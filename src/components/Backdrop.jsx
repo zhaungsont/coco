@@ -1,11 +1,18 @@
 import React, { useEffect, useState } from "react";
 import classes from "./Backdrop.module.css";
 import { useTheme } from '@mui/material/styles';
+import { useBG } from "../contexts/BackgroundContext";
 
 export default function Backdrop(){
+    const { bgURLArray, modeSelected, lightBGSelected, darkBGSelected } = useBG();
+
+    // console.log('gg')
+    // console.log(lightBGSelected)
+    // console.log(bgURLArray[lightBGSelected] )
+    // console.log(darkBGSelected);
     const [darkMode, setDarkMode] = useState(false);
     const theme = useTheme().palette.mode;
-    console.log(theme);
+    // console.log(theme);
 
     useEffect(()=>{
         setDarkMode(theme == 'light' ? false : true);
@@ -13,7 +20,10 @@ export default function Backdrop(){
 
     return(
         <section className={classes.bgsection}>
-            <img src={ darkMode ? "https://images.pexels.com/photos/1252869/pexels-photo-1252869.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" : "https://images.pexels.com/photos/1835712/pexels-photo-1835712.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"}></img>
+        {bgURLArray && 
+            <img src={ darkMode ? bgURLArray[darkBGSelected] : bgURLArray[lightBGSelected] }></img>
+        }
+
         </section>
     )
 }

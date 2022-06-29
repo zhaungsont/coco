@@ -19,6 +19,7 @@ import Alert from 'react-bootstrap/Alert';
 
 import { storage } from '../Firebase';
 import { ref, uploadBytes, listAll, getDownloadURL } from "firebase/storage"
+import ThemeSelection from './ThemeSelection';
 
 export default function UpdateAccount() {
     let navigate = useNavigate();
@@ -176,7 +177,7 @@ export default function UpdateAccount() {
                         </div>
                     </div>
                     <div className={classes.personalInfo}>
-                        <h3>Personal Info</h3>
+                        <h2>Personal Info</h2>
                         <div className={classes.infoWrapper}>
 
                             <div className={classes.imgUpload}>
@@ -270,8 +271,9 @@ export default function UpdateAccount() {
                     </div>
 
                     <div className={classes.themeSelection}>
-                            <h3>Theme Selection</h3>
+                            <h2>Theme Selection</h2>
                             <p>Lorem ipsum</p>
+                            <ThemeSelection />
                     </div>
                 </div>
             </section>

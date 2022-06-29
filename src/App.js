@@ -23,6 +23,7 @@ import { useTheme, ThemeProvider, createTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import CssBaseline from '@mui/material/CssBaseline';
 
+import { BackgroundProvider } from "./contexts/BackgroundContext";
 
 function App() {
   
@@ -63,11 +64,13 @@ function App() {
   }
   return (
     <div>
+    <AuthProvider>
     <ThemeProvider theme={theme}>
     <CssBaseline />
+    <BackgroundProvider>
         <Backdrop />
 
-        <AuthProvider>
+        
             <Routes>
 
               <Route exact path='/' element={<PrivateRoute/>}>
@@ -92,15 +95,16 @@ function App() {
 
               <Route path="*" element={<NoMatch />} />
             </Routes>
-        </AuthProvider>
+        
 
         <ToastContainer className="p-3" position="top-center">
           <Toast show={showAuthMsg} bg={prefersDarkMode ? "dark" : "light"}>
             <Toast.Body>{authMsg}</Toast.Body>
           </Toast>
         </ToastContainer>
-
+    </BackgroundProvider>
     </ThemeProvider>
+    </AuthProvider>
     </div>
   );
 }
