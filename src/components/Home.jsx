@@ -115,7 +115,7 @@ export default function Home(){
             const seconds = date.getSeconds();
             const minutes = date.getMinutes();
             const hour = date.getHours();
-            const newTask = {name: taskName, year: year, month: month, day: day, weekday: weekday, hour: hour, minutes: minutes, seconds: seconds, milliseconds: milliseconds, tag: taskTag, done: false}
+            const newTask = {name: taskName, syear: year, smonth: month, sday: day, sweekday: weekday, shour: hour, sminutes: minutes, sseconds: seconds, smilliseconds: milliseconds, tag: taskTag, done: false}
             
             // push new task to firebase (old way)
             // set(ref(database, `tasks/${currentUser.uid}/${newTask.id}`), newTask);
@@ -165,15 +165,39 @@ export default function Home(){
         setDeleteTask(data);
     }
 
-    // Mark task as done 
+    // Update Marked Tasks with Done Date Info
     useEffect(()=>{
         const cleaner = setTimeout(() => {
-            deleteTask.map(task => {
-                update(ref(database, `tasks/${currentUser.uid}/${task}`), {
-                    done: true
-                })
-            })
-            // setTaskList(prevList => prevList.filter( prevList => !(deleteTask.includes(prevList.id)) ));
+
+            const date = new Date();
+            const milliseconds = date.getTime()
+            const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+            const weekday = weekdays[date.getDay()];
+            const day = date.getDate()
+
+            const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            const month = months[date.getMonth()];
+
+            const year = date.getFullYear();
+            const seconds = date.getSeconds();
+            const minutes = date.getMinutes();
+            const hour = date.getHours();
+
+            const doneInfo = {
+                eyear: year,
+                emonth: month,
+                eday: day,
+                eweekday: weekday,
+                ehour: hour,
+                eminutes: minutes,
+                eseconds: seconds,
+                emilliseconds: milliseconds,
+                done: true
+            };
+
+            // deleteTask.map(task => set(ref(database, `tasks/${currentUser.uid}/${task}`), doneInfo))
+            deleteTask.map(task => { update(ref(database, `tasks/${currentUser.uid}/${task}`), doneInfo) })
+
         }, 500);
         return (()=> clearTimeout(cleaner));
     }, [deleteTask])

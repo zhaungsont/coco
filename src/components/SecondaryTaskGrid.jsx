@@ -6,15 +6,23 @@ export default function SecondaryTaskGrid(props){
 
     // firebase data looks like this:
     // name: "123"
-    // year: 2022
-    // month: 6
-    // day: 23
-    // weekday: "Thursday"
     // done: false
-    // hour: 22
-    // minutes: 15
-    // seconds: 19
-    // milliseconds: 5834759834758
+    // syear: 2022
+    // smonth: 6
+    // sday: 23
+    // sweekday: "Thursday"
+    // shour: 22
+    // sminutes: 15
+    // sseconds: 19
+    // smilliseconds: 5834759834758
+    // eyear: 2022
+    // emonth: 6
+    // eday: 23
+    // eweekday: "Thursday"
+    // ehour: 22
+    // eminutes: 15
+    // eseconds: 19
+    // emilliseconds: 5834759834758
     // tag: ''
     // id: "wehUWEHfoihwefw" NOTICE!! id is generated in Home.jsx on fetching firebase data.
 
@@ -71,9 +79,8 @@ export default function SecondaryTaskGrid(props){
     useEffect(()=>{
         if (filterMethod == 'done today'){
             // I HAVEN'T LIMIT THIS DATA TO ONLY TODAY!!!
-            console.log('debug')
             console.log(props.data[0])
-            setRows(props.data.filter(task => task.done == true && task.milliseconds > startOfDayInMili).map(task => ({
+            setRows(props.data.filter(task => task.done == true && task.emilliseconds > startOfDayInMili).map(task => ({
                     key: task.id, 
                     id: task.id, 
                     taskName: task.name, 
@@ -87,7 +94,7 @@ export default function SecondaryTaskGrid(props){
                     seconds: task.seconds, 
                     category: task.tag ? task.tag : 'No Category'})))
         } else if (filterMethod == 'week'){
-            setRows(props.data.filter(task => task.done == true && task.milliseconds > sevenDaysAgo).map(task => ({
+            setRows(props.data.filter(task => task.done == true && task.emilliseconds > sevenDaysAgo).map(task => ({
                 key: task.id, 
                 id: task.id, 
                 taskName: task.name, 
@@ -101,7 +108,7 @@ export default function SecondaryTaskGrid(props){
                 seconds: task.seconds, 
                 category: task.tag ? task.tag : 'No Category'})))
         } else if (filterMethod == 'month'){
-            setRows(props.data.filter(task => task.done == true && task.milliseconds > startOfMonthInMili).map(task => ({
+            setRows(props.data.filter(task => task.done == true && task.emilliseconds > startOfMonthInMili).map(task => ({
                 key: task.id, 
                 id: task.id, 
                 taskName: task.name, 
