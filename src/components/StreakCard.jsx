@@ -8,15 +8,25 @@ import Button from '@mui/material/Button';
 
 import { useAuth } from '../contexts/AuthContext';
 
+import { useTheme } from '@mui/material/styles';
+
 export default function StreakCard(props) {
-    const { setStreakModal } = useAuth();
+    const { streakModal, setStreakModal } = useAuth();
     let width = window.innerWidth > 480 ? true : false;
     // const [showModal, setShowModal] = useState(true)
 
+    const [darkMode, setDarkMode] = useState(false);
 
+    const theme = useTheme().palette.mode;
+    useEffect(()=>{
+        setDarkMode(theme == 'light' ? false : true);
+    }, [theme]);
+    
     return (
         <>
-        <Alert onClose={() => {setStreakModal(false)}} icon={false}>
+        {streakModal &&
+        
+        <Alert onClose={() => {setStreakModal(false)}} icon={false} variant="outlined" severity='info'>
 
         <div className={classes.bodyWrapper}>
             <lord-icon
@@ -28,6 +38,8 @@ export default function StreakCard(props) {
             <span><strong>Clearing Streak!</strong> <br></br>You've been clearing your tasks for <strong>{props.streak} days</strong>! Keep up the good work!</span>
         </div>
         </Alert>
+
+        }
     </>
     )
 }

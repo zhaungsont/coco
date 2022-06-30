@@ -73,7 +73,7 @@ export function AuthProvider({ children }) {
         // });
     }
 
-    const [streakModal, setStreakModal] = useState(false);
+    const [streakModal, setStreakModal] = useState(true);
 
     useEffect(()=>{
         const unsubsribe = auth.onAuthStateChanged(user => {
