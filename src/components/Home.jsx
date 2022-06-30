@@ -421,8 +421,13 @@ export default function Home(){
                         
                     </div>
                     <div className={classes.sideContent}>
-                        {!width && <Divider variant="middle" />}
-                        {!width && <br></br>}
+                        {!width && 
+                        <>
+                        <Divider variant="middle" />
+                        <br></br>
+                        <h2>Performance Analysis</h2>
+                        </>
+                        }
                         {streak && <StreakCard streak={streak} />}
                     
                         <C1 data={taskList} />

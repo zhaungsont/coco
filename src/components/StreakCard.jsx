@@ -5,6 +5,7 @@ import classes from './StreakCard.module.css';
 
 import Alert from '@mui/material/Alert';
 import Button from '@mui/material/Button';
+import Collapse from '@mui/material/Collapse';
 
 import { useAuth } from '../contexts/AuthContext';
 
@@ -24,22 +25,20 @@ export default function StreakCard(props) {
     
     return (
         <>
-        {streakModal &&
-        
-        <Alert onClose={() => {setStreakModal(false)}} icon={false} variant="outlined" severity='info'>
+        <Collapse in={streakModal}>
+            <Alert onClose={() => {setStreakModal(false)}} icon={false} variant="outlined" severity='info'>
 
-        <div className={classes.bodyWrapper}>
-            <lord-icon
-                src="https://cdn.lordicon.com/qduilmpq.json"
-                trigger="loop"
-                colors="primary:#e88c30,secondary:#ee6d66"
-                style={{width: width ? "6rem" : "10rem", height: width ? "4rem" : "5rem"}}>
-            </lord-icon>
-            <span><strong>Clearing Streak!</strong> <br></br>You've been clearing your tasks for <strong>{props.streak} days</strong>! Keep up the good work!</span>
-        </div>
-        </Alert>
-
-        }
+            <div className={classes.bodyWrapper}>
+                <lord-icon
+                    src="https://cdn.lordicon.com/qduilmpq.json"
+                    trigger="loop"
+                    colors="primary:#e88c30,secondary:#ee6d66"
+                    style={{width: width ? "6rem" : "10rem", height: width ? "4rem" : "5rem"}}>
+                </lord-icon>
+                <span><strong>Clearing Streak!</strong> <br></br>You've been clearing your tasks for <strong>{props.streak} days</strong>! Keep up the good work!</span>
+            </div>
+            </Alert>
+        </Collapse>
     </>
     )
 }
