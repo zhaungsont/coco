@@ -61,24 +61,12 @@ export function AuthProvider({ children }) {
     function setUserImage(){
         const ImgListRef = ref(storage, `image/${currentUser.uid}/`);
         return listAll(ImgListRef)
-        // .then(res => {
-        //     res.items.forEach(item => {
-        //         getDownloadURL(item).then(url => {
-        //             console.log(url);
-        //             currentUser.updateProfile({photoURL: url})
-        //             .then(()=>{console.log('success')})
-        //             .catch(()=>{console.log('failed')})
-        //         });
-        //     });
-        // });
     }
 
     const [streakModal, setStreakModal] = useState(true);
 
     useEffect(()=>{
         const unsubsribe = auth.onAuthStateChanged(user => {
-            // console.log('auth state changed! user is now')
-            // console.log(user);
             setCurrentUser(user);
             setIsLoading(false);
         });

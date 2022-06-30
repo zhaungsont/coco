@@ -78,14 +78,12 @@ export default function Home(){
 
     const { currentUser, streakModal } = useAuth();
 
-    // console.log("current user: " + currentUser.email);
     let width = window.innerWidth > 480 ? true : false;
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    // const [inputTask, setInputTask] = useState('');
     const inputTask = useRef('');
     const inputTag = useRef('');
 
@@ -144,7 +142,6 @@ export default function Home(){
             setTaskList([]);
             const data = snapshot.val();
             if (data !== null){
-                // console.log("Found user task list.");
 
                 Object.entries(data).map(task => {
                     // each entry is an array of two elements: a string (task id) and an object containing actual task info
@@ -157,7 +154,6 @@ export default function Home(){
             } else {
                 console.log('no data for this user.')
             }
-            // setTaskList(postElement, data);
         });
 
     }, [])
@@ -246,7 +242,6 @@ export default function Home(){
     } else {
         greet = "Good Evening,"
     }
-    // console.log(randomIndex);
 
     useEffect(()=>{
         setQuoteIndex(Math.floor(Math.random() * quotes.length));
@@ -302,12 +297,7 @@ export default function Home(){
         const tasksDone5DaysAgo = (taskList.filter(t => t.done && t.emilliseconds > startOfDayInMili - 86400000 * 5 && t.emilliseconds < startOfDayInMili - 86400000 * 4).length > 0 ? true : false);
         const tasksDone6DaysAgo = (taskList.filter(t => t.done && t.emilliseconds > startOfDayInMili - 86400000 * 6 && t.emilliseconds < startOfDayInMili - 86400000 * 5).length > 0 ? true : false);
         const tasksDone7DaysAgo = (taskList.filter(t => t.done && t.emilliseconds > startOfDayInMili - 86400000 * 7 && t.emilliseconds < startOfDayInMili - 86400000 * 6).length > 0 ? true : false);
-        
-        console.log(taskList)
-        console.log('testing...')
-        console.log(startOfDayInMili)
-        console.log(`${tasksDoneYesterday} ${tasksDone2DaysAgo} ${tasksDone3DaysAgo} ${tasksDone4DaysAgo} ${tasksDone5DaysAgo} ${tasksDone6DaysAgo} ${tasksDone7DaysAgo}`)
-    
+
         if (tasksDoneToday && tasksDoneYesterday && tasksDone2DaysAgo && tasksDone3DaysAgo && tasksDone4DaysAgo && tasksDone5DaysAgo && tasksDone6DaysAgo && tasksDone7DaysAgo){
             // 7-streak
             setStreak("over 7");
