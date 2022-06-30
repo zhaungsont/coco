@@ -9,6 +9,7 @@ import Divider from '@mui/material/Divider';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import Button from 'react-bootstrap/Button';
 import Sidebar from "./Sidebar";
+import StreakCard from "./StreakCard";
 import { useAuth } from "../contexts/AuthContext";
 
 import IconButton from '@mui/material/IconButton';
@@ -380,6 +381,10 @@ export default function Home(){
                         
                     </div>
                     <div className={classes.sideContent}>
+                        {!width && <Divider variant="middle" />}
+                        <br></br>
+                        <StreakCard />
+                    
                         <C1 data={taskList} />
                         <div className={classes.pieChart}>
                             <C2 data={taskList} />
