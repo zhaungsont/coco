@@ -390,7 +390,7 @@ export default function Home(){
                                 <p>You created {tasksCreatedToday > 1 ? `${tasksCreatedToday} tasks` : `${tasksCreatedToday} task`} today, finished {tasksDoneToday > 1 ? `${tasksDoneToday} tasks` : `${tasksDoneToday} task`}  today, and in total of {tasksDoneLastSevenDays} done for the past 7 days.</p>
 
                                 <p>You created {totalTasksThisMonth} tasks in total this month, and you have finished {totalTasksDoneThisMonth === totalTasksThisMonth ? "all" : totalTasksDoneThisMonth} tasks. Awesome!</p>
-                                <p><strong>Tip: </strong>If you accidentally checked on tasks you do not wish to be marked as done, simply go to the different tabs above to check them back in.</p>
+                                <p><strong>Tip: </strong>Accidentally marked some tasks as done? Simply check them back in in the "Finished Tasks" tabs. <strong>Warning: marking finished tasks as undone again will affect some of your performance evaluation.</strong></p>
                             </div>
                         </TabPanel>
                         
