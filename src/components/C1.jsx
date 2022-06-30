@@ -56,7 +56,7 @@ export default function C1(props) {
 
     function getAllTasksInMonths(){
         const tempData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-        const TIM = taskList.filter(task => task.year == currentYear).map(task => task.month);
+        const TIM = taskList.filter(task => task.syear == currentYear).map(task => task.smonth);
         TIM.forEach((taskMonth) => {
             switch (taskMonth) {
                 case sampleMonths[0]:
@@ -117,7 +117,7 @@ export default function C1(props) {
 
     function getDoneTasksInMonths(){
         const tempDoneTasks = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-        const DTIM = taskList.filter(task => task.year == currentYear && task.done === true).map(task => task.month);
+        const DTIM = taskList.filter(task => task.syear == currentYear && task.done === true).map(task => task.smonth);
         DTIM.forEach((taskMonth) => {
             switch (taskMonth) {
                 case sampleMonths[0]:

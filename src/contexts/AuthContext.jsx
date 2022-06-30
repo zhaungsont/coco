@@ -23,6 +23,7 @@ export function AuthProvider({ children }) {
     }
 
     function login(email, password){
+        setStreakModal(true);
         return auth.signInWithEmailAndPassword(email, password);
     }
 
@@ -72,11 +73,12 @@ export function AuthProvider({ children }) {
         // });
     }
 
+    const [streakModal, setStreakModal] = useState(false);
 
     useEffect(()=>{
         const unsubsribe = auth.onAuthStateChanged(user => {
-            console.log('auth state changed! user is now')
-            console.log(user);
+            // console.log('auth state changed! user is now')
+            // console.log(user);
             setCurrentUser(user);
             setIsLoading(false);
         });
@@ -98,7 +100,10 @@ export function AuthProvider({ children }) {
         updateUserImage,
         setUserImage,
         updateStatus,
-        status
+        status,
+
+        streakModal,
+        setStreakModal,
     }
 
     return (

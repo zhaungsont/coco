@@ -1,4 +1,11 @@
 .bodyWrapper{
     display: flex;
     align-items: center;
+    
+}
+
+@media screen and (max-width: 480px) {
+    .bodyWrapper{
+        font-size: 1rem;
+    }
 }

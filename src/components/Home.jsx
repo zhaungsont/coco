@@ -76,8 +76,9 @@ export default function Home(){
     };
     //////
 
-    const { currentUser } = useAuth();
-    console.log("current user: " + currentUser.email);
+    const { currentUser, streakModal } = useAuth();
+
+    // console.log("current user: " + currentUser.email);
     let width = window.innerWidth > 480 ? true : false;
     const [show, setShow] = useState(false);
 
@@ -211,10 +212,21 @@ export default function Home(){
     // Add back task (Mark as undone)
     useEffect(()=>{
         const cleaner = setTimeout(() => {
+
+            const doneInfo = {
+                eyear: null,
+                emonth: null,
+                eday: null,
+                eweekday: null,
+                ehour: null,
+                eminutes: null,
+                eseconds: null,
+                emilliseconds: null,
+                done: false
+            };
+
             addBackTask.map(task => {
-                update(ref(database, `tasks/${currentUser.uid}/${task}`), {
-                    done: false
-                })
+                update(ref(database, `tasks/${currentUser.uid}/${task}`), doneInfo)
             })
         }, 500);
         return (()=> clearTimeout(cleaner));
@@ -255,8 +267,8 @@ export default function Home(){
     );
     const startOfMonth = new Date(firstDayCurrentMonth);
     const startOfMonthInMili = startOfMonth.getTime();
-    const totalTasksThisMonth = taskList.filter(t => t.milliseconds > startOfMonthInMili).length;
-    const totalTasksDoneThisMonth = taskList.filter(t => t.milliseconds > startOfMonthInMili && t.done === true).length;
+    const totalTasksThisMonth = taskList.filter(t => t.smilliseconds > startOfMonthInMili).length;
+    const totalTasksDoneThisMonth = taskList.filter(t => t.emilliseconds > startOfMonthInMili && t.done === true).length;
 
     function getStartOfDay(year, month, day){
         return new Date(year, month, day);
@@ -272,15 +284,53 @@ export default function Home(){
     const tasksCreatedToday = taskList.filter(t => t.milliseconds > startOfDayInMili).length;
 
     // this statement is not entirely true! is planned to be fixed in future updates.
-    const tasksDoneToday = taskList.filter(t => t.done === true && t.milliseconds > startOfDayInMili).length;
+    const tasksDoneToday = taskList.filter(t => t.done === true && t.emilliseconds > startOfDayInMili).length;
 
     const undoneTasks = taskList.filter(t => t.done === false).length;
 
     const sevenDaysAgo = new Date(sampleDate.getTime() - 604800000);
 
-    const tasksCreatedLastSevenDays = taskList.filter(t => t.milliseconds > sevenDaysAgo).length;
+    const tasksDoneLastSevenDays = taskList.filter(t => t.emilliseconds > sevenDaysAgo).length;
 
+    const [streak, setStreak] = useState("0");
+    useEffect(()=>{
+        // Check for Task Streak
+        const tasksDoneYesterday = (taskList.filter(t => t.done && t.emilliseconds > startOfDayInMili - 86400000 && t.emilliseconds < startOfDayInMili).length > 0 ? true : false);
+        const tasksDone2DaysAgo = (taskList.filter(t => t.done && t.emilliseconds > startOfDayInMili - 86400000 * 2 && t.emilliseconds < startOfDayInMili - 86400000).length > 0 ? true : false);
+        const tasksDone3DaysAgo = (taskList.filter(t => t.done && t.emilliseconds > startOfDayInMili - 86400000 * 3 && t.emilliseconds < startOfDayInMili - 86400000 * 2).length > 0 ? true : false);
+        const tasksDone4DaysAgo = (taskList.filter(t => t.done && t.emilliseconds > startOfDayInMili - 86400000 * 4 && t.emilliseconds < startOfDayInMili - 86400000 * 3).length > 0 ? true : false);
+        const tasksDone5DaysAgo = (taskList.filter(t => t.done && t.emilliseconds > startOfDayInMili - 86400000 * 5 && t.emilliseconds < startOfDayInMili - 86400000 * 4).length > 0 ? true : false);
+        const tasksDone6DaysAgo = (taskList.filter(t => t.done && t.emilliseconds > startOfDayInMili - 86400000 * 6 && t.emilliseconds < startOfDayInMili - 86400000 * 5).length > 0 ? true : false);
+        const tasksDone7DaysAgo = (taskList.filter(t => t.done && t.emilliseconds > startOfDayInMili - 86400000 * 7 && t.emilliseconds < startOfDayInMili - 86400000 * 6).length > 0 ? true : false);
+        
+        console.log(taskList)
+        console.log('testing...')
+        console.log(startOfDayInMili)
+        console.log(`${tasksDoneYesterday} ${tasksDone2DaysAgo} ${tasksDone3DaysAgo} ${tasksDone4DaysAgo} ${tasksDone5DaysAgo} ${tasksDone6DaysAgo} ${tasksDone7DaysAgo}`)
+    
+        if (tasksDoneToday && tasksDoneYesterday && tasksDone2DaysAgo && tasksDone3DaysAgo && tasksDone4DaysAgo && tasksDone5DaysAgo && tasksDone6DaysAgo && tasksDone7DaysAgo){
+            // 7-streak
+            setStreak("over 7");
+        } else if (tasksDoneToday && tasksDoneYesterday && tasksDone2DaysAgo && tasksDone3DaysAgo && tasksDone4DaysAgo && tasksDone5DaysAgo && tasksDone6DaysAgo){
+            // 7-streak
+            setStreak("7");
+        } else if (tasksDoneToday && tasksDoneYesterday && tasksDone2DaysAgo && tasksDone3DaysAgo && tasksDone4DaysAgo && tasksDone5DaysAgo){
+            // 6-streak
+            setStreak("6");
+        } else if (tasksDoneToday && tasksDoneYesterday && tasksDone2DaysAgo && tasksDone3DaysAgo && tasksDone4DaysAgo){
+            // 5-streak
+            setStreak("5");
+        } else if (tasksDoneToday && tasksDoneYesterday && tasksDone2DaysAgo && tasksDone3DaysAgo){
+            // 4-streak
+            setStreak("4");
+        } else if (tasksDoneToday && tasksDoneYesterday && tasksDone2DaysAgo){
+            // 3-streak
+            setStreak("3");
+        } else {
+            setStreak("");
+        }
 
+    }, [taskList])
     return(
         <>
             <IconButton onClick={handleShow}>
@@ -337,9 +387,9 @@ export default function Home(){
                                 <p>{undoneTasks ? <strong>You have {undoneTasks} {undoneTasks > 1 ? 'tasks' : 'task'} remaining. Go ahead and finish them! 💪</strong>
                                 : <strong>You have no more unfinished tasks left. Congrats! 🥳</strong>
                                 }</p>
-                                <p>You created {tasksCreatedToday > 1 ? `${tasksCreatedToday} tasks` : `${tasksCreatedToday} task`} today, and in total of {tasksCreatedLastSevenDays} for the past 7 days.</p>
+                                <p>You created {tasksCreatedToday > 1 ? `${tasksCreatedToday} tasks` : `${tasksCreatedToday} task`} today, finished {tasksDoneToday > 1 ? `${tasksDoneToday} tasks` : `${tasksDoneToday} task`}  today, and in total of {tasksDoneLastSevenDays} done for the past 7 days.</p>
 
-                                <p>You have {totalTasksThisMonth} tasks in total this month, and you have finished {totalTasksDoneThisMonth === totalTasksThisMonth ? "all" : totalTasksDoneThisMonth} of them. Awesome!</p>
+                                <p>You created {totalTasksThisMonth} tasks in total this month, and you have finished {totalTasksDoneThisMonth === totalTasksThisMonth ? "all" : totalTasksDoneThisMonth} tasks. Awesome!</p>
                                 <p><strong>Tip: </strong>If you accidentally checked on tasks you do not wish to be marked as done, simply go to the different tabs above to check them back in.</p>
                             </div>
                         </TabPanel>
@@ -382,8 +432,8 @@ export default function Home(){
                     </div>
                     <div className={classes.sideContent}>
                         {!width && <Divider variant="middle" />}
-                        <br></br>
-                        <StreakCard />
+                        {!width && <br></br>}
+                        {streak && <StreakCard streak={streak} />}
                     
                         <C1 data={taskList} />
                         <div className={classes.pieChart}>

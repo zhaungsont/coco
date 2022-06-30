@@ -20,7 +20,7 @@ export default function TaskGrid(props){
 
     const columns = [
         // { field: 'id', headerName: '#', width: 80 },
-        { field: 'taskName', headerName: 'Tasks', witdth: 100, minWidth: 200 },
+        { field: 'taskName', headerName: 'Tasks', witdth: 100, minWidth: 300 },
         { field: 'category', headerName: 'Category', width: 120 },
         { field: 'date', headerName: 'Date Created', width: 500 },
         // { 
@@ -38,7 +38,7 @@ export default function TaskGrid(props){
         key: task.id, 
         id: task.id, 
         taskName: task.name, 
-        date: new Date(task.milliseconds),
+        date: new Date(task.smilliseconds),
         year: task.year, 
         month: task.month, 
         day: task.day, 

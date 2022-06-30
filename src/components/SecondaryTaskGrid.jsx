@@ -30,7 +30,7 @@ export default function SecondaryTaskGrid(props){
         // { field: 'id', headerName: '#', width: 80 },
         { field: 'taskName', headerName: 'Tasks', width: 150 },
         { field: 'category', headerName: 'Category', width: 120 },
-        { field: 'date', headerName: 'Date Created', width: 500 },
+        { field: 'date', headerName: 'Date Finished', width: 500 },
         // { 
         //     field: 'created', 
         //     headerName: 'Date Created', 
@@ -84,7 +84,7 @@ export default function SecondaryTaskGrid(props){
                     key: task.id, 
                     id: task.id, 
                     taskName: task.name, 
-                    date: new Date(task.milliseconds),
+                    date: new Date(task.emilliseconds),
                     year: task.year, 
                     month: task.month, 
                     day: task.day, 
@@ -98,7 +98,7 @@ export default function SecondaryTaskGrid(props){
                 key: task.id, 
                 id: task.id, 
                 taskName: task.name, 
-                date: new Date(task.milliseconds),
+                date: new Date(task.emilliseconds),
                 year: task.year, 
                 month: task.month, 
                 day: task.day, 
@@ -112,7 +112,7 @@ export default function SecondaryTaskGrid(props){
                 key: task.id, 
                 id: task.id, 
                 taskName: task.name, 
-                date: new Date(task.milliseconds),
+                date: new Date(task.emilliseconds),
                 year: task.year, 
                 month: task.month, 
                 day: task.day, 
@@ -126,7 +126,7 @@ export default function SecondaryTaskGrid(props){
                 key: task.id, 
                 id: task.id, 
                 taskName: task.name, 
-                date: new Date(task.milliseconds),
+                date: new Date(task.emilliseconds),
                 year: task.year, 
                 month: task.month, 
                 day: task.day, 
@@ -173,7 +173,7 @@ export default function SecondaryTaskGrid(props){
             />
         </div>
         :
-       <span>loading...</span>
+        <span>loading...</span>
             }
         </>
     )
