@@ -75,10 +75,23 @@ export default function UndoneTasks(props) {
         } 
     }, [props.data]);
 
+    useEffect(()=>{
+        
+        const cleaner = setTimeout(() => {
 
-    function onAddToToday(t){
-        console.log(t);
-    }
+            const date = new Date();
+            const milliseconds = date.getTime()
+
+            const renewInfo = {
+                smilliseconds: milliseconds,
+                done: false
+            };
+
+            moveTask.map(task => { update(ref(database, `tasks/${currentUser.uid}/${task}`), renewInfo) })
+        }, 500);
+        
+        return (()=>{clearInterval(cleaner)})
+    }, [moveTask])
 
     function openCloseHandler(){
         setExpand(!expand);
@@ -134,7 +147,7 @@ export default function UndoneTasks(props) {
                         pageSize={100}
                         rowsPerPageOptions={[100]}
                         checkboxSelection
-                        onSelectionModelChange={(e) => onAddToToday(e)}
+                        onSelectionModelChange={(e) => setMoveTask(e)}
                     />
                 </div>
             </Collapse>
