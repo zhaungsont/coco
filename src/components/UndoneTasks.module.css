@@ -1,0 +1,22 @@
+.undoneTasks{
+    margin: 1rem;
+    border-radius: 10px;
+    padding: 0 1rem;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+}
+
+.title{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: .5rem 0;
+}
+
+.title h3, .title strong{
+    margin: 0;
+}
+.taskGrid{
+    margin-bottom: 1rem;
+}

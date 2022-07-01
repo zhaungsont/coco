@@ -30,6 +30,7 @@ import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 ///////
+import UndoneTasks from "./UndoneTasks";
 import SecondaryTaskGrid from "./SecondaryTaskGrid";
 import C1 from "./C1";
 import C2 from "./C2";
@@ -355,6 +356,7 @@ export default function Home(){
                     tagValue={inputTag}
                     // categoryValue={category}
                     />
+                    <UndoneTasks data={taskList} />
                     <div className={classes.mainList}>
                         <TaskGrid data={taskList} onCheck={checkHandler} />
                         {/* {taskList.map((task) => <p key={task.id}>{task.name}</p> )} */}

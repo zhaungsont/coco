@@ -6,17 +6,38 @@ export default function TaskGrid(props){
 
     // firebase data looks like this:
     // name: "123"
-    // year: 2022
-    // month: 6
-    // day: 23
-    // weekday: "Thursday"
     // done: false
-    // hour: 22
-    // minutes: 15
-    // seconds: 19
-    // milliseconds: 5834759834758
+    // syear: 2022
+    // smonth: 6
+    // sday: 23
+    // sweekday: "Thursday"
+    // shour: 22
+    // sminutes: 15
+    // sseconds: 19
+    // smilliseconds: 5834759834758
+    // eyear: 2022
+    // emonth: 6
+    // eday: 23
+    // eweekday: "Thursday"
+    // ehour: 22
+    // eminutes: 15
+    // eseconds: 19
+    // emilliseconds: 5834759834758
     // tag: ''
     // id: "wehUWEHfoihwefw" NOTICE!! id is generated in Home.jsx on fetching firebase data.
+
+    const sampleDate = new Date();
+
+    function getStartOfDay(year, month, day){
+        return new Date(year, month, day);
+    }
+    const startOfDay = getStartOfDay(
+        sampleDate.getFullYear(),
+        sampleDate.getMonth(),
+        sampleDate.getDate()
+    )
+    const startOfDayInMili = startOfDay.getTime();
+    console.log(startOfDayInMili);
 
     const columns = [
         // { field: 'id', headerName: '#', width: 80 },
@@ -34,7 +55,7 @@ export default function TaskGrid(props){
         // },
 
     ];
-    const rows = props.data.filter(task => task.done == false).map(task => ({
+    const rows = props.data.filter(task => task.done == false && task.smilliseconds > startOfDayInMili).map(task => ({
         key: task.id, 
         id: task.id, 
         taskName: task.name, 

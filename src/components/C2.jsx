@@ -31,7 +31,6 @@ export default function C2(props) {
         }
 
         taskList.forEach((task)=>{ tempData[tempCatData.indexOf(task.tag)] ++ });
-        console.log(tempData)
 
         tempCatData[0] = 'No Category';
         setCategories(tempCatData);
