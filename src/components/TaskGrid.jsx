@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { DataGrid } from '@mui/x-data-grid';
+import classes from "./TaskGrid.module.css";
+import { useTheme } from '@mui/material/styles';
 
 export default function TaskGrid(props){
-    let loadingData = false;
+    const [darkMode, setDarkMode] = useState(false);
+    const theme = useTheme().palette.mode;
+    useEffect(()=>{
+        setDarkMode(theme == 'light' ? false : true);
+    }, [theme]);
 
     // firebase data looks like this:
     // name: "123"
@@ -70,16 +76,18 @@ export default function TaskGrid(props){
         category: task.tag ? task.tag : 'No Category'}));
 
     return(
-        <div style={{ height: 371 }}>
-            <DataGrid
-                loading={loadingData}
-                rows={rows}
-                columns={columns}
-                pageSize={10}
-                rowsPerPageOptions={[10]}
-                checkboxSelection
-                onSelectionModelChange={(e) => props.onCheck(e)}
-            />
-        </div>
+        <section className={darkMode ? classes.darkPanel : classes.lightPanel}>
+            <h3 className={classes.title}>Today</h3>
+            <div style={{ height: 371 }}>
+                <DataGrid
+                    rows={rows}
+                    columns={columns}
+                    pageSize={10}
+                    rowsPerPageOptions={[10]}
+                    checkboxSelection
+                    onSelectionModelChange={(e) => props.onCheck(e)}
+                />
+            </div>
+        </section>
     )
 }

@@ -1,8 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { DataGrid } from '@mui/x-data-grid';
+import classes from "./SecondaryTaskGrid.module.css";
+import { useAuth } from "../contexts/AuthContext";
+
+import { useTheme } from '@mui/material/styles';
 
 export default function SecondaryTaskGrid(props){
-    let loadingData = false;
+    const [darkMode, setDarkMode] = useState(false);
+    const theme = useTheme().palette.mode;
+    useEffect(()=>{
+        setDarkMode(theme == 'light' ? false : true);
+    }, [theme]);
 
     // firebase data looks like this:
     // name: "123"
@@ -160,7 +168,7 @@ export default function SecondaryTaskGrid(props){
     return(
         <>
             {rows ? 
-            <div style={{ height: 500 }}>
+            <div style={{ height: 500 }} className={darkMode ? classes.darkPanel : classes.lightPanel}>
             <DataGrid
 
                 loading={isLoading}
@@ -171,7 +179,7 @@ export default function SecondaryTaskGrid(props){
                 checkboxSelection
                 onSelectionModelChange={(e) => props.onAddBack(e)}
             />
-        </div>
+            </div>
         :
         <span>loading...</span>
             }

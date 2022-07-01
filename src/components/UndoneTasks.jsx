@@ -13,7 +13,15 @@ import { ref, set, push, onValue, update } from "firebase/database";
 
 import { useAuth } from "../contexts/AuthContext";
 
+import { useTheme } from '@mui/material/styles';
+
 export default function UndoneTasks(props) {
+    const [darkMode, setDarkMode] = useState(false);
+    const theme = useTheme().palette.mode;
+    useEffect(()=>{
+        setDarkMode(theme == 'light' ? false : true);
+    }, [theme]);
+    
     const { currentUser } = useAuth();
     const [show, setShow] = useState(false);
     const [expand, setExpand] = useState(false);
@@ -132,14 +140,15 @@ export default function UndoneTasks(props) {
         <>
         {show && 
         
-        <div className={classes.undoneTasks} style={{border: "1px solid #F9F2ED"}}>
-            <div className={classes.title}>
+        <div className={darkMode ? classes.darkPanel : classes.lightPanel}>
+            <div className={classes.title} onClick={openCloseHandler}>
                 <strong>Undone Tasks</strong>
-                <IconButton size="small" onClick={openCloseHandler}>
+                <IconButton size="small">
                     {expand ? <CloseFullscreenIcon /> : <OpenInFullIcon />}
                 </IconButton>
             </div>
             <Collapse in={expand}>
+            <p>It seems like you have some unfinished tasks from before. Check on them to add them to your to-dos today!</p>
                 <div style={{ height: 290 }} className={classes.taskGrid}>
                     <DataGrid
                         rows={rows}

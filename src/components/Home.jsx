@@ -388,7 +388,7 @@ export default function Home(){
                         
                         <TabPanel value={value} index={1}>
                             <div className={classes.tabDesc}>
-                                <h3>Today</h3>
+                                <h3>Done Today</h3>
                                 <p><strong>Tip: </strong>Click on any of the finished tasks to mark them as undone.</p>
                             </div>
                             <SecondaryTaskGrid data={taskList} method="done today" onAddBack={addbackHandler} dependency={[deleteTask, addBackTask]} sx={{padding: 0}} />

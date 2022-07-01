@@ -206,7 +206,7 @@ export default function C1(props) {
         labels,
         datasets: [
             {
-                label: `All Tasks`,
+                label: `Created Tasks`,
                 data: chartData1,
                 backgroundColor: darkMode ? '#0F044C' : '#E2703A',
             },
