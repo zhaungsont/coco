@@ -2,4 +2,22 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
+    /* grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); */
+}
+
+/* PREVENT GRID ITEM OVERFLOW */
+/* https://stackoverflow.com/questions/43311943/prevent-content-from-expanding-grid-items */
+
+.C3Grid > div{
+    padding: 1rem;
+    min-width: 0;
+    min-height: 0
+}
+
+@media screen and (max-width: 1000px) {
+    .C3Grid{
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr 1fr 1fr;
+    }
+
 }
