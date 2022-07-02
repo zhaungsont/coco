@@ -104,7 +104,7 @@ export default function Sidebar(props) {
                             </li>
                             <li>
                                 <a href="https://github.com/zhaungsont/coco">
-                                    <div className={`${classes.menuBtn} ${pathName === '/settings' && classes.currentLocation}`}>
+                                    <div className={`${classes.menuBtn}`}>
                                         <div className={classes.menuIcon}>
                                             <GitHubIcon />
                                         </div>
