@@ -15,6 +15,7 @@ import { ref, onValue } from "firebase/database";
 import { Button as MButton } from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
 import GitHubIcon from '@mui/icons-material/GitHub';
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 
 export default function Sidebar(props) {
     const [status, setStatus] = useState('');
@@ -80,7 +81,7 @@ export default function Sidebar(props) {
                         <ul>
                             <li>
                                 <Link to="/">
-                                    <div className={`${classes.menuBtn} ${pathName === '/' && classes.currentLocation}`}>
+                                    <div className={`${pathName === '/' && (darkMode ? classes.currentLocationDark : classes.currentLocation)} ${darkMode ? classes.menuBtnDark : classes.menuBtn}`}>
                                         {/* <div className={classes.menuIcon}>
                                             <SettingsIcon />
                                         </div> */}
@@ -94,8 +95,20 @@ export default function Sidebar(props) {
                                 </Link>
                             </li>
                             <li>
+                                <Link to="/achievements">
+                                    <div className={`${pathName === '/achievements' && (darkMode ? classes.currentLocationDark : classes.currentLocation)} ${darkMode ? classes.menuBtnDark : classes.menuBtn}`}>
+                                        <div className={classes.menuIcon}>
+                                            <EmojiEventsIcon />
+                                        </div>
+                                        <div className={classes.menuName}>
+                                            Achievements
+                                        </div>
+                                    </div>
+                                </Link>
+                            </li>
+                            <li>
                                 <Link to="/settings">
-                                    <div className={`${classes.menuBtn} ${pathName === '/settings' && classes.currentLocation}`}>
+                                    <div className={`${pathName === '/settings' && (darkMode ? classes.currentLocationDark : classes.currentLocation)} ${darkMode ? classes.menuBtnDark : classes.menuBtn}`}>
                                         <div className={classes.menuIcon}>
                                             <SettingsIcon />
                                         </div>
@@ -107,7 +120,7 @@ export default function Sidebar(props) {
                             </li>
                             <li>
                                 <a href="https://github.com/zhaungsont/coco">
-                                    <div className={`${classes.menuBtn}`}>
+                                    <div className={`${darkMode ? classes.menuBtnDark : classes.menuBtn}`}>
                                         <div className={classes.menuIcon}>
                                             <GitHubIcon />
                                         </div>
