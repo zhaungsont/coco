@@ -1,10 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import Chart from 'chart.js/auto';
 import { Line } from 'react-chartjs-2';
+import { useTheme } from '@mui/material/styles';
 
+import classes from "./chartPanel.module.css";
 
 
 export default function C3() {
+    const [darkMode, setDarkMode] = useState(false);
+    const theme = useTheme().palette.mode;
+    useEffect(()=>{
+        setDarkMode(theme == 'light' ? false : true);
+    }, [theme]);
 
     const options = {
         responsive: true,
@@ -43,8 +50,8 @@ export default function C3() {
 
     return (
         <div>
-            C3
-            <div style={{height:'15rem'}}>
+            
+            <div style={{height:'15rem', margin: '1rem 0', padding: '1rem'}} className={darkMode ? `${classes.darkPanel}` : `${classes.lightPanel}`}>
                 <Line options={options} data={data} />
             </div>
         </div>

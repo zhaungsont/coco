@@ -11,10 +11,11 @@ import React, { useEffect, useState } from 'react'
 import Chart from 'chart.js/auto';
 import { Bar } from 'react-chartjs-2';
 
-import classes from "./C1.module.css";
 import { useAuth } from "../contexts/AuthContext";
 
 import { useTheme } from '@mui/material/styles';
+
+import classes from "./chartPanel.module.css";
 
 export default function C1(props) {
     const [darkMode, setDarkMode] = useState(false);
@@ -219,7 +220,7 @@ export default function C1(props) {
     };
 
     return (
-        <div style={{height:'20rem'}}>
+        <div style={{height:'20rem'}} className={darkMode ? `${classes.darkPanel}` : `${classes.lightPanel}`}>
             <Bar options={options} data={data} />
         </div>
     )

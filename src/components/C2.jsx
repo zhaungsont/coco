@@ -4,6 +4,8 @@ import { Pie } from 'react-chartjs-2';
 import { useAuth } from "../contexts/AuthContext";
 import { useTheme } from '@mui/material/styles';
 
+import classes from "./chartPanel.module.css";
+
 export default function C2(props) {
     const taskList = props.data;
     
@@ -71,8 +73,8 @@ export default function C2(props) {
         };
         
     return (
-        <>
+        <div style={{padding: "1rem", width: '100%'}} className={darkMode ? `${classes.darkPanel}` : `${classes.lightPanel}`}>
             <Pie data={data} />
-        </>
+        </div>
     )
 }

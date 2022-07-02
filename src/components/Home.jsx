@@ -36,6 +36,7 @@ import SecondaryTaskGrid from "./SecondaryTaskGrid";
 import C1 from "./C1";
 import C2 from "./C2";
 import C3 from "./C3";
+import C4 from "./C4";
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -440,7 +441,7 @@ export default function Home(){
                         </>
                         }
                         {streak && <StreakCard streak={streak} />}
-                    
+                        <C4 />
                         <C1 data={taskList} />
                         <div className={classes.lineChart}>
                             <C3 />
