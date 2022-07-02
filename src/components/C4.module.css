@@ -14,6 +14,27 @@
     min-height: 0
 }
 
+.lightPanel{
+    /* margin: 1rem; */
+    border-radius: 10px;
+    padding: 0 1rem;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid #F9F2ED;
+}
+
+.darkPanel{
+    /* margin: 1rem; */
+    border-radius: 10px;
+    padding: 1rem;
+    background: rgba(50, 50, 50, 0.3);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border-color: black;
+    border: 1px solid #7d7d7d;
+}
+
 @media screen and (max-width: 1000px) {
     .C3Grid{
         grid-template-columns: 1fr;
