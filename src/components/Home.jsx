@@ -35,6 +35,7 @@ import UndoneTasks from "./UndoneTasks";
 import SecondaryTaskGrid from "./SecondaryTaskGrid";
 import C1 from "./C1";
 import C2 from "./C2";
+import C3 from "./C3";
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -441,6 +442,9 @@ export default function Home(){
                         {streak && <StreakCard streak={streak} />}
                     
                         <C1 data={taskList} />
+                        <div className={classes.lineChart}>
+                            <C3 />
+                        </div>
                         <div className={classes.pieChart}>
                             <C2 data={taskList} />
                         </div>
