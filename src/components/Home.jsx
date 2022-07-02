@@ -11,6 +11,7 @@ import Button from 'react-bootstrap/Button';
 import Sidebar from "./Sidebar";
 import StreakCard from "./StreakCard";
 import { useAuth } from "../contexts/AuthContext";
+import { useTheme } from '@mui/material/styles';
 
 import IconButton from '@mui/material/IconButton';
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
@@ -69,6 +70,13 @@ function a11yProps(index) {
 }
 
 export default function Home(){
+
+    const [darkMode, setDarkMode] = useState(false);
+    const theme = useTheme().palette.mode;
+    useEffect(()=>{
+        setDarkMode(theme == 'light' ? false : true);
+    }, [theme]);
+
     // Tabs
     const [value, setValue] = useState(0);
 
@@ -331,7 +339,7 @@ export default function Home(){
         <Sidebar show={show} handleClose={handleClose}  />
 
         <section id="content-structure">
-            <div className="frosted-glass">
+            <div className={darkMode ? `dark-frosted-glass` : `light-frosted-glass`}>
                 <div className={classes.headerWrapper}>
                     <div className="content-title">
                         <h1 className={classes.title}>{greet}<br></br>{currentUser.displayName ? currentUser.displayName : 'Cocoer'}.</h1>

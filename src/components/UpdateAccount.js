@@ -190,7 +190,7 @@ export default function UpdateAccount() {
         }}
         >
             <section id="content-structure">
-                <div className="frosted-glass">
+                <div className={darkMode ? `dark-frosted-glass` : `light-frosted-glass`}>
                     <div className="content-title">
                         <div className={classes.headerWrapper}>
                             <h1>Settings</h1>

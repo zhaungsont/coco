@@ -71,49 +71,59 @@ export function BackgroundProvider({ children }) {
         set(ref(database, `settings/${currentUser.uid}/darkBG`), newSetting);
     }
 
+    function getUserPref(){
+        try {
+            const lightBGPref = ref(database, `settings/${currentUser.uid}/lightBG`);
+            onValue(lightBGPref, (snapshot) => {
+                try {
+                    const lightBG = snapshot.val().lightBG;
+                    console.log('got user light bg setting: ' + lightBG);
+                    console.log('setting now...')
+                    setLightBGSelected(lightBG);
+                } catch {
+                    console.log('no record of light background image. Will not do anything.')
+                }
+            });
+        } catch {
+        }
+
+        try {
+            const darkBGPref = ref(database, `settings/${currentUser.uid}/darkBG`) || '4';
+            onValue(darkBGPref, (snapshot) => {
+                try {
+                    const darkBG = snapshot.val().darkBG;
+                    console.log('got user dark bg setting: ' + darkBG);
+                    console.log('setting now...')
+                    setDarkBGSelected(darkBG);
+    
+                    } catch {
+                        console.log('no record of dark background image. Will not do anything.');
+                    }
+                });
+        } catch {
+        }
+
+        try {
+            const modePref = ref(database, `settings/${currentUser.uid}/mode`);
+            onValue(modePref, (snapshot) => {
+                try {
+                    const mode = snapshot.val().mode;
+                    console.log('got user mode setting: ' + mode);
+                    console.log('setting now...')
+                    setModeSelected(mode);
+    
+                } catch {
+                    console.log('no record of dark background image. Will not do anything.')
+                }
+            });
+        } catch {
+        }
+    }
+
     // Get user preferences from firebase
     useEffect(()=>{
         console.log('proceed to get user pref')
-        const lightBGPref = ref(database, `settings/${currentUser.uid}/lightBG`);
-        const darkBGPref = ref(database, `settings/${currentUser.uid}/darkBG`);
-        const modePref = ref(database, `settings/${currentUser.uid}/mode`);
-
-        onValue(lightBGPref, (snapshot) => {
-            try {
-                const lightBG = snapshot.val().lightBG;
-                console.log('got user light bg setting: ' + lightBG);
-                console.log('setting now...')
-                setLightBGSelected(lightBG);
-            } catch {
-                console.log('no record of light background image. Will not do anything.')
-            }
-        });
-
-        onValue(darkBGPref, (snapshot) => {
-            try {
-                const darkBG = snapshot.val().darkBG;
-                console.log('got user dark bg setting: ' + darkBG);
-                console.log('setting now...')
-                setDarkBGSelected(darkBG);
-
-            } catch {
-                console.log('no record of dark background image. Will not do anything.')
-
-            }
-        });
-
-        onValue(modePref, (snapshot) => {
-            try {
-                const mode = snapshot.val().mode;
-                console.log('got user mode setting: ' + mode);
-                console.log('setting now...')
-                setModeSelected(mode);
-
-            } catch {
-                console.log('no record of dark background image. Will not do anything.')
-
-            }
-        });
+        getUserPref();
     }, [])
 
 

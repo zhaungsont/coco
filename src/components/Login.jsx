@@ -62,7 +62,7 @@ export default function Login(props){
             {/* This div below prevents the forsted glass pane and sign up link become horizontally divided
             due to the {classes.wrapper} flexbox */}
             <div>
-                <div className={`${classes.formDiv} frosted-glass`}>
+                <div className={`${classes.formDiv} ${darkMode? `dark-frosted-glass` : `light-frosted-glass`}`}>
                     <Form onSubmit={submitHandler}>
                     <h1 className={classes.title}>Login</h1>
 

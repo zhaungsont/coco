@@ -55,14 +55,14 @@ export default function ResetPW() {
             {/* This div below prevents the forsted glass pane and sign up link become horizontally divided
             due to the {classes.wrapper} flexbox */}
             <div>
-                <div className={`${classes.formDiv} frosted-glass`}>
+                <div className={`${classes.formDiv} ${darkMode? `dark-frosted-glass` : `light-frosted-glass`}`}>
                     <Form onSubmit={resetHandler}>
                     <h1 className={classes.title}>Password Reset</h1>
 
                     {error && <Alert variant="danger"> {error} </Alert>}
                     {info && <Alert variant="primary"> {info} </Alert>}
 
-                        <p>Enter your email address to %%%</p>
+                        <p>Enter your email address to below and we will send a password reset mail to you.</p>
 
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>Email address</Form.Label>

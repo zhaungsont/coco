@@ -68,13 +68,23 @@
     /* width: 60%; */
     text-align: left;
     font-size: 1rem;
-    /* font-family: 'Josefin Sans', sans-serif; */
     font-weight: 400;
 
 }
 
 
-
+.logo{
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 900;
+    font-size: 1.5rem;
+    margin-left: .5rem;
+    width: 1.5rem;
+    line-height: 1.5rem;
+    text-align: left;
+    position: relative;
+    top: 3px;
+    left: 3px;
+}
 
 .username{
     font-size: 2rem;

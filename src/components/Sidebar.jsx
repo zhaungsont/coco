@@ -81,8 +81,11 @@ export default function Sidebar(props) {
                             <li>
                                 <Link to="/">
                                     <div className={`${classes.menuBtn} ${pathName === '/' && classes.currentLocation}`}>
-                                        <div className={classes.menuIcon}>
+                                        {/* <div className={classes.menuIcon}>
                                             <SettingsIcon />
+                                        </div> */}
+                                        <div className={classes.logo}>
+                                            C
                                         </div>
                                         <div className={classes.menuName}>
                                             Dashboard
