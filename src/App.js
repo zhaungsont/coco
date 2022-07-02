@@ -17,7 +17,7 @@ import { useTheme, ThemeProvider, createTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import CssBaseline from '@mui/material/CssBaseline';
 
-
+import Cat from "./components/Cat";
 import { useBG } from "./contexts/BackgroundContext";
 
 function App() {
@@ -90,6 +90,8 @@ function App() {
               </Route>
 
               <Route path="*" element={<NoMatch />} />
+
+              <Route path="cat" element={<Cat />} />
             </Routes>
         
 
