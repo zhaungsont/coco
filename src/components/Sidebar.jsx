@@ -113,7 +113,7 @@ export default function Sidebar(props) {
                                             <SettingsIcon />
                                         </div>
                                         <div className={classes.menuName}>
-                                            Settings
+                                            Account & Preferences
                                         </div>
                                     </div>
                                 </Link>
@@ -125,7 +125,7 @@ export default function Sidebar(props) {
                                             <GitHubIcon />
                                         </div>
                                         <div className={classes.menuName}>
-                                            GitHub
+                                            View Project in GitHub!
                                         </div>
                                     </div>
                                 </a>
