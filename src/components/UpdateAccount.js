@@ -23,6 +23,8 @@ import ThemeSelection from './ThemeSelection';
 
 import { ref, onValue } from "firebase/database";
 
+import Sidebar from "./Sidebar";
+import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 
 export default function UpdateAccount() {
     let navigate = useNavigate();
@@ -86,9 +88,8 @@ export default function UpdateAccount() {
             promises.push(updatePassword(password));
         }
         // update status
-        if (status){
-            updateStatus(status);
-        }
+        // You update status EVEN IF IT"S EMPTY!"
+        updateStatus(status);
 
         // update pfp
 
@@ -160,8 +161,19 @@ export default function UpdateAccount() {
         }) 
     }, [currentUser])
 
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
     return (
     <div>
+
+        <IconButton onClick={handleShow}>
+            <AccountCircleRoundedIcon className={classes.userBtn} fontSize="large" />
+        </IconButton>
+
+    <Sidebar show={show} handleClose={handleClose}  />
+
     <Link to="/">
         <IconButton>
             <HomeIcon fontSize="large" />

@@ -20,8 +20,91 @@
     text-align: center;
 }
 
+.sidebar li{
+    list-style: none;
+}
+
+.sidebar ul{
+    padding: 0;
+}
+
+.menu{
+    margin-top: 2rem;
+}
+
+.menu a{
+    text-decoration: none;
+}
+
+.menuBtn{
+    display: flex;
+    margin: 1rem 15%;
+    padding: .5rem;
+    border-radius: 15px;
+    /* justify-content: center; */
+    align-items: center;
+    gap: .5rem;
+    color: rgb(100, 100, 100);
+    transition: .3s;
+}
+
+.menuBtn:hover{
+    background-color: rgb(245, 245, 245);
+    color: rgb(136, 210, 228);
+
+}
+
+.currentLocation{
+    background-color: rgb(240, 240, 240);
+}
+
+.menuIcon{
+    /* width: 40%; */
+    margin-left: .5rem;
+
+}
+
+.menuName{
+    /* width: 60%; */
+    text-align: left;
+    font-size: 1rem;
+    /* font-family: 'Josefin Sans', sans-serif; */
+    font-weight: 400;
+
+}
+
+
+
+
 .username{
     font-size: 2rem;
+}
+
+.email{
+    font-size: .8rem;
+    margin: 0;
+}
+
+.status{
+    margin: .5rem 15%;
+    padding: .5rem;
+    border: 5px solid;
+    border-image-slice: 1;
+    /* border-image-source: linear-gradient(to left, #743ad5, #d53a9d ); */
+    border-image: linear-gradient(var(--angle), #743ad5, #d53a9d) 1;
+    animation: 3s rotate linear infinite;
+}
+
+@keyframes rotate {
+    to {
+        --angle: 360deg;
+    }
+}
+
+@property --angle {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
 }
 
 

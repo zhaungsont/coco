@@ -12,6 +12,9 @@ import { useTheme } from '@mui/material/styles';
 import { database } from '../Firebase';
 import { ref, onValue } from "firebase/database";
 
+import { Button as MButton } from '@mui/material';
+import SettingsIcon from '@mui/icons-material/Settings';
+import GitHubIcon from '@mui/icons-material/GitHub';
 
 export default function Sidebar(props) {
     const [status, setStatus] = useState('');
@@ -53,32 +56,66 @@ export default function Sidebar(props) {
         }) 
     }, [currentUser])
 
+    const pathName = window.location.pathname;
     return (
         <>
-            {/* <Button variant="primary" onClick={handleShow}>
-            Launch
-            </Button> */}
+
             <Offcanvas show={props.show} onHide={props.handleClose} style={{backgroundColor: darkMode ? "#191919" : "#fff"}}>
                 <Offcanvas.Header closeButton closeVariant={darkMode ? "white" : ""}>
                     <Offcanvas.Title>
-                        {/* <img className={classes.logo} src={process.env.PUBLIC_URL + "/coco.png"}></img> */}
                         <div className={classes.logoTitle}>Coco.</div>
                     </Offcanvas.Title>
                 </Offcanvas.Header>
                 <Offcanvas.Body>
 
                 <img className={classes.avatar} src={currentPhoto}></img>
-                
-                {/* <Switch
-                checked={props.checked}
-                onChange={props.onThemeChange}
-                inputProps={{ 'aria-label': 'controlled' }}
-                /> */}
+
                 
                 <div className={classes.sidebar}>
                     <h1 className={classes.username}>{currentUser.displayName ? currentUser.displayName : 'Cocoer'}</h1>
-                    <p><strong >Email: </strong>{currentUser.email}</p>
-                    <p>{status}</p>
+                    <p className={classes.email}><strong >Email: </strong>{currentUser.email}</p>
+                    {status && <p className={classes.status}>{status}</p>}
+
+                    <div className={classes.menu}>
+                        <ul>
+                            <li>
+                                <Link to="/">
+                                    <div className={`${classes.menuBtn} ${pathName === '/' && classes.currentLocation}`}>
+                                        <div className={classes.menuIcon}>
+                                            <SettingsIcon />
+                                        </div>
+                                        <div className={classes.menuName}>
+                                            Dashboard
+                                        </div>
+                                    </div>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to="/settings">
+                                    <div className={`${classes.menuBtn} ${pathName === '/settings' && classes.currentLocation}`}>
+                                        <div className={classes.menuIcon}>
+                                            <SettingsIcon />
+                                        </div>
+                                        <div className={classes.menuName}>
+                                            Settings
+                                        </div>
+                                    </div>
+                                </Link>
+                            </li>
+                            <li>
+                                <a href="https://github.com/zhaungsont/coco">
+                                    <div className={`${classes.menuBtn} ${pathName === '/settings' && classes.currentLocation}`}>
+                                        <div className={classes.menuIcon}>
+                                            <GitHubIcon />
+                                        </div>
+                                        <div className={classes.menuName}>
+                                            GitHub
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
                 
                 <div className={classes.bottom}>
@@ -86,9 +123,9 @@ export default function Sidebar(props) {
                         {error}
                     </Alert>}
 
-                    <Link to="/updateuser">Edit account info</Link>
+
                     <div className={`d-grid gap-2 ${classes.logoutBtn}`}>
-                        <Button variant="outline-secondary" size="lg" onClick={logoutHandler}>
+                        <Button variant="outline-secondary" onClick={logoutHandler}>
                             Log out
                         </Button>
                     </div>
