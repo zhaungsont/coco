@@ -56,20 +56,27 @@ export default function C4(props) {
         // id: "wehUWEHfoihwefw" NOTICE!! id is generated in Home.jsx on fetching firebase data.
 
         function getClearRateInWeek(){
+            if (taskList.length > 0){
             const allTasks = taskList.filter(t => t.smilliseconds > startOfThisWeekinMili).length;
             const doneTasks = taskList.filter(t => t.emilliseconds > startOfThisWeekinMili).length;
             // console.log(allTasks)
             // console.log(doneTasks)
             const percentage = Math.round(1000 * doneTasks / allTasks) / 10;
             setClearInWeek(percentage);
-            // console.log(percentage)
+            } else {
+                setClearInWeek("0");
+            }
         }
 
         function getClearRateinHistory(){
+            if (taskList.length > 0){
             const allTasks = taskList.length;
             const doneTasks = taskList.filter(t => t.done === true).length;
             const percentage = Math.round(1000 * doneTasks / allTasks) / 10;
             setClearInHis(percentage);
+            } else {
+                setClearInHis("0");
+            }
         }
 
         function getTaskStreaks(){
@@ -89,11 +96,25 @@ export default function C4(props) {
             setStreak(streak)
         }
 
+        function getAvgTime(){
+            if (taskList.length > 0){
+                const doneTasks = taskList.filter(t => t.done);
+                const timeArray = [];
+                console.log(timeArray)
+                doneTasks.forEach(t => timeArray.push(t.emilliseconds - t.smilliseconds));
+                const average = timeArray.reduce((p, c) => p + c) / timeArray.length;
+                console.log(average);
+            } else {
+                setAvgTime('0');
+            }
+        }
+
     useEffect(()=>{
         // Call functions...
         getClearRateInWeek();
         getClearRateinHistory();
         getTaskStreaks();
+        getAvgTime();
     }, [taskList])
 
     return (
@@ -112,7 +133,7 @@ export default function C4(props) {
             </div>
             <div className={classes.wrapper}>
                 <p className={classes.description}>Average Time Spent per Task</p>
-                <p className={classes.metric}>668<span>m</span></p>
+                <p className={classes.metric}>{avgTime}<span>m</span></p>
             </div>
         </div>
     )
