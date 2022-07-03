@@ -287,7 +287,7 @@ export default function Home(){
     );
 
     const startOfDayInMili = startOfDay.getTime();
-    const tasksCreatedToday = taskList.filter(t => t.milliseconds > startOfDayInMili).length;
+    const tasksCreatedToday = taskList.filter(t => t.smilliseconds > startOfDayInMili).length;
 
     // this statement is not entirely true! is planned to be fixed in future updates.
     const tasksDoneToday = taskList.filter(t => t.done === true && t.emilliseconds > startOfDayInMili).length;

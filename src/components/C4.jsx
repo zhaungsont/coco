@@ -59,8 +59,8 @@ export default function C4() {
             </div>
             <div className={classes.wrapper}>
                 {/* ALL TASK FINISH PERCENTAGE */}
-                <p className={classes.description}>Task Streak in Days</p>
-                <p className={classes.metric}>13<span>d</span></p>
+                <p className={classes.description}>地方媽媽</p>
+                <p className={classes.metric}>13<span>個</span></p>
             </div>
         </div>
     )
