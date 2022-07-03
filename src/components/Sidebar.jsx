@@ -125,7 +125,7 @@ export default function Sidebar(props) {
                                             <GitHubIcon />
                                         </div>
                                         <div className={classes.menuName}>
-                                            View Project in GitHub!
+                                            View Project on GitHub!
                                         </div>
                                     </div>
                                 </a>

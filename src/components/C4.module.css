@@ -1,21 +1,54 @@
-.C3Grid{
+.C4Grid{
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
-    /* grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); */
 }
 
 /* PREVENT GRID ITEM OVERFLOW */
 /* https://stackoverflow.com/questions/43311943/prevent-content-from-expanding-grid-items */
 
-.C3Grid > div{
+.C4Grid > div{
     padding: 1rem;
     min-width: 0;
     min-height: 0
 }
 
+.C4Grid p{
+    margin: 0;
+}
+
+.wrapper{
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.description{
+    font-size: .75rem;
+    position: absolute;
+    bottom: .5rem;
+    text-align: center;
+    width: 100px;
+    line-height: .75rem;
+}
+
+.metric{
+    font-size: 3rem;
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 600;
+}
+
+
+.metric span{
+    font-size: 2rem;
+}
+
+
+
+
+
+
 .lightPanel{
-    /* margin: 1rem; */
     border-radius: 10px;
     padding: 0 1rem;
     background: rgba(255, 255, 255, 0.2);

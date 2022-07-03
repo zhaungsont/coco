@@ -41,21 +41,26 @@ export default function C4() {
     };
 
     return (
-        <div style={{marginBottom: "1rem"}} className={`${classes.C3Grid} ${darkMode ? `${classes.darkPanel}` : `${classes.lightPanel}` } `}>
-            <div>
-                (ALL TASK FINISH PERCENTAGE)
+        <div style={{marginBottom: "1rem"}} className={`${classes.C4Grid} ${darkMode ? `${classes.darkPanel}` : `${classes.lightPanel}` } `}>
+            <div className={classes.wrapper}>
+                {/* ALL TASK FINISH PERCENTAGE */}
+                <p className={classes.description}>Task Clear Rate in Week</p>
+                <p className={classes.metric}>54.3<span>%</span></p>
             </div>
-            <div>
-                429M Views
-                (TASK STREAK IN DAYS)
+            <div className={classes.wrapper}>
+                {/* ALL TASK FINISH PERCENTAGE */}
+                <p className={classes.description}>Task Clear Rate in Histroy</p>
+                <p className={classes.metric}>85.6<span>%</span></p>
             </div>
-            <div>
-                (TASKS IN CATEGORY)
-                <Doughnut data={doughnutData} />
+            <div className={classes.wrapper}>
+                {/* ALL TASK FINISH PERCENTAGE */}
+                <p className={classes.description}>Task Streak in Days</p>
+                <p className={classes.metric}>13<span>d</span></p>
             </div>
-            <div>
-                859 地方媽媽
-                ()
+            <div className={classes.wrapper}>
+                {/* ALL TASK FINISH PERCENTAGE */}
+                <p className={classes.description}>Task Streak in Days</p>
+                <p className={classes.metric}>13<span>d</span></p>
             </div>
         </div>
     )
