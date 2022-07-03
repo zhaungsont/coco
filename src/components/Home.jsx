@@ -441,7 +441,7 @@ export default function Home(){
                         </>
                         }
                         {streak && <StreakCard streak={streak} />}
-                        <C4 />
+                        <C4 data={taskList} />
                         <C1 data={taskList} />
                         <div className={classes.lineChart}>
                             <C3 />

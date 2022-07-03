@@ -79,7 +79,7 @@
     line-height: 2rem;
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 600px) {
     .glanceables{
         justify-content: center;
         align-items: center;
