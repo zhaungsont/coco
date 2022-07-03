@@ -99,11 +99,16 @@ export default function C4(props) {
         function getAvgTime(){
             if (taskList.length > 0){
                 const doneTasks = taskList.filter(t => t.done);
-                const timeArray = [];
-                console.log(timeArray)
-                doneTasks.forEach(t => timeArray.push(t.emilliseconds - t.smilliseconds));
-                const average = timeArray.reduce((p, c) => p + c) / timeArray.length;
-                console.log(average);
+                if (doneTasks.length > 0){
+                    const timeArray = [];
+                    console.log(timeArray)
+                    doneTasks.forEach(t => timeArray.push(t.emilliseconds - t.smilliseconds));
+                    const average = (timeArray.reduce((p, c) => p + c, 0) / timeArray.length / 60000).toString().slice(0, 4);
+                    setAvgTime(average);
+                    console.log(average);
+                } else {
+                    setAvgTime('0');
+                }
             } else {
                 setAvgTime('0');
             }
