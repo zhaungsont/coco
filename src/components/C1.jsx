@@ -192,11 +192,11 @@ export default function C1(props) {
             title: {
             display: true,
             text: 'Task Created in Months',
+            color: darkMode ? "rgba(240, 235, 227, 1)" : "rgba(44, 54, 57, 1)"
             },
         },
         maintainAspectRatio:false,
-        color: darkMode ? '#FFF' : '#2C3639',
-
+        color: darkMode ? "rgba(240, 235, 227, 1)" : "rgba(44, 54, 57, 1)"
         };
 
     const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July',"August", "September", "October", "November", "December" ];

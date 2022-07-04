@@ -44,9 +44,11 @@ export default function C3(props) {
         title: {
             display: true,
             text: 'Create & Done Distribution',
+            color: darkMode ? "rgba(240, 235, 227, 1)" : "rgba(44, 54, 57, 1)"
         },
         },
         maintainAspectRatio:false,
+        color: darkMode ? "rgba(240, 235, 227, 1)" : "rgba(44, 54, 57, 1)",
     };
 
     const labels = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23']
