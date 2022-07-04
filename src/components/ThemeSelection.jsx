@@ -2,9 +2,32 @@ import React from 'react'
 import classes from "./ThemeSelection.module.css";
 import { useBG } from "../contexts/BackgroundContext";
 
+import IconButton from '@mui/material/IconButton';
+import Stack from '@mui/material/Stack';
+
+import LightModeIcon from '@mui/icons-material/LightMode';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
+import SettingsSuggestIcon from '@mui/icons-material/SettingsSuggest';
+
+import Tooltip from '@mui/material/Tooltip';
+
+
 export default function ThemeSelection() {
 
+    
     const { modeCTX, bgURLArray, modeSelected, lightBGSelected, darkBGSelected, bgLightCTX, bgDarkCTX } = useBG();
+    
+    function lightModeHandler(){
+        modeCTX('0');
+    }
+
+    function darkModeHandler(){
+        modeCTX('1');
+    }
+
+    function autoModeHandler(){
+        modeCTX('2');
+    }
 
     // https://stackoverflow.com/questions/8683528/embed-image-in-a-button-element
     return (
@@ -12,13 +35,13 @@ export default function ThemeSelection() {
 
             <div className={classes.modeSelection}>
             <h3>Preferred Mode</h3>
-                <div className={classes.imgSelection}>
+                {/* <div className={classes.imgSelection}> */}
 
                     {/* Currently the values and srcs are hard-coded, no good.
                         Will change this in future updates.
                      */}
 
-                    <div className={classes.imgItem}>
+                    {/* <div className={classes.imgItem}>
                         <input value="0" onClick={e => modeCTX(e)} id='light' className={`${classes.modePhoto} ${modeSelected == 0 && classes.modeFocusStyle}`} type="image" src="https://cdn-icons-png.flaticon.com/512/3917/3917805.png" />
                         <label htmlFor='light'>Light</label>
                     </div>
@@ -31,7 +54,25 @@ export default function ThemeSelection() {
                         <label htmlFor='auto'>Auto</label>
                     </div>
 
-                </div>
+                </div> */}
+
+                <Stack direction="row" spacing={1} justifyContent="center">
+                <Tooltip title="Light Mode">
+                    <IconButton aria-label="light mod" onClick={lightModeHandler} disabled={modeSelected == 0} size="large">
+                        <LightModeIcon fontSize="inherit" />
+                    </IconButton>
+                </Tooltip>
+                <Tooltip title="Dark Mode">
+                    <IconButton aria-label="dark mode" onClick={darkModeHandler} disabled={modeSelected == 1} size="large">
+                        <DarkModeIcon fontSize="inherit" />
+                    </IconButton>
+                </Tooltip>
+                <Tooltip title="Auto (System Prefereces)">
+                    <IconButton aria-label="system preferences" onClick={autoModeHandler} disabled={modeSelected == 2} size="large">
+                        <SettingsSuggestIcon fontSize="inherit" />
+                    </IconButton>
+                </Tooltip>
+                </Stack>
                     {/* <p className={classes.nani}>
                         
                     </p> */}

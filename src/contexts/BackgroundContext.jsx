@@ -27,14 +27,12 @@ export function BackgroundProvider({ children }) {
     const [lightBGSelected, setLightBGSelected] = useState(0);
     const [darkBGSelected, setDarkBGSelected] = useState(3);
 
-    function modeCTX(e){
-        // if (e !== undefined){
-            const mode = e.target.value;
+    function modeCTX(val){
+            const mode = val;
+            // const mode = e.target.value;
             // mode will be '0', '1', '2', 
             // denoting the currently available 3 mode choices,
             // which are "light", "dark", and "auto" respectively.
-            
-            // console.log(e.target.value);
 
             // to update the currently selected option with bg color with className
             setModeSelected(mode);
@@ -113,7 +111,7 @@ export function BackgroundProvider({ children }) {
                     setModeSelected(mode);
     
                 } catch {
-                    console.log('no record of dark background image. Will not do anything.')
+                    console.log('no record of user mode settings. Will not do anything.')
                 }
             });
         } catch {
