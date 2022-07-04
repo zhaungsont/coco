@@ -51,7 +51,7 @@ export default function C2(props) {
         },
         title: {
             display: true,
-            text: 'Category Distribution',
+            text: 'Breakdown of Tasks by Category',
             color: darkMode ? "rgba(240, 235, 227, 1)" : "rgba(44, 54, 57, 1)"
         },
         },

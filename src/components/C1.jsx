@@ -191,7 +191,7 @@ export default function C1(props) {
             },
             title: {
             display: true,
-            text: 'Task Created in Months',
+            text: 'Tasks by Month',
             color: darkMode ? "rgba(240, 235, 227, 1)" : "rgba(44, 54, 57, 1)"
             },
         },
@@ -207,12 +207,12 @@ export default function C1(props) {
         labels,
         datasets: [
             {
-                label: `Created Tasks`,
+                label: `Tasks Created`,
                 data: chartData1,
                 backgroundColor: darkMode ? '#0F044C' : '#E2703A',
             },
             {
-                label: `Finished Tasks`,
+                label: `Tasks Finished`,
                 data: chartData2,
                 backgroundColor: darkMode ? '#787A91' : '#EEB76B',
             }
