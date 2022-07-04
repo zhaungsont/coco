@@ -486,7 +486,7 @@ export default function Home(){
                         <C4 data={taskList} />
                         <C1 data={taskList} />
                         <div className={classes.lineChart}>
-                            <C3 />
+                            <C3 data={taskList} />
                         </div>
                         <div className={classes.pieChart}>
                             <C2 data={taskList} />

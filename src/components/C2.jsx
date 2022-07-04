@@ -43,6 +43,19 @@ export default function C2(props) {
         getAllCategories();
     }, [taskList]);
 
+    const options = {
+        responsive: true,
+        plugins: {
+        legend: {
+            position: 'top',
+        },
+        title: {
+            display: true,
+            text: 'Category Distribution',
+        },
+        },
+        // maintainAspectRatio:false,
+    };
 
     const data = {
         // labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
@@ -74,7 +87,7 @@ export default function C2(props) {
         
     return (
         <div style={{padding: "1rem", width: '100%'}} className={darkMode ? `${classes.darkPanel}` : `${classes.lightPanel}`}>
-            <Pie data={data} />
+            <Pie options={options} data={data} />
         </div>
     )
 }
