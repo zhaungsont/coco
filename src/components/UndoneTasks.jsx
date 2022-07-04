@@ -7,15 +7,31 @@ import IconButton from '@mui/material/IconButton';
 import CloseFullscreenIcon from '@mui/icons-material/CloseFullscreen';
 import OpenInFullIcon from '@mui/icons-material/OpenInFull';
 
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from '@mui/material/Switch';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
+import Button from '@mui/material/Button';
+import DeleteIcon from '@mui/icons-material/Delete';
+import CancelIcon from '@mui/icons-material/Cancel';
+import Stack from '@mui/material/Stack';
+
 // Firebase
 import Firebase, {auth, database} from "../Firebase";
-import { ref, set, push, onValue, update } from "firebase/database";
+import { ref, set, push, onValue, update, remove } from "firebase/database";
 
 import { useAuth } from "../contexts/AuthContext";
 
 import { useTheme } from '@mui/material/styles';
 
 export default function UndoneTasks(props) {
+    const [deleteMode, setDeleteMode] = useState(false);
+    const [modeLabel, setModeLabel] = useState('Marking as Done')
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [deleteTask, setDeleteTask] = useState([]);
+
     const [darkMode, setDarkMode] = useState(false);
     const theme = useTheme().palette.mode;
     useEffect(()=>{
@@ -135,10 +151,71 @@ export default function UndoneTasks(props) {
         seconds: task.seconds, 
         category: task.tag ? task.tag : 'No Category'}));
 
+    
+        function handleModeSwitch(e){
+            setDeleteMode(!deleteMode);
+            console.log(e.target.checked);
+        }
+    
+        function checkedTasksHandler(e){
+            if (deleteMode === false){
+                // Add to today's tasklist!
+                console.log("adding to today's task!")
+                setMoveTask(e);
+            } else {
+                // Initiate Deletion!!
+                setDeleteTask(e);
+            }
+        }
+    
+        // Cleanup function and permission to delete
+        useEffect(()=>{
+            const cleaner = setTimeout(() => {
+                if (deleteTask.length > 0){
+                    // ask for permission to delete
+                    console.log('can I delete?')
+                    setModalIsOpen(true);
+                }
+    
+            }, 500);
+            return () => clearTimeout(cleaner);
+        }, [deleteTask])
+    
+        //  Actually delete in firebase
+        function DeleteTasks(){
+            console.log('will delete!!!')
+            console.log(deleteTask);
+            deleteTask.forEach(taskId=>{
+                remove(ref(database, `tasks/${currentUser.uid}/${taskId}`));
+            })
+            setModalIsOpen(false);
+        }
+    
+        // Handle the label text
+        useEffect(()=>{
+            if (deleteMode){
+                setModeLabel('DELETE MODE')
+            } else {
+                setModeLabel('Marking as Done')
+            }
+        }, [deleteMode]);
+    
+        const style = {
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: 400,
+            bgcolor: 'background.paper',
+            // border: '2px solid #000',
+            boxShadow: 24,
+            p: 4,
+            borderRadius: "15px",
+        };
 
     return(
         <>
-        {show && 
+        {show && <>
         
         <div className={darkMode ? classes.darkPanel : classes.lightPanel}>
             <div className={classes.title} onClick={openCloseHandler}>
@@ -156,12 +233,42 @@ export default function UndoneTasks(props) {
                         pageSize={100}
                         rowsPerPageOptions={[100]}
                         checkboxSelection
-                        onSelectionModelChange={(e) => setMoveTask(e)}
+                        // onSelectionModelChange={(e) => setMoveTask(e)}
+                        onSelectionModelChange={checkedTasksHandler}
                     />
+                </div>
+                <div className={classes.modeToggle} style={deleteMode ? {color: "red"} : {}}>
+                    <FormGroup>
+                        <FormControlLabel control={<Switch defaultChecked onChange={handleModeSwitch} checked={deleteMode} color="error" />} label={modeLabel} />
+                    </FormGroup>
                 </div>
             </Collapse>
                 </div>
 
+                <Modal
+                open={modalIsOpen}
+                onClose={()=>setModalIsOpen(false)}
+                aria-labelledby="Deletion Warning"
+                aria-describedby="Deletion Warning Modal"
+                >
+                    <Box sx={style}>
+                    <Typography id="warning" variant="h6" component="h2">
+                        Are You Sure?
+                    </Typography>
+                    <Typography id="warning description" sx={{ mt: 2 }}>
+                        You are about to delete {deleteTask.length} item(s) forever. This action cannot be undone.
+                        <Stack direction="row" spacing={2} justifyContent="flex-end" sx={{mt: 3}}>
+                            <Button variant="contained" size="small" startIcon={<CancelIcon />} onClick={() => setModalIsOpen(false)}>
+                                Cancel
+                            </Button>
+                            <Button variant="outlined" size="small" color="error" onClick={DeleteTasks} startIcon={<DeleteIcon />}>
+                                Delete
+                            </Button>
+                        </Stack>
+                    </Typography>
+                    </Box>
+                </Modal>
+            </>
         }
         </>
     )

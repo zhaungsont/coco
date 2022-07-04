@@ -119,6 +119,7 @@ export default function TaskGrid(props){
         }
     }
 
+    // Cleanup function and permission to delete
     useEffect(()=>{
         const cleaner = setTimeout(() => {
             if (deleteTask.length > 0){
@@ -131,6 +132,7 @@ export default function TaskGrid(props){
         return () => clearTimeout(cleaner);
     }, [deleteTask])
 
+    //  Actually delete in firebase
     function DeleteTasks(){
         console.log('will delete!!!')
         console.log(deleteTask);
@@ -139,7 +141,6 @@ export default function TaskGrid(props){
         })
         setModalIsOpen(false);
     }
-
 
     // Handle the label text
     useEffect(()=>{
@@ -157,9 +158,10 @@ export default function TaskGrid(props){
         transform: 'translate(-50%, -50%)',
         width: 400,
         bgcolor: 'background.paper',
-        border: '2px solid #000',
+        // border: '2px solid #000',
         boxShadow: 24,
         p: 4,
+        borderRadius: "15px",
     };
 
     return(
@@ -199,7 +201,7 @@ export default function TaskGrid(props){
                 <Typography id="warning description" sx={{ mt: 2 }}>
                     You are about to delete {deleteTask.length} item(s) forever. This action cannot be undone.
                     <Stack direction="row" spacing={2} justifyContent="flex-end" sx={{mt: 3}}>
-                        <Button variant="contained" size="small" endIcon={<CancelIcon />} onClick={() => setModalIsOpen(false)}>
+                        <Button variant="contained" size="small" startIcon={<CancelIcon />} onClick={() => setModalIsOpen(false)}>
                             Cancel
                         </Button>
                         <Button variant="outlined" size="small" color="error" onClick={DeleteTasks} startIcon={<DeleteIcon />}>
