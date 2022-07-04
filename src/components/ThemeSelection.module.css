@@ -67,8 +67,12 @@
     background-color:rgba(38, 0, 255, 0.5);  
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 1200px) {
     .themeSelection{
         flex-direction: column;
+    }
+
+    .modeSelection{
+        margin: 2rem 0;
     }
 }
