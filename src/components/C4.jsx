@@ -128,11 +128,11 @@ export default function C4(props) {
     return (
         <div style={{marginBottom: "1rem"}} className={`${classes.C4Grid} ${darkMode ? `${classes.darkPanel}` : `${classes.lightPanel}` } `}>
             <div className={classes.wrapper}>
-                <p className={classes.description}>Clear Rate this Week</p>
+                <p className={classes.description}>Task Completion This Week</p>
                 <p className={classes.metric}>{clearInWeek}<span>%</span></p>
             </div>
             <div className={classes.wrapper}>
-                <p className={classes.description}>Clear Rate in Histroy</p>
+                <p className={classes.description}>All Time Task Completion</p>
                 <p className={classes.metric}>{clearInHis}<span>%</span></p>
             </div>
             <div className={classes.wrapper}>
