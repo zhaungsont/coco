@@ -28,7 +28,7 @@ import { useTheme } from '@mui/material/styles';
 
 export default function UndoneTasks(props) {
     const [deleteMode, setDeleteMode] = useState(false);
-    const [modeLabel, setModeLabel] = useState('Marking as Done')
+    const [modeLabel, setModeLabel] = useState('Add Mode');
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [deleteTask, setDeleteTask] = useState([]);
 
@@ -196,7 +196,7 @@ export default function UndoneTasks(props) {
             if (deleteMode){
                 setModeLabel('DELETE MODE')
             } else {
-                setModeLabel('Marking as Done')
+                setModeLabel('Add Mode')
             }
         }, [deleteMode]);
     
