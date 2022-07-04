@@ -15,7 +15,7 @@ export default function AddTask(props){
         setDarkMode(theme == 'light' ? false : true);
     }, [theme]);
 
-    const width = window.innerWidth;
+    const width = window.innerWidth > 480;
 
     const category = [
         { label: 'Programming', title: 'programming' },
@@ -67,12 +67,12 @@ export default function AddTask(props){
                 placeholder="Add something..."
                 aria-label="Add something."
                 aria-describedby="add-task-btn"
-                size={width < 480 && "lg"}
+                size={!width&& "lg"}
                 // onChange={props.onChange}
                 // value={props.inputValue}
                 ref={props.inputValue}
                 />
-                <div style={{width: "10rem"}}>
+                <div style={{width: width ? "9.5rem" : "7rem"}}>
                 {props.openNewCat ? 
                 
                     <Form.Control
@@ -80,11 +80,12 @@ export default function AddTask(props){
                     onBlur={props.onCancelNewCatWithBlank}
                     onChange={props.onNewCatFill}
                     autoFocus
+                    size={!width&& "lg"}
                     />
                     
                     :
                     
-                    <Form.Select aria-label="Category" size={width < 480 && "lg"} onChange={props.onCatSelectChange} value={props.catSelectValue}>
+                    <Form.Select aria-label="Category" size={!width&& "lg"} onChange={props.onCatSelectChange} value={props.catSelectValue}>
                         <option value="" >Tag</option>
                         <option value="Academic">Academic</option>
                         <option value="Programming">Programming</option>
