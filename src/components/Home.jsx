@@ -85,7 +85,7 @@ export default function Home(){
     };
     //////
 
-    const { currentUser, streakModal } = useAuth();
+    const { currentUser } = useAuth();
 
     let width = window.innerWidth > 480 ? true : false;
     const [show, setShow] = useState(false);
@@ -101,8 +101,8 @@ export default function Home(){
 
     const [taskList, setTaskList] = useState([]);
     const [tempCounter, setTempCounter] = useState(1);
-    const [deleteTask, setDeleteTask] = useState([]);
-    const [addBackTask, setAddBackTask] = useState([])
+    const [finishTask, setfinishTask] = useState([]);
+    const [addBackTask, setAddBackTask] = useState([]);
 
     const [quoteIndex, setQuoteIndex] = useState(0);
 
@@ -175,8 +175,8 @@ export default function Home(){
     }, [])
 
     function checkHandler(data){
-        console.log('proceed to delete ' + data);
-        setDeleteTask(data);
+        console.log('proceed to mark as finish ' + data);
+        setfinishTask(data);
     }
 
     // Update Marked Tasks with Done Date Info
@@ -208,11 +208,12 @@ export default function Home(){
                 emilliseconds: milliseconds,
                 done: true
             };
-            deleteTask.map(task => { update(ref(database, `tasks/${currentUser.uid}/${task}`), doneInfo) })
+            finishTask.map(task => { update(ref(database, `tasks/${currentUser.uid}/${task}`), doneInfo) })
 
         }, 500);
         return (()=> clearTimeout(cleaner));
-    }, [deleteTask])
+    }, [finishTask]);
+
 
     function addbackHandler(data){
         console.log('proceed to add ' + data + " back.");
@@ -443,7 +444,7 @@ export default function Home(){
                                 <h3>Done Today</h3>
                                 <p><strong>Tip: </strong>Click on any of the finished tasks to mark them as undone.</p>
                             </div>
-                            <SecondaryTaskGrid data={taskList} method="done today" onAddBack={addbackHandler} dependency={[deleteTask, addBackTask]} sx={{padding: 0}} />
+                            <SecondaryTaskGrid data={taskList} method="done today" onAddBack={addbackHandler} dependency={[finishTask, addBackTask]} sx={{padding: 0}} />
                         </TabPanel>
 
                         <TabPanel value={value} index={2}>
@@ -451,7 +452,7 @@ export default function Home(){
                                 <h3>All finished tasks in the past 7 days.</h3>
                                 <p><strong>Tip: </strong>Click on any of the finished tasks to mark them as undone.</p>
                             </div>
-                            <SecondaryTaskGrid data={taskList} method="week" onAddBack={addbackHandler} dependency={[deleteTask, addBackTask]} />
+                            <SecondaryTaskGrid data={taskList} method="week" onAddBack={addbackHandler} dependency={[finishTask, addBackTask]} />
                         </TabPanel>
 
                         <TabPanel value={value} index={3}>
@@ -459,7 +460,7 @@ export default function Home(){
                                 <h3>All finished tasks from this month.</h3>
                                 <p><strong>Tip: </strong>Click on any of the finished tasks to mark them as undone.</p>
                             </div>
-                            <SecondaryTaskGrid data={taskList} method="month" onAddBack={addbackHandler} dependency={[deleteTask, addBackTask]} />
+                            <SecondaryTaskGrid data={taskList} method="month" onAddBack={addbackHandler} dependency={[finishTask, addBackTask]} />
                         </TabPanel>
 
                         <TabPanel value={value} index={4}>
@@ -467,7 +468,7 @@ export default function Home(){
                                 <h3>All finished tasks of all time.</h3>
                                 <p><strong>Tip: </strong>Click on any of the finished tasks to mark them as undone.</p>
                             </div>
-                            <SecondaryTaskGrid data={taskList} method="all time" onAddBack={addbackHandler} dependency={[deleteTask, addBackTask]} />
+                            <SecondaryTaskGrid data={taskList} method="all time" onAddBack={addbackHandler} dependency={[finishTask, addBackTask]} />
                         </TabPanel>
                         
                         </Box>

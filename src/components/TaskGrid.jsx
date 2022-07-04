@@ -3,12 +3,40 @@ import { DataGrid } from '@mui/x-data-grid';
 import classes from "./TaskGrid.module.css";
 import { useTheme } from '@mui/material/styles';
 
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from '@mui/material/Switch';
+
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
+
+import Button from '@mui/material/Button';
+import DeleteIcon from '@mui/icons-material/Delete';
+import CancelIcon from '@mui/icons-material/Cancel';
+import Stack from '@mui/material/Stack';
+
+// Firebase
+import Firebase, {auth, database} from "../Firebase";
+import { ref, set, push, onValue, update, remove } from "firebase/database";
+
+import { useAuth } from "../contexts/AuthContext";
+
+
 export default function TaskGrid(props){
+    const [deleteMode, setDeleteMode] = useState(false);
+    const [modeLabel, setModeLabel] = useState('Marking as Done')
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [deleteTask, setDeleteTask] = useState([]);
+
     const [darkMode, setDarkMode] = useState(false);
     const theme = useTheme().palette.mode;
     useEffect(()=>{
         setDarkMode(theme == 'light' ? false : true);
     }, [theme]);
+
+    const { currentUser } = useAuth();
+
 
     // firebase data looks like this:
     // name: "123"
@@ -75,9 +103,69 @@ export default function TaskGrid(props){
         seconds: task.seconds, 
         category: task.tag ? task.tag : 'No Category'}));
 
+    function handleModeSwitch(e){
+        setDeleteMode(!deleteMode);
+        console.log(e.target.checked);
+    }
+
+    function checkedTasksHandler(e){
+        if (deleteMode === false){
+            // Mark as Done!
+            console.log('wanna mark as done!')
+            props.onCheck(e);
+        } else {
+            // Initiate Deletion!!
+            setDeleteTask(e);
+        }
+    }
+
+    useEffect(()=>{
+        const cleaner = setTimeout(() => {
+            if (deleteTask.length > 0){
+                // ask for permission to delete
+                console.log('can I delete?')
+                setModalIsOpen(true);
+            }
+
+        }, 500);
+        return () => clearTimeout(cleaner);
+    }, [deleteTask])
+
+    function DeleteTasks(){
+        console.log('will delete!!!')
+        console.log(deleteTask);
+        deleteTask.forEach(taskId=>{
+            remove(ref(database, `tasks/${currentUser.uid}/${taskId}`));
+        })
+        setModalIsOpen(false);
+    }
+
+
+    // Handle the label text
+    useEffect(()=>{
+        if (deleteMode){
+            setModeLabel('DELETE MODE')
+        } else {
+            setModeLabel('Marking as Done')
+        }
+    }, [deleteMode]);
+
+    const style = {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 400,
+        bgcolor: 'background.paper',
+        border: '2px solid #000',
+        boxShadow: 24,
+        p: 4,
+    };
+
     return(
         <section className={darkMode ? classes.darkPanel : classes.lightPanel}>
             <h3 className={classes.title}>Today</h3>
+
             <div style={{ height: 371 }}>
                 <DataGrid
                     rows={rows}
@@ -85,9 +173,42 @@ export default function TaskGrid(props){
                     pageSize={10}
                     rowsPerPageOptions={[10]}
                     checkboxSelection
-                    onSelectionModelChange={(e) => props.onCheck(e)}
+                    // onSelectionModelChange={(e) => props.onCheck(e)}
+                    onSelectionModelChange={checkedTasksHandler}
                 />
             </div>
+                
+                {/* CORRECT WAY TO CONDITIONALLY APPLY INLINE STYLES */}
+                {/* https://stackoverflow.com/questions/35762351/correct-way-to-handle-conditional-styling-in-react */}
+            <div className={classes.modeToggle} style={deleteMode ? {color: "red"} : {}}>
+                <FormGroup>
+                    <FormControlLabel control={<Switch defaultChecked onChange={handleModeSwitch} checked={deleteMode} color="error" />} label={modeLabel} />
+                </FormGroup>
+            </div>
+
+            <Modal
+            open={modalIsOpen}
+            onClose={()=>setModalIsOpen(false)}
+            aria-labelledby="Deletion Warning"
+            aria-describedby="Deletion Warning Modal"
+            >
+                <Box sx={style}>
+                <Typography id="warning" variant="h6" component="h2">
+                    Are You Sure?
+                </Typography>
+                <Typography id="warning description" sx={{ mt: 2 }}>
+                    You are about to delete {deleteTask.length} item(s) forever. This action cannot be undone.
+                    <Stack direction="row" spacing={2} justifyContent="flex-end" sx={{mt: 3}}>
+                        <Button variant="contained" size="small" endIcon={<CancelIcon />} onClick={() => setModalIsOpen(false)}>
+                            Cancel
+                        </Button>
+                        <Button variant="outlined" size="small" color="error" onClick={DeleteTasks} startIcon={<DeleteIcon />}>
+                            Delete
+                        </Button>
+                    </Stack>
+                </Typography>
+                </Box>
+            </Modal>
         </section>
     )
 }
