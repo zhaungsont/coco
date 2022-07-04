@@ -2,18 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import classes from './AddTask.module.css';
 import { useTheme } from '@mui/material/styles';
 
-
-// Firebase
-import Firebase, {database} from "../Firebase";
-import { ref, set } from "firebase/database";
-
-// import Box from '@mui/material/Box';
-// import Stack from '@mui/material/Stack';
-// import TextField from '@mui/material/TextField';
-// import Button from '@mui/material/Button';
-// import Autocomplete from '@mui/material/Autocomplete';
-
-
 // Bootstrap React
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -38,34 +26,8 @@ export default function AddTask(props){
     function submitHandler(e){
         e.preventDefault();
         console.log('Submission Request from AddTask.jsx');
-
-        // push new task to firebase
-        // const newTask = {
-        //     title: e.target.value,
-        //     done: 0
-        // }
-        // set(ref(database, '1'), newTask);
         props.onSubmit();
-
-
-        // const taskRef = Firebase.database().ref('Task');
-        // taskRef.push(newTask);
     }
-
-    // useEffect(()=>{
-
-    //     const open = props.openNewCat;
-    //     console.log(open);
-    //     // Generally you should avoid using addEventListener inside React,
-    //     // because the state doesn't get updated!
-    //     document.addEventListener('keydown', function(event){
-    //         if(event.key === "Escape" && open === true){
-    //             //do something
-    //             console.log('esc!!!')
-    //         }
-    //     });
-    //     console.log(open);
-    // }, [props.openNewCat])
 
     // From The Web Dev
     // https://thewebdev.info/2021/05/24/how-to-listen-for-key-press-for-document-in-react-js/
@@ -140,61 +102,6 @@ export default function AddTask(props){
             </InputGroup>
         </Form>
 
-        
-        
-
-            {/* <Stack 
-            direction="row"
-            justifyContent="space-between"
-            alignItems="center"
-            spacing={-1}
-            > */}
-                {/* <Box
-                component="form"
-                sx={{
-                    '& .MuiTextField-root': { m: "1rem", width: '25rem'},
-                }}
-                noValidate
-                autoComplete="off"
-                > */}
-                {/* <TextField
-                sx={{ width: {md: "90%", xs: "100%"}}}
-                size="small"
-                onKeyDown={submitHandler}
-                id=""
-                label="What's on your mind..."
-                variant="filled"
-                value={props.inputValue}
-                onChange={(e) => props.onChange(e.target.value)}
-                /> */}
-
-                {/* </Box> */}
-                {/* <span className={classes.btnSpacer}>&nbsp;</span>
-                <Button onClick={submitHandler} variant="contained" size="large" scolor="info">Add</Button> */}
-            {/* </Stack> */}
-            {/* <Autocomplete
-            // onChange={(e) => {props.onCatChange(e.target.value)}}
-            onChange={(event, newValue) => {
-                if (typeof newValue === 'string') {
-                    props.onCatChange({
-                    title: newValue,
-                });
-                } else if (newValue && newValue.inputValue) {
-                // Create a new value from the user input
-                    props.onCatChange({
-                    title: newValue.inputValue,
-                });
-                } else {
-                    props.onCatChange(newValue);
-                }
-            }}
-            freeSolo
-            value={props.categoryValue.title}
-            id="combo-box-demo"
-            options={category}
-            sx={{ width: 300 }}
-            renderInput={(params) => <TextField {...params} size="small" label="Category" />}
-            /> */}
         </div>
     )
 }

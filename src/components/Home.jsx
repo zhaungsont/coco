@@ -16,13 +16,11 @@ import { useTheme } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 
-
 import quotes from "../dummy-data/quotes";
 
 // Firebase
 import Firebase, {auth, database} from "../Firebase";
 import { ref, set, push, onValue, update } from "firebase/database";
-
 
 // Tabs
 import PropTypes from 'prop-types';
@@ -121,8 +119,6 @@ export default function Home(){
                 taskTag = catSelect
             }
             console.log('SUBMITTED! ' + taskName);
-            // const id = tempCounter;
-            // setTempCounter(tempCounter + 1);
             const date = new Date();
             const milliseconds = date.getTime()
             const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
@@ -138,9 +134,6 @@ export default function Home(){
             const hour = date.getHours();
             const newTask = {name: taskName, syear: year, smonth: month, sday: day, sweekday: weekday, shour: hour, sminutes: minutes, sseconds: seconds, smilliseconds: milliseconds, tag: taskTag, done: false}
             
-            // push new task to firebase (old way)
-            // set(ref(database, `tasks/${currentUser.uid}/${newTask.id}`), newTask);
-            
             // new way
             const taskListRef = ref(database, `tasks/${currentUser.uid}`);
             const newTaskRef = push(taskListRef);
@@ -151,7 +144,6 @@ export default function Home(){
 
             // clear input field. (I know we should generally avoid controlling forms with ref but here it works!)
             inputTask.current.value = '';
-            // inputTag.current.value = '';
 
             setCatSelect('');
             setCatFill('');
@@ -216,8 +208,6 @@ export default function Home(){
                 emilliseconds: milliseconds,
                 done: true
             };
-
-            // deleteTask.map(task => set(ref(database, `tasks/${currentUser.uid}/${task}`), doneInfo))
             deleteTask.map(task => { update(ref(database, `tasks/${currentUser.uid}/${task}`), doneInfo) })
 
         }, 500);
