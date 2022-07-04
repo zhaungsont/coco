@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import classes from './AddTask.module.css';
 import { useTheme } from '@mui/material/styles';
 
@@ -52,6 +52,51 @@ export default function AddTask(props){
         // taskRef.push(newTask);
     }
 
+    // useEffect(()=>{
+
+    //     const open = props.openNewCat;
+    //     console.log(open);
+    //     // Generally you should avoid using addEventListener inside React,
+    //     // because the state doesn't get updated!
+    //     document.addEventListener('keydown', function(event){
+    //         if(event.key === "Escape" && open === true){
+    //             //do something
+    //             console.log('esc!!!')
+    //         }
+    //     });
+    //     console.log(open);
+    // }, [props.openNewCat])
+
+    // From The Web Dev
+    // https://thewebdev.info/2021/05/24/how-to-listen-for-key-press-for-document-in-react-js/
+    const ESCAPE_KEYS = ["27", "Escape"];
+
+    const useEventListener = (eventName, handler, element = window) => {
+    const savedHandler = useRef();
+
+    useEffect(() => {
+        savedHandler.current = handler;
+    }, [handler]);
+
+    useEffect(() => {
+        const eventListener = (event) => savedHandler.current(event);
+        element.addEventListener(eventName, eventListener);
+        return () => {
+        element.removeEventListener(eventName, eventListener);
+        };
+    }, [eventName, element]);
+    };
+
+    const handler = ({ key }) => {
+        if (ESCAPE_KEYS.includes(String(key)) && props.openNewCat) {
+            console.log("Escape key pressed!");
+            props.onCancelWithEsc();
+            }
+        };
+        
+        useEventListener("keydown", handler);
+
+
     return(
         <div className={classes.inputField}>
         <Form onSubmit={submitHandler}>
@@ -65,13 +110,28 @@ export default function AddTask(props){
                 // value={props.inputValue}
                 ref={props.inputValue}
                 />
-                <div style={{width: "6rem"}}>
-                    <Form.Select aria-label="Category" size={width < 480 && "lg"} ref={props.tagValue}>
+                <div style={{width: "10rem"}}>
+                {props.openNewCat ? 
+                
+                    <Form.Control
+                    placeholder="New Category..."
+                    onBlur={props.onCancelNewCatWithBlank}
+                    onChange={props.onNewCatFill}
+                    autoFocus
+                    />
+                    
+                    :
+                    
+                    <Form.Select aria-label="Category" size={width < 480 && "lg"} onChange={props.onCatSelectChange} value={props.catSelectValue}>
                         <option value="" >Tag</option>
                         <option value="Academic">Academic</option>
                         <option value="Programming">Programming</option>
                         <option value="Home">Home</option>
+                        <option value="!new task!">Create new...</option>
                     </Form.Select>
+                
+                    }
+                    
                 </div>
 
                 <Button onClick={submitHandler} variant={darkMode ? "outline-light" : "outline-secondary"} id="add-task-btn">
@@ -79,6 +139,9 @@ export default function AddTask(props){
                 </Button>
             </InputGroup>
         </Form>
+
+        
+        
 
             {/* <Stack 
             direction="row"

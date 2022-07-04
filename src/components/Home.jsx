@@ -96,7 +96,10 @@ export default function Home(){
     const handleShow = () => setShow(true);
 
     const inputTask = useRef('');
-    const inputTag = useRef('');
+    // const inputTag = useRef('');
+    const [catSelect, setCatSelect] = useState('');
+    const [openNewCat, setOpenNewCat] = useState(false);
+    const [catFill, setCatFill] = useState('');
 
     const [taskList, setTaskList] = useState([]);
     const [tempCounter, setTempCounter] = useState(1);
@@ -109,7 +112,14 @@ export default function Home(){
     function submitHandler(){
         if (inputTask.current.value.trim() !== ''){
             const taskName = inputTask.current.value.trim();
-            const taskTag = inputTag.current.value;
+            // const taskTag = inputTag.current.value;
+            let taskTag = '';
+            console.log('submit cat: ' + catFill)
+            if (catFill){
+                taskTag = catFill;
+            } else {
+                taskTag = catSelect
+            }
             console.log('SUBMITTED! ' + taskName);
             // const id = tempCounter;
             // setTempCounter(tempCounter + 1);
@@ -141,7 +151,10 @@ export default function Home(){
 
             // clear input field. (I know we should generally avoid controlling forms with ref but here it works!)
             inputTask.current.value = '';
-            inputTag.current.value = '';
+            // inputTag.current.value = '';
+
+            setCatSelect('');
+            setCatFill('');
         }
     }
 
@@ -331,7 +344,40 @@ export default function Home(){
             setStreak("");
         }
 
-    }, [taskList])
+    }, [taskList]);
+
+
+    function handleCatSelectChange(e){
+        const selectVal = e.target.value;
+        if (selectVal === '!new task!'){
+            setOpenNewCat(true);
+            setCatSelect('');
+            console.log('cat select is cleared')
+        } 
+        else {
+            setCatSelect(selectVal);
+            console.log(selectVal)
+        }
+    }
+
+    function cancelNewCatHandlerWithBlank(){
+        // if the textfiel is blank, cancel it. Otherwise do nothing.
+        if (!catFill){
+            setOpenNewCat(false);
+            setCatFill('');
+        }
+    }
+
+    function cancelNewCatHandlerWithEsc(){
+        setOpenNewCat(false);
+        setCatFill('');
+    }
+
+    function handleNewCatName(e){
+        setCatFill(e.target.value);
+        console.log(e.target.value);
+    }
+
     return(
         <>
             <IconButton onClick={handleShow}>
@@ -363,8 +409,14 @@ export default function Home(){
                     // onChange={changeHandler}
                     // onCatChange={handleCatChange}
                     inputValue={inputTask}
-                    tagValue={inputTag}
+                    // tagValue={inputTag}
                     // categoryValue={category}
+                    onCatSelectChange={handleCatSelectChange}
+                    catSelectValue={catSelect}
+                    openNewCat={openNewCat}
+                    onNewCatFill={handleNewCatName}
+                    onCancelNewCatWithBlank={cancelNewCatHandlerWithBlank}
+                    onCancelWithEsc={cancelNewCatHandlerWithEsc}
                     />
                     <UndoneTasks data={taskList} />
                     <div className={classes.mainList}>
