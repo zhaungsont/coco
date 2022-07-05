@@ -75,6 +75,7 @@ export default function Signup(props){
                         <Form.Group className="mb-3" controlId="formBasicPassword">
                             <Form.Label>Password</Form.Label>
                             <Form.Control type="password" value={password} onChange={passwordHandler} size={width < 480 ? "lg" : "md"} placeholder="Password" />
+                            Password must be at least 6 characters long
                         </Form.Group>
 
                         <div className="d-grid gap-2">
