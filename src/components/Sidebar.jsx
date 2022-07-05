@@ -94,7 +94,7 @@ export default function Sidebar(props) {
                                     </div>
                                 </Link>
                             </li>
-                            <li>
+                            {/* <li>
                                 <Link to="/achievements">
                                     <div className={`${pathName === '/achievements' && (darkMode ? classes.currentLocationDark : classes.currentLocation)} ${darkMode ? classes.menuBtnDark : classes.menuBtn}`}>
                                         <div className={classes.menuIcon}>
@@ -105,7 +105,7 @@ export default function Sidebar(props) {
                                         </div>
                                     </div>
                                 </Link>
-                            </li>
+                            </li> */}
                             <li>
                                 <Link to="/settings">
                                     <div className={`${pathName === '/settings' && (darkMode ? classes.currentLocationDark : classes.currentLocation)} ${darkMode ? classes.menuBtnDark : classes.menuBtn}`}>
