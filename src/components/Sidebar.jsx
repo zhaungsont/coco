@@ -130,21 +130,24 @@ export default function Sidebar(props) {
                                     </div>
                                 </a>
                             </li>
+                            <l1>
+                            {error && <Alert variant="danger">
+                                {error}
+                            </Alert>}
+
+
+                            <div className={`d-grid gap-2 ${classes.logoutBtn}`}>
+                                <Button variant="outline-secondary" onClick={logoutHandler}>
+                                    Log out
+                                </Button>
+                            </div>
+                            </l1>
                         </ul>
                     </div>
                 </div>
                 
                 <div className={classes.bottom}>
-                    {error && <Alert variant="danger">
-                        {error}
-                    </Alert>}
-
-
-                    <div className={`d-grid gap-2 ${classes.logoutBtn}`}>
-                        <Button variant="outline-secondary" onClick={logoutHandler}>
-                            Log out
-                        </Button>
-                    </div>
+                    
                 </div>
                 </Offcanvas.Body>
             </Offcanvas>
