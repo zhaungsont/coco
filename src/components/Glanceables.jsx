@@ -47,7 +47,7 @@ export default function Glanceables(){
                 console.error('error getting weather forecast');
             } else {
                 const data = (await res.json()).list[0].pop;
-                const pop = (data * 100).toString() + '%';
+                const pop = (data * 100).toString().slice(0, 2) + '%';
                 setPop(pop);
 
                 // to convert a unix timestamp to Javascript date object,
